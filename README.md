@@ -1,16 +1,25 @@
+![项目主页](http://www.praestans.tech/static/img/logo.jpg)
 # PT_QuantBaseApi_Cpp
 
 [项目主页](http://www.praestans.tech/"项目主页") 
 
+PT_QuantBaseApi  是 Praestans Quant 团队根据多年国内二级市场上的量化交易经验，将底层量化接口开放出来的一个产品。旨在为国内二级市场的**量化开发者**在数据、算法、交易等方面提供全面支持。目前已开放上证、深圳、中金所三个市场的level2深度行情数据、常用技术分析指标库、普通股票交易、融资融券交易的接口，不久后将开放个股期权交易接口的使用。
+
+PT_QuantBaseApi 不仅仅是一个高速行情和整合了多加券商柜台的交易接口，还是 [Praestans.tech](http://www.praestans.tech/"Praestan.tech") 这个量化平台的入口。通过它量化开发者可以方便的构建自己的自动交易策略、信号提醒工具、甚至自己构建一个类似同花顺、大智慧的行情交易软件。
+
 PT_QuantBaseApi_Cpp 是 PT_QuantBaseApi 接口的 C++ 实现
-
-
-
-
 
 ## 安装方法
 
-### 
+你可以通过 [GitHub Releases](https://github.com/abramwang/PT_QuantBaseApi_Cpp/releases"GitHub Releases") 下载最新的版本
+
+### Linux
+
+将解压后的 *include* 目录下的五个文件cp 在 `/usr/local/include/` 下 或任意开发目录下
+
+将解压后的 *lib_gcc* 目录下的文件cp 在`/usr/local/lib` 下 或任意开发路
+
+
 
 
 
