@@ -11,15 +11,15 @@ PT_QuantBaseApi_Cpp 是 PT_QuantBaseApi 接口的 C++ 实现
 
 ## 安装方法
 
-你可以通过 [GitHub Releases](https://github.com/abramwang/PT_QuantBaseApi_Cpp/releases"GitHub Releases") 下载最新的版本
+你可以通过 [GitHub Releases](https://github.com/abramwang/PT_QuantBaseApi_Cpp/releases"GitHub Releases") 下载最新的版本并解压至任意目录下
 
-### Linux
+`include` 为开发用头文件
 
-将解压后的 *include* 目录下的五个文件cp 在 `/usr/local/include/` 下 或任意开发目录下
+`lib_gcc` 为linux下lib，编译版本为 gcc 4.8.5
 
-将解压后的 *lib_gcc* 目录下的文件cp 在`/usr/local/lib` 下 或任意开发路
+`lib_msvc` 为windows 下用dll，编译版本为 Visual Studio 2013
 
-
+其中依赖 boost 1.57 版本，如果开发项目中有用到
 
 
 
