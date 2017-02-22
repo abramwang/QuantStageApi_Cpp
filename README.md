@@ -15,9 +15,11 @@ PT_QuantBaseApi_Cpp 是 PT_QuantBaseApi 接口的 C++ 实现
 
 `include` 为开发用头文件
 
-`lib_gcc` 为linux下lib，编译版本为 gcc 4.8.5
+`cpp_linux` 为linux下lib，编译版本为 gcc 4.8.5
 
-`lib_msvc` 为windows 下用dll，编译版本为 Visual Studio 2013
+`cpp_mac` 为mac 下用dylib，编译版本为 xcode 8.2.1  gcc 4.2.1
+
+`cpp_win` 为windows 下用dll，编译版本为 Visual Studio 2013
 
 其中依赖 boost 1.57 版本，如果开发项目中有用到
 
