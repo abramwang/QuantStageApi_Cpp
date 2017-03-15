@@ -1,4 +1,4 @@
- ![logo](C:\Users\Administrator\Desktop\logo.png)                                                         子午投资 PT_QuantPlatform开发文档
+ ![logo](https://github.com/abramwang/PT_QuantBaseApi_Cpp/blob/5b7304d96e5f41dc074473dab6eae2a71c0de3c9/doc/picture/logo.png?raw=true)                                                         子午投资 PT_QuantPlatform开发文档
 
 ------
 
