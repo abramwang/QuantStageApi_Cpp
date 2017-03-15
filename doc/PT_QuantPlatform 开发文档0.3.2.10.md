@@ -64,7 +64,7 @@
 
 ### （二）PT_QuantPlatform 访问时序图
 
-   ![PT_QuantPlatform 访问时序 ](PT_QuantPlatform 访问时序 .png)
+   ![PT_QuantPlatform 访问时序 ](https://github.com/abramwang/PT_QuantBaseApi_Cpp/blob/9be8423846823dbde506705412987c7efa4d7978/doc/picture/PT_QuantPlatform%20%E8%AE%BF%E9%97%AE%E6%97%B6%E5%BA%8F%20.png?raw=true)
 
 
 
