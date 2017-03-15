@@ -35,7 +35,7 @@
 
 ### （一）系统结构图
 
-![系统结构图](系统结构图.png)
+![系统结构图](https://github.com/abramwang/PT_QuantBaseApi_Cpp/blob/bc044e4020189fbcc9baabae52bda1bae14378ca/doc/picture/%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84%E5%9B%BE.png?raw=true)
 
 1. #### 关于系统结构
 
@@ -90,7 +90,7 @@
 
 ## 1.3 访问时序图
 
-  ![GetDataApi 访问时序](GetDataApi 访问时序.png)
+  ![GetDataApi 访问时序](https://github.com/abramwang/PT_QuantBaseApi_Cpp/blob/743b225c2298f738d2b999144476ae313eb24955/doc/picture/GetDataApi%20%E8%AE%BF%E9%97%AE%E6%97%B6%E5%BA%8F.png?raw=true)
 
 ## 1.4 创建函数实例
 
@@ -1060,7 +1060,7 @@ m_api->ReqSimulationData(beginTime, endTime, fast_GD_SimuModelType, subCode, fal
 
 ## 2.3 访问回调时序图
 
-  ![TradeDataApi 访问时序](TradeDataApi 访问时序.png)
+  ![TradeDataApi 访问时序](https://github.com/abramwang/PT_QuantBaseApi_Cpp/blob/6f2633f00c706e3f8728c6542cc04360d7e7e3d4/doc/picture/TradeDataApi%20%E8%AE%BF%E9%97%AE%E6%97%B6%E5%BA%8F.png?raw=true)
 
 
 
