@@ -38,6 +38,7 @@ namespace PT_QuantPlatform {
 		PT_ErrorType_sucrityAccountNotAvailable,   //该资金通道异常
 		PT_ErrorType_cancelFailed_canotCancelYet,  //撤单失败，暂时不能撤单
 		PT_ErrorType_cannotselfdeal,               //不能自成交
+		PT_ErrorType_TooHighFrequency,             //频率太高
 
 
 		//行情部分

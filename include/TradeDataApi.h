@@ -47,9 +47,9 @@ namespace PT_QuantPlatform{
 		bool Login(char* user, char* pass, int &err);
 		void SetNewBackTest(double stampTax, double transferFees, double commissions, char* szComment, int &err);
 
-		virtual void OrderInsert(TD_OrderInsert_Req* req);				//插入订单
-		virtual void OrderModify(TD_OrderModify_Req* req);				//修改订单
-		virtual void OrderDelete(TD_OrderDelete_Req* req);				//删除订单
+		virtual int OrderInsert(TD_OrderInsert_Req* req);				//插入订单
+		virtual int OrderModify(TD_OrderModify_Req* req);				//修改订单
+		virtual int OrderDelete(TD_OrderDelete_Req* req);				//删除订单
 
 		virtual void QryOrder(TD_QryOrder_Req* req);											//查询当日所有订单
 		virtual void QryMatch(TD_QryMatch_Req* req);											//查询所有成交
