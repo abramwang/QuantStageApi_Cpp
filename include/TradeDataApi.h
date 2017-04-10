@@ -42,7 +42,7 @@ namespace PT_QuantPlatform{
 	class API_EXPORT TradeDataApi{
 #else
 	class TradeDataApi{
-#endif
+#endif															//获得reqId
 	public:
 		bool Login(char* user, char* pass, int &err);
 		void SetNewBackTest(double stampTax, double transferFees, double commissions, char* szComment, int &err);
@@ -59,20 +59,32 @@ namespace PT_QuantPlatform{
 		virtual void QrySecuDebt(TD_QrySecuDebt_Req* req);										// 查询融券负债
 		virtual void QryMaxEntrustCount(TD_QryMaxEntrustCount_Req* req);						// 查询最大可委托量
 		virtual void QrySecuritiesLendingAmount(TD_QrySecuritiesLendingAmount_Req* req);		// 查询可融券列表
+	public:
+		static TradeDataApi* CreateTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut);
+		static TradeDataApi* CreateSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut);
+		static TradeDataApi* CreateThreadSafeTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, int& err);
+		static TradeDataApi* CreateThreadSafeSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, int& err);
+		static void DelTradeDataApi(PT_QuantPlatform::TradeDataApi* pAPI);
 	};
-};
-
-extern "C"
-{
+#ifndef GETDATAAPI_H
+	extern "C"
+	{
 #ifdef WIN32
-	API_EXPORT PT_QuantPlatform::TradeDataApi* CreateTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	API_EXPORT PT_QuantPlatform::TradeDataApi* CreateSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	API_EXPORT void DelTradeDataApi(PT_QuantPlatform::TradeDataApi* pAPI);
+		/// 获取api版本号
+		API_EXPORT const char* GetQuantPlatformApiVersion();
+		/// 启用日志
+		API_EXPORT void EnableLog();
+		/// 线程安全模式下进入数据回调循环
+		API_EXPORT int Exec();
+		/// 线程安全模式下强制退出数据回调循环
+		API_EXPORT void Terminate();
 #else
-	PT_QuantPlatform::TradeDataApi* CreateTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	PT_QuantPlatform::TradeDataApi* CreateSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	void DelTradeDataApi(PT_QuantPlatform::TradeDataApi* pAPI);
+		const char* GetQuantPlatformApiVersion();
+		void EnableLog();
+		int Exec();
+		void Terminate();
 #endif
-}
-
+	}
+#endif // !GETDATAAPI_H
+};
 #endif // TRADEDATAAPI_H

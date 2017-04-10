@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['gd_5fdetailmarketdaykline',['GD_DetailMarketDayKline',['../struct_g_d___detail_market_day_kline.html',1,'']]],
+  ['gd_5fhistorydata_5freq',['GD_HistoryData_Req',['../struct_g_d___history_data___req.html',1,'']]],
+  ['gd_5fhistorykline_5freq',['GD_HistoryKline_Req',['../struct_g_d___history_kline___req.html',1,'']]],
+  ['gd_5fkline_5fdata',['GD_Kline_Data',['../struct_g_d___kline___data.html',1,'']]],
+  ['gd_5frealtime_5freq',['GD_RealTime_Req',['../struct_g_d___real_time___req.html',1,'']]],
+  ['gd_5frealtimegdkline_5freq',['GD_RealTimeGDKline_Req',['../struct_g_d___real_time_g_d_kline___req.html',1,'']]],
+  ['gd_5frestorationfactor',['GD_RestorationFactor',['../struct_g_d___restoration_factor.html',1,'']]],
+  ['gd_5fsimulationtimeline_5freq',['GD_SimulationTimeline_Req',['../struct_g_d___simulation_timeline___req.html',1,'']]],
+  ['gd_5fstock_5ftimeliness_5fnotification',['GD_Stock_Timeliness_Notification',['../struct_g_d___stock___timeliness___notification.html',1,'']]],
+  ['gd_5fstockbaseinfo',['GD_StockBaseInfo',['../struct_g_d___stock_base_info.html',1,'']]],
+  ['gd_5fstockfactors',['GD_StockFactors',['../struct_g_d___stock_factors.html',1,'']]],
+  ['gd_5ftradingday_5freq',['GD_TradingDay_Req',['../struct_g_d___trading_day___req.html',1,'']]],
+  ['gd_5ftradingday_5frsp',['GD_TradingDay_Rsp',['../struct_g_d___trading_day___rsp.html',1,'']]],
+  ['gd_5fupdatesubcodes_5freq',['GD_UpdateSubCodes_Req',['../struct_g_d___update_sub_codes___req.html',1,'']]],
+  ['getdataapi',['GetDataApi',['../class_p_t___quant_platform_1_1_get_data_api.html',1,'PT_QuantPlatform']]],
+  ['getdataspi',['GetDataSpi',['../class_p_t___quant_platform_1_1_get_data_spi.html',1,'PT_QuantPlatform']]]
+];

@@ -680,22 +680,5 @@ struct GD_TradingDay_Rsp
 	GD_ISODateTimeType mDayList[1];		//交易日列表首地址
 };
 
-//指标
-struct GD_MA_Setting
-{
-	
-};
-
-struct GD_MA
-{
-	GD_CodeType szCode;					//代码
-	GD_ISODateTimeType szDatetime;		//时间
-	GD_CycType nCycType;				//周期类型
-
-	double nMA1;
-	double nMA2;
-	double nMA3;
-};
-
 #pragma pack(pop)
 #endif // GETDATASTRUCT_H

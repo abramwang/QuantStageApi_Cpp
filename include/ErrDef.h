@@ -46,7 +46,13 @@ namespace PT_QuantPlatform {
 
 		//系统部分
 		PT_ErrorType_invalidAargument = 1000,			//非法的参数
-		PT_ErrorType_invalidSimulationObjectInstance	//错误的模拟交易api实例
+		PT_ErrorType_invalidSimulationObjectInstance,	//错误的模拟交易api实例
+		
+		PT_ErrorType_realtimeServerDisconnect = 1300,		//实时行情服务器断线
+		PT_ErrorType_historyServerDisconnect,				//历史行情服务器断线
+		PT_ErrorType_canOnlyCreateOneSyncMDClient,			//只能创建一个同步模式的行情实例
+		PT_ErrorType_canOnlyCreateOneSyncTDClient,			//只能创建一个同步模式的交易实例
+		PT_ErrorType_canOnlyCreateOneSyncExec,				//只能创建一个数据监听循环
 	};
 }
 #endif
