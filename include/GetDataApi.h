@@ -106,7 +106,6 @@ namespace PT_QuantPlatform{
 		/// @see ReqUpdateSubStockCode
 		void ReqSimulationUpdateSubStockCode(GD_UpdateSubCodeType reqType, std::vector<char*> &subCodes, bool isAllMarket, int &err);
 
-		//请求历史行情
 		/// 请求历史行情数据
 		/// @param [GD_ISODateTimeType] beginTime			开始进行数据回放的时间点
 		/// @param [GD_ISODateTimeType] endTime				结束回放的时间点
@@ -124,7 +123,7 @@ namespace PT_QuantPlatform{
 		/// @param [bool] isAllMarket						是否订阅全市场
 		int ReqHistoryGDKLineData(GD_CycType cycType, GD_ISODateTimeType beginTime, GD_ISODateTimeType endTime, std::vector<char*> &subCodes, bool isAllMarket, int &err);						//请求历史K线数据行情	。数据回调为 OnRecvGDKLine
 		
-	/// 请求历史交易日，给定一段时间，给出这段时间的所有交易日信息
+		/// 请求历史交易日，给定一段时间，给出这段时间的所有交易日信息
 		/// @param [GD_ISODateTimeType] beginDay			开始日期
 		/// @param [GD_ISODateTimeType] endDay				结束日期
 		/// @see OnRspTradingDay

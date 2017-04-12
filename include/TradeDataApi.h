@@ -42,7 +42,7 @@ namespace PT_QuantPlatform{
 	class API_EXPORT TradeDataApi{
 #else
 	class TradeDataApi{
-#endif															//»ñµÃreqId
+#endif
 	public:
 		bool Login(char* user, char* pass, int &err);
 		void SetNewBackTest(double stampTax, double transferFees, double commissions, char* szComment, int &err);
