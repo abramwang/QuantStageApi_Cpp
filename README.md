@@ -61,9 +61,10 @@ int main(int argc, char const *argv[])
 {
 	MySpi* spi = new MySpi();
 	
+	GD_API_InitSetting setting = {true, true, true, 1000};
+    PT_QuantPlatform::Init(setting);
 	int err = 0;
-	
-	GetDataApi* api = GetDataApi::CreateThreadSafeGetDataApi(spi, err);
+	GetDataApi* api = PT_QuantPlatform::CreateGetDataApi(spi);
 	
 	if(!err){
 		if(api->Login("Test", "Test", err)){	
@@ -71,11 +72,13 @@ int main(int argc, char const *argv[])
 			subCodes.push_back("000001");
 
 			api->ReqRealtimeData(subCodes, false, 0, 0, err);
-
-			Exec();
 		}
 	}
-  		
+  	
+	while(1){
+      sleep(1);
+	}	
+  
 	return 0;
 }
 ```
