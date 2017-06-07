@@ -3,7 +3,9 @@
 
 #pragma pack(push)
 #pragma pack(1)
-
+#ifndef WIN32
+typedef long long __int64;
+#endif
 //////////////////////////////////////////////////////////////////////////
 //TDF 结构体
 //////////////////////////////////////////////////////////////////////////
@@ -574,6 +576,16 @@ struct GD_StockFactors					//股票因子
 	*/
 };
 //////////////////////////////////////////////////////////////////////////
+// api初始化设置
+struct GD_API_InitSetting
+{
+	bool bEnable_log;				//启用日志落地
+	bool bEnable_AutoRecon;			//启用断线重连
+	bool bEnable_AutoResume;		//断线重连后续传数据
+	int nReconTimeOut;				//断线重连时间间隔
+};
+
+//////////////////////////////////////////////////////////////////////////
 //请求
 struct GD_RealTime_Req					//实盘数据请求
 {
@@ -678,23 +690,6 @@ struct GD_TradingDay_Rsp
 {
 	unsigned nNum;
 	GD_ISODateTimeType mDayList[1];		//交易日列表首地址
-};
-
-//指标
-struct GD_MA_Setting
-{
-	
-};
-
-struct GD_MA
-{
-	GD_CodeType szCode;					//代码
-	GD_ISODateTimeType szDatetime;		//时间
-	GD_CycType nCycType;				//周期类型
-
-	double nMA1;
-	double nMA2;
-	double nMA3;
 };
 
 #pragma pack(pop)

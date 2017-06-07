@@ -1,11 +1,11 @@
 #ifndef GETDATAAPI_H
 #define GETDATAAPI_H
 
-#ifdef WIN32
 #ifndef API_EXPORT  
-#define API_EXPORT _declspec(dllexport)  
-#else  
-#define API_EXPORT _declspec(dllimport)  
+#ifdef WIN32
+#define API_EXPORT _declspec(dllexport)
+#else
+#define API_EXPORT
 #endif
 #endif
 
@@ -42,11 +42,8 @@ namespace PT_QuantPlatform{
 		GetDataSpi(){};
 		~GetDataSpi(){};
 	};
-#ifdef WIN32
+
 	class API_EXPORT GetDataApi{
-#else
-	class GetDataApi{
-#endif
 	public:
 		bool Login(char* user, char* pass, int &err);
 		//请求实时行情
@@ -72,22 +69,15 @@ namespace PT_QuantPlatform{
 		std::vector<GD_DetailMarketDayKline> getDetailMarketDayKline(GD_CodeType code, GD_ISODateTimeType beginDate, GD_ISODateTimeType endDate, int &err);
 		std::vector<GD_StockFactors> getStockFactors(GD_CodeType code, vector<char*> &factorKeys, GD_ISODateTimeType beginDate, GD_ISODateTimeType endDate, int &err);
 	};
+
+	extern "C"
+	{
+		API_EXPORT const char* GetQuantPlatformApiVersion();
+		API_EXPORT void Init(GD_API_InitSetting &initSetting);
+
+		API_EXPORT PT_QuantPlatform::GetDataApi* CreateGetDataApi(PT_QuantPlatform::GetDataSpi* spi);
+		API_EXPORT PT_QuantPlatform::GetDataApi* CreateGetDataApiEnableSimulationTrade(PT_QuantPlatform::TradeDataApi* tApi, PT_QuantPlatform::GetDataSpi* spi, int &err);
+		API_EXPORT void DelGetDataApi(PT_QuantPlatform::GetDataApi* pAPI);
+	}
 };
-
-
-extern "C"
-{
-#ifdef WIN32
-	API_EXPORT const char* GetQuantPlatformApiVersion();
-	API_EXPORT PT_QuantPlatform::GetDataApi* CreateGetDataApi(PT_QuantPlatform::GetDataSpi* spi, bool autoRecon, int reconTimeOut, bool autoReq = false, bool enableLog = true);
-	API_EXPORT PT_QuantPlatform::GetDataApi* CreateGetDataApiEnableSimulationTrade(PT_QuantPlatform::TradeDataApi* tApi, PT_QuantPlatform::GetDataSpi* spi, bool autoRecon, int reconTimeOut, int &err, bool autoReq = false, bool enableLog = true);
-	API_EXPORT void DelGetDataApi(PT_QuantPlatform::GetDataApi* pAPI);
-#else
-	const char* GetQuantPlatformApiVersion();
-	PT_QuantPlatform::GetDataApi* CreateGetDataApi(PT_QuantPlatform::GetDataSpi* spi, bool autoRecon, int reconTimeOut, bool autoReq = false, bool enableLog = true);
-	PT_QuantPlatform::GetDataApi* CreateGetDataApiEnableSimulationTrade(PT_QuantPlatform::TradeDataApi* tApi, PT_QuantPlatform::GetDataSpi* spi, bool autoRecon, int reconTimeOut, int &err, bool autoReq = false, bool enableLog = true);
-	void DelGetDataApi(PT_QuantPlatform::GetDataApi* pAPI);
-#endif
-}
-
 #endif // GETDATAAPI_H

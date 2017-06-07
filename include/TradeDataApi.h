@@ -1,9 +1,11 @@
 #ifndef TRADEDATAAPI_H
 #define TRADEDATAAPI_H
 
-#ifdef WIN32
 #ifndef API_EXPORT  
-	#define API_EXPORT _declspec(dllexport)
+#ifdef WIN32
+#define API_EXPORT _declspec(dllexport)
+#else
+#define API_EXPORT
 #endif
 #endif
 
@@ -38,11 +40,8 @@ namespace PT_QuantPlatform{
 		TradeDataSpi(){};
 		~TradeDataSpi(){};
 	};
-#ifdef WIN32
+
 	class API_EXPORT TradeDataApi{
-#else
-	class TradeDataApi{
-#endif
 	public:
 		bool Login(char* user, char* pass, int &err);
 		void SetNewBackTest(double stampTax, double transferFees, double commissions, char* szComment, int &err);
@@ -51,28 +50,25 @@ namespace PT_QuantPlatform{
 		virtual int OrderModify(TD_OrderModify_Req* req);				//修改订单
 		virtual int OrderDelete(TD_OrderDelete_Req* req);				//删除订单
 
-		virtual void QryOrder(TD_QryOrder_Req* req);											//查询当日所有订单
-		virtual void QryMatch(TD_QryMatch_Req* req);											//查询所有成交
-		virtual void QryPosition(TD_QryPosition_Req* req);										//查询头寸
+		virtual int QryOrder(TD_QryOrder_Req* req);											//查询当日所有订单
+		virtual int QryMatch(TD_QryMatch_Req* req);											//查询所有成交
+		virtual int QryPosition(TD_QryPosition_Req* req);									//查询头寸
 
-		virtual void QryCapitalAccount(TD_QryCapital_Req* req);									// 查询资金帐号
-		virtual void QrySecuDebt(TD_QrySecuDebt_Req* req);										// 查询融券负债
-		virtual void QryMaxEntrustCount(TD_QryMaxEntrustCount_Req* req);						// 查询最大可委托量
-		virtual void QrySecuritiesLendingAmount(TD_QrySecuritiesLendingAmount_Req* req);		// 查询可融券列表
+		virtual int QryCapitalAccount(TD_QryCapital_Req* req);								// 查询资金帐号
+		virtual int QrySecuDebt(TD_QrySecuDebt_Req* req);									// 查询融券负债
+		virtual int QryMaxEntrustCount(TD_QryMaxEntrustCount_Req* req);						// 查询最大可委托量
+		virtual int QrySecuritiesLendingAmount(TD_QrySecuritiesLendingAmount_Req* req);		// 查询可融券列表
 	};
+
+	extern "C"
+	{
+#ifndef GETDATAAPI_H
+		API_EXPORT const char* GetQuantPlatformApiVersion();
+		API_EXPORT void Init(GD_API_InitSetting &initSetting);
+#endif // !GETDATAAPI_H
+		API_EXPORT PT_QuantPlatform::TradeDataApi* CreateTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi);
+		API_EXPORT PT_QuantPlatform::TradeDataApi* CreateSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi);
+		API_EXPORT void DelTradeDataApi(PT_QuantPlatform::TradeDataApi* pAPI);
+	}
 };
-
-extern "C"
-{
-#ifdef WIN32
-	API_EXPORT PT_QuantPlatform::TradeDataApi* CreateTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	API_EXPORT PT_QuantPlatform::TradeDataApi* CreateSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	API_EXPORT void DelTradeDataApi(PT_QuantPlatform::TradeDataApi* pAPI);
-#else
-	PT_QuantPlatform::TradeDataApi* CreateTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	PT_QuantPlatform::TradeDataApi* CreateSimulationTradeDataApi(PT_QuantPlatform::TradeDataSpi* spi, bool autoRecon, int reconTimeOut, bool enableLog = true);
-	void DelTradeDataApi(PT_QuantPlatform::TradeDataApi* pAPI);
-#endif
-}
-
 #endif // TRADEDATAAPI_H

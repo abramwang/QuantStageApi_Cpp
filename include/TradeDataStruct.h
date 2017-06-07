@@ -6,6 +6,9 @@
 #pragma pack(push)
 #pragma pack(1)
 
+#ifndef WIN32
+typedef long long __int64;
+#endif
 #ifndef GETDATASTRUCT_H
 typedef char GD_CodeType[32];
 typedef char GD_CodeName[32];
@@ -45,8 +48,15 @@ enum TD_BrokerType			//券商类型
 
 enum TD_OrderType
 {
-	TD_OrderType_Limit,		//限价单
-	TD_OrderType_Market		//市价单
+	TD_OrderType_Limit,        // 限价 
+
+	TD_OrderType_MTL_BEST_5,   // 最优五档即时成交剩余转限价
+	TD_OrderType_FAK_BEST_5,   // 最优五档即时成交剩余撤销
+
+	TD_OrderType_MTL_Other_Price,   // 对手方最优价格申报
+	TD_OrderType_MTL_My_Price,      // 本方最优价格申报
+	TD_OrderType_FAK,               // 即时成交剩余撤销
+	TD_OrderType_FOK,               // 全额成交或撤销委托
 };
 
 enum TD_TradeType
@@ -99,7 +109,12 @@ enum TD_MarketType
 	TD_MarketType_SZ_B,		//深圳B
 	TD_MarketType_SH_A,		//上海A
 	TD_MarketType_SH_B,		//上海B
-	TD_MarketType_XSB		//新三板
+	TD_MarketType_XSB,		//新三板
+
+	TD_MarketType_CICE = 10,   // 郑上所
+	TD_MarketType_SHFE,        // 上期所 
+	TD_MarketType_DCE,         // 大商所
+	TD_MarketType_CFFEX        // 中金所
 };
 
 //服务器连接类型代码
@@ -144,7 +159,7 @@ struct TD_OrderInsert_Req : TD_Base_Msg
 
 	GD_CodeType		szContractCode;			//证券合约代码
 	GD_CodeName		szContractName;			//证券合约名称
-	TD_OrderType	nOrderType;				//市价限价单
+	TD_OrderType	nOrderType;			//市价限价单
 	TD_TradeType	nTradeType;				//交易类型 买、卖、融券等
 	TD_OffsetType	nOffsetType;			//开平仓类型
 

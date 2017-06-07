@@ -26,6 +26,7 @@ namespace PT_QuantPlatform {
 		PT_ErrorType_noPrivilege,               //无此权限
 		PT_ErrorType_noTavailableFuction,       //暂不支持此功能
 		PT_ErrorType_loadDynLibraryFailed,      //动态库加载失败
+		PT_ErrorType_getCodeTableFailed,        //获取代码表失败
 
 		//交易部分
 		PT_ErrorType_orderNotFound = 200,          //无此订单
@@ -38,15 +39,23 @@ namespace PT_QuantPlatform {
 		PT_ErrorType_sucrityAccountNotAvailable,   //该资金通道异常
 		PT_ErrorType_cancelFailed_canotCancelYet,  //撤单失败，暂时不能撤单
 		PT_ErrorType_cannotselfdeal,               //不能自成交
-		PT_ErrorType_TooHighFrequency,             //频率太高
-
+		PT_ErrorType_TooHighFrequency,             //撤单频率太高
+		PT_ErrorType_NotAvaliableProduct,          //不支持的衍生品
+		PT_ErrorType_AgainstHoldingStockRule,      //不符合持仓合规限制
+		PT_ErrorType_AgainstHoldingFundRule,       //不符合持仓资金成本合规限制
 
 		//行情部分
 		
 
 		//系统部分
 		PT_ErrorType_invalidAargument = 1000,			//非法的参数
-		PT_ErrorType_invalidSimulationObjectInstance	//错误的模拟交易api实例
+		PT_ErrorType_invalidSimulationObjectInstance,	//错误的模拟交易api实例
+		
+		PT_ErrorType_realtimeServerDisconnect = 1300,		//实时行情服务器断线
+		PT_ErrorType_historyServerDisconnect,				//历史行情服务器断线
+		PT_ErrorType_canOnlyCreateOneSyncMDClient,			//只能创建一个同步模式的行情实例
+		PT_ErrorType_canOnlyCreateOneSyncTDClient,			//只能创建一个同步模式的交易实例
+		PT_ErrorType_canOnlyCreateOneSyncExec,				//只能创建一个数据监听循环
 	};
 }
 #endif

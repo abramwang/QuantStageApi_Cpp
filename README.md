@@ -60,19 +60,22 @@ public:
 int main(int argc, char const *argv[])
 {
 	MySpi* spi = new MySpi();
-	GetDataApi* api = CreateGetDataApi(spi, true, 1000, true);
-  
+	
 	int err = 0;
-  	if(api->Login("Test", "Test", err)){	
-    	std::vector<char*> subCodes;
-        subCodes.push_back("000001");
+	
+	GetDataApi* api = GetDataApi::CreateThreadSafeGetDataApi(spi, err);
+	
+	if(!err){
+		if(api->Login("Test", "Test", err)){	
+			std::vector<char*> subCodes;
+			subCodes.push_back("000001");
 
-        api->ReqRealtimeData(subCodes, false, 0, 0, err);
+			api->ReqRealtimeData(subCodes, false, 0, 0, err);
 
-        while(1){
-			int y = 0;
-        }
-  	}	
+			Exec();
+		}
+	}
+  		
 	return 0;
 }
 ```
