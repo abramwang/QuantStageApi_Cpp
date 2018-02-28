@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
 	
   	PT_QuantApi::Init();
   
-	PT_QuantApi* api = PT_QuantApi::createApi(spi, true, PT_QuantTdAppEType_Test, PT_QuantMdAppEType_Real, false);
+	PT_QuantApi* api = PT_QuantApi::createApi(spi, true, PT_QuantTdAppEType_Test, PT_QuantMdAppEType_Real);
 	
   	err = api->Login("Test", "Test");
   	
