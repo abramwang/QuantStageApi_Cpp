@@ -42,8 +42,8 @@ public:
 	MySpi(){};
 	~MySpi(){};
 public:
-	void OnRecvMarket(TDF_MARKET_DATA* pMarket){
-		cout << "OnRecvMarket: " << pMarket->szWindCode << " " << pMarket->nTime << endl;
+	void OnRtnMarket(MD_ReqID nReqID, MD_DATA_MARKET *pMarket){
+		cout << "OnRtnMarket: " << pMarket->szWindCode << " " << pMarket->nTime << endl;
 	};
   	//为了简单其他其他纯虚函数没有重载，实际业务代码中每一个虚函数都需要重载
 };
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
 	
   	PT_QuantApi::Init();
   
-	PT_QuantApi* api = PT_QuantApi::createApi(spi, true, PT_QuantTdAppEType_Real, PT_QuantMdAppEType_Test);
+	PT_QuantApi* api = PT_QuantApi::createApi(this, true, PT_QuantTdAppEType_Test, PT_QuantMdAppEType_Real, false);
 	
   	err = api->Login("Test", "Test");
   	
