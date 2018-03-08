@@ -28,6 +28,7 @@ QuantPlus_Api_Cpp 是 QuantPlus_Api 接口的 c++ 实现
 #### demo.cpp
 
 ```c++
+#include <windows.h>
 #include <iostream>
 using namespace std;
 
@@ -52,24 +53,26 @@ int main(int argc, char const *argv[])
 {
 	MySpi* spi = new MySpi();
 	int err = 0;
-	
-  	PT_QuantApi::Init();
-  
-	PT_QuantApi* api = PT_QuantApi::createApi(spi, true, PT_QuantTdAppEType_Test, PT_QuantMdAppEType_Real);
-	
-  	err = api->Login("Test", "Test");
-  	
-  	int codeNum = 1;
-  	MD_CodeType *pSubWindCode = new MD_CodeType[codeNum];
-  	for(int i = 0; i < codeNum; ++i)
-    {
-    	strcpy(pSubWindCode[i], "600000.SH");
-    }
-  	
-  	int reqId = 1;
-  	err = api->ReqSubQuote(reqId, MD_SubType_market, MD_CycType_none, pSubWindCode, codeNum, "2018-02-28 0:0:0", "2018-02-28 23:59:59");
-	
-  	system("Pause");
+
+	PT_QuantApi::Init();
+
+	PT_QuantApi* api = PT_QuantApi::createApi(spi, true, PT_QuantTdAppEType_Test, false, PT_QuantMdAppEType_Real, true, false);    //此处只连接了行情业务服务器
+
+	err = api->Login("test", "test");
+
+	int codeNum = 1;
+	MD_CodeType *pSubWindCode = new MD_CodeType[codeNum];
+
+	for(int i = 0; i < codeNum; ++i)
+	{
+		memcpy(pSubWindCode[i], "600000.SH", sizeof(MD_CodeType));
+	}
+
+	int reqId = 1;
+	Sleep(1000);    //此处做延时是为了等待异步connect连接成功，严格意义上需要等待onconnect函数返回判断对应的业务服务器连接成功之后才能做业务请求
+	err = api->ReqSubQuote(reqId, MD_SubType_market, MD_CycType_none, pSubWindCode, codeNum, "2018-02-21 0:0:01", "2018-02-28 23:59:59");
+
+	system("Pause");
 	return 0;
 }
 ```
