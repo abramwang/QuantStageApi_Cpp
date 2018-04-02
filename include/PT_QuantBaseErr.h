@@ -51,7 +51,7 @@ typedef enum
 	EQuantErrorType_StrategyRiskCantWithDrawn,          //策略强平无法撤单
 	EQuantErrorType_WithoutthisAuthority,               //无此权限
 	EQuantErrorType_InvalidCode,                        //非法证券代码
-
+	EQuantErrorType_NoPisitionToClose,                  //无仓可以平
 
 	// QuantApi: 600-800
 	EQuantErrorType_MDNotConnect = 600,               // 尚未连接行情服务器

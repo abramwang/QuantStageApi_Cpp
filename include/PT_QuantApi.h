@@ -50,11 +50,17 @@ namespace PT_QuantPlatform
 		///@remark   reqQueryAllUser接口的回复
 		virtual void onRspPublicCode(PT_QuantUserCodeControl* pPublicCode, int nNum) = 0;
 		///修改用户信息回调
-		///@param    TD_Base_Msg              基类指针
+		///@param    TD_QuantUserAuthen                修改后的信息
 		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
-		///@remark   reqUpdateUser接口的回复
-		virtual void onRspUpdateUser(TD_Base_Msg* rsp, int error) = 0;
+		///@remark   reqUpdateUserAuthen接口的回复
+		virtual void onRspUpdateUserAuthen(TD_QuantUserAuthen* rsp, int error) = 0;
+		///修改用户券池回调
+		///@param    TD_QuantUserCodePool              修改后的信息
+		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@return   无
+		///@remark   reqUpdateUserCodePool接口的回复
+		virtual void onRspUpdateUserCodePool(TD_QuantUserCodePool* rsp, int error) = 0;
 	public: //交易业务逻辑回调
 		///下单回调
 		///@param    rsp              下单回调信息
@@ -314,32 +320,12 @@ namespace PT_QuantPlatform
 		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark:  采用阻塞模式
 		virtual int GetCode() = 0;
-		///同步执行函数
-		///@remark:  同步模式中启用，调用该函数的线程作为回调线程
-		virtual void Run() = 0;
-		///退出同步执行
-		///@remark:  强行退出同步执行
-		virtual void BreakExec() = 0;
-	public:// 非业务级别接口
-		///获取所有用户信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark:  采用阻塞模式
-		virtual int reqQueryAllUser() = 0;
-		///修改用户权限
-		///@Param    req                  请求指令
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式，修改方式为覆盖修改
-		virtual int reqUpdateUserAuthen(TD_QuantUserAuthen* pUserAuthen) = 0;
-		///修改用户可用券
-		///@Param    req                  请求指令
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式，修改方式为增量修改,当Id为-1000的时候修改的是公用券
-		virtual int reqUpdateUserCodePool(TD_QuantUserCodePool* pUserCodePool) = 0;
 	public:///交易业务接口
 		///下单
 		///@Param    req                  下单请求信息
 		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式
+		///@remark   采用非阻塞模式,
+		///          风控下单，如是强平的话请将userid赋值为需要强平的用户的userid，并将nCloseR赋值为1
 		virtual int reqOrderInsert(TD_ReqOrderInsert* req) = 0;
 		///撤单
 		///@Param    req                  下单请求信息
@@ -371,26 +357,6 @@ namespace PT_QuantPlatform
 		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryAccountMaxEntrustCount(TD_ReqQryAccountMaxEntrustCount* req) = 0;
-		///订阅订单推送
-		///@Param    无
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式
-		virtual int reqSubscribePushOrder() = 0;
-		///取消订阅推送
-		///@Param    无
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式
-		virtual int reqUnSubscribePushOrder() = 0;
-		///订阅持仓浮盈推送
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式
-		virtual int reqSubscribePushProfit() = 0;
-		///取消订阅持仓浮盈推送
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式
-		virtual int reqUnSubscribePushProfit() = 0;
 
 	public:
 		///@brief 请求交易日列表

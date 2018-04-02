@@ -409,12 +409,12 @@ namespace PT_QuantPlatform
 		///委托编号（broker 或交易所的唯一编号）
 		TD_OrderIdType  szOrderStreamId;
 		///券商资金账户Id
-		int             nAccountId;
+		int             nAccountId;                 //  如需指定资金账号下单，此字段在下单的时候需要填写
 		///资金账户别名
 		TD_AccountType  szAccountNickName;
 
 		///委托申报量
-		int             nOrderVol;
+		int             nOrderVol;                  //  如需指定资金账号下单，此字段在下单的时候需要填写
 
 		///成交均价  * 10000
 		int             nDealedPrice;
@@ -457,11 +457,12 @@ namespace PT_QuantPlatform
 		}
 	};
 
-	// 请求
 	struct TD_Base_Msg
 	{
 		///请求ID（有客户端API维护的唯一ID）
 		int     nReqId;
+
+		int64_t nStragetyId;
 
 		///用户保留字段
 		int     nUserInt;
@@ -476,6 +477,7 @@ namespace PT_QuantPlatform
 		TD_Base_Msg()
 		{
 			nReqId = 0;
+			nStragetyId = 0;
 
 			nUserInt = 0;
 			nUserDouble = 0;
@@ -595,7 +597,7 @@ namespace PT_QuantPlatform
 		///  订单分笔数
 		int            nOrderNum;
 		///  订单明细（指针偏移）
-		TD_OrderDetail*    pOrderDetail;
+		TD_OrderDetail*    pOrderDetail;                // 如需指定资金账号下单，需要填对应的资金账号id以及下到该资金账号的委托数量
 
 		//是否是风控强平
 		int                nCloseR;           // 0正常平仓,1为风控干预平仓,2为服务器风控策略达到强平位平仓
