@@ -7,6 +7,7 @@ namespace PT_QuantPlatform
 	/// <summary>
 	/// QuantApi
 	/// </summary>
+	typedef char PT_CodeType[64];
 
 	// 行情环境
 	enum PT_QuantMdAppEType
@@ -102,6 +103,9 @@ namespace PT_QuantPlatform
 		int                      nCodeControlNum;       //  可用券数量
 		PT_QuantUserCodeControl* pCodeControl;          // （可用券信息）指针偏移
 
+		int                      nDisableCodeNum;
+		PT_CodeType*             pDisableCode;
+
 		PT_QuantUser()
 		{
 			ifStopTrade = false;
@@ -114,6 +118,9 @@ namespace PT_QuantPlatform
 
 			nCodeControlNum = 0;
 			pCodeControl = NULL;
+
+			nDisableCodeNum = 0;
+			pDisableCode = NULL;
 		}
 		virtual ~PT_QuantUser()
 		{
@@ -121,6 +128,12 @@ namespace PT_QuantPlatform
 			{
 				delete[] pCodeControl;
 				pCodeControl = NULL;
+			}
+
+			if(pDisableCode)
+			{
+				delete[] pDisableCode;
+				pDisableCode = NULL;
 			}
 		}
 	};
@@ -562,6 +575,35 @@ namespace PT_QuantPlatform
 		}
 	};
 
+	// 用户股票池
+	class TD_QuantUserDisablePublicCode : public TD_Base_Msg
+	{
+	public:
+		int64_t                        nId;
+		int                         nGroupId;
+
+		int                      nDisablePublicCodeNum;          //  不可用公用券数量
+		TD_CodeType*             pDisablePublicCode;             //  不可用公用券指针
+
+		TD_QuantUserDisablePublicCode()
+		{
+			nId = 0;
+			nGroupId = 0;
+
+			nDisablePublicCodeNum = 0;
+			pDisablePublicCode = NULL;
+
+		}
+		~TD_QuantUserDisablePublicCode()
+		{
+			if(pDisablePublicCode)
+			{
+				delete[] pDisablePublicCode;
+				pDisablePublicCode = NULL;
+			}
+		}
+	};
+
 	struct TD_Login
 	{
 		int nId;
@@ -906,6 +948,10 @@ namespace PT_QuantPlatform
 		TD_ISODateTimeType  szMatchTime;
 		///交易类型 买、卖
 		TD_TradeType    nTradeType;
+		///券商资金账户Id
+		int             nAccountId;
+		///资金账户别名
+		TD_AccountType  szAccountNickName;
 
 
 		TD_RtnOrderMatchNotice()
@@ -920,6 +966,8 @@ namespace PT_QuantPlatform
 			memset(szMatchTime, 0, sizeof(TD_ISODateTimeType));
 			memset(szOrderStreamId, 0, sizeof(TD_OrderIdType));
 			memset(szContractName, 0, sizeof(szContractName));
+			nAccountId = 0;
+			memset(szAccountNickName, 0, sizeof(TD_AccountType));
 		}
 		virtual ~TD_RtnOrderMatchNotice()
 		{

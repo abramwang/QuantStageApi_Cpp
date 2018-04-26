@@ -35,32 +35,7 @@ namespace PT_QuantPlatform
 		///@param  pInfo 用户信息
 		///@return 无
 		///@note 登录成功之后返回的用户信息
-		virtual void onRtnUserInfo(PT_QuantUserBase* pInfo) = 0;
-	public://非业务级别指令回调
-		///查询用户信息回调
-		///@param    pUserInfo              回调信息指针
-		///@param    isEnd                  是否是最后一条
-		///@return   无
-		///@remark   reqQueryAllUser接口的回复
-		virtual void onRspQueryAllUser(PT_QuantUser* pUserInfo, bool isEnd) = 0;
-		///查询用户信息回调
-		///@param    pPublicCode              公用券信息
-		///@param    nNum                     公用券数量
-		///@return   无
-		///@remark   reqQueryAllUser接口的回复
-		virtual void onRspPublicCode(PT_QuantUserCodeControl* pPublicCode, int nNum) = 0;
-		///修改用户信息回调
-		///@param    TD_QuantUserAuthen                修改后的信息
-		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@return   无
-		///@remark   reqUpdateUserAuthen接口的回复
-		virtual void onRspUpdateUserAuthen(TD_QuantUserAuthen* rsp, int error) = 0;
-		///修改用户券池回调
-		///@param    TD_QuantUserCodePool              修改后的信息
-		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@return   无
-		///@remark   reqUpdateUserCodePool接口的回复
-		virtual void onRspUpdateUserCodePool(TD_QuantUserCodePool* rsp, int error) = 0;
+		virtual void onRtnUserInfo(const PT_QuantUserBase* pInfo) = 0;
 	public: //交易业务逻辑回调
 		///下单回调
 		///@param    rsp              下单回调信息
@@ -129,8 +104,19 @@ namespace PT_QuantPlatform
 		///用户权限信息推送
 		///@param    notice              用户权限信息
 		///@return   无
-		///@remark   当用户权限信息被修改时推送
+		///@remark   当用户权限信息被修改时推送；登陆时也会推送一次
 		virtual void onRtnUserAuthen(const TD_QuantUserAuthen* notice) = 0;
+		///最大可委托量推送
+		///@param    notice              用户权限信息
+		///@return   无
+		///@remark   当用户可委托量被改变时推送
+		virtual void onRtnMaxEntrustCount(const TD_RspQryMaxEntrustCount* notice) = 0;
+		///修改用户券池回调
+		///@param    TD_QuantUserCodePool              修改后的信息
+		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@return   无
+		///@remark   reqUpdateUserCodePool接口的回复
+		virtual void onRtnUpdateUserCodePool(const TD_QuantUserCodePool* notice) = 0;
 	public://行情业务逻辑回调
 		///@brief 响应请求交易日列表
 		///@param[in] nReqID 消息请求序号
@@ -320,6 +306,12 @@ namespace PT_QuantPlatform
 		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark:  采用阻塞模式
 		virtual int GetCode() = 0;
+		///同步执行函数
+		///@remark:  同步模式中启用，调用该函数的线程作为回调线程
+		virtual void Run() = 0;
+		///退出同步执行
+		///@remark:  强行退出同步执行
+		virtual void BreakExec() = 0;
 	public:///交易业务接口
 		///下单
 		///@Param    req                  下单请求信息
@@ -357,6 +349,10 @@ namespace PT_QuantPlatform
 		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryAccountMaxEntrustCount(TD_ReqQryAccountMaxEntrustCount* req) = 0;
+		///订阅最大可委托量推送
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式
+		virtual int reqSubscribeMaxEntrustCount() = 0;
 
 	public:
 		///@brief 请求交易日列表
