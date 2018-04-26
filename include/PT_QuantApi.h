@@ -36,6 +36,38 @@ namespace PT_QuantPlatform
 		///@return 无
 		///@note 登录成功之后返回的用户信息
 		virtual void onRtnUserInfo(const PT_QuantUserBase* pInfo) = 0;
+	public://非业务级别指令回调
+		///查询用户信息回调
+		///@param    pUserInfo              回调信息指针
+		///@param    isEnd                  是否是最后一条
+		///@return   无
+		///@remark   reqQueryAllUser接口的回复
+		virtual void onRspQueryAllUser(const PT_QuantUser* pUserInfo, bool isEnd) = 0;
+		///查询用户信息回调
+		///@param    pPublicCode              公用券信息
+		///@param    nNum                     公用券数量
+		///@return   无
+		///@remark   reqQueryAllUser接口的回复
+		virtual void onRspPublicCode(const PT_QuantUserCodeControl* pPublicCode, int nNum) = 0;
+		///修改用户信息回调
+		///@param    TD_QuantUserAuthen                修改后的信息
+		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@return   无
+		///@remark   reqUpdateUserAuthen接口的回复
+		virtual void onRspUpdateUserAuthen(const TD_QuantUserAuthen* rsp, int error) = 0;
+		///修改用户券池回调
+		///@param    TD_QuantUserCodePool              修改后的信息
+		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@return   无
+		///@remark   reqUpdateUserCodePool接口的回复
+		virtual void onRspUpdateUserCodePool(const TD_QuantUserCodePool* rsp, int error) = 0;
+		///修改用户可用券回调
+		///@Param    pUserDisablePublicCode        需要修改的用户可用券
+		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@return   无
+		///@remark   reqDisablePublicCode接口回调
+		virtual void onRspDisablePublicCode(const TD_QuantUserDisablePublicCode* pUserDisablePublicCode, int error) = 0;
+	
 	public: //交易业务逻辑回调
 		///下单回调
 		///@param    rsp              下单回调信息
