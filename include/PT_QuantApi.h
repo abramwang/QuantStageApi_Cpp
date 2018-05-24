@@ -24,12 +24,12 @@ namespace PT_QuantPlatform
 		///@brief 通知连接
 		///@param nSrvType 业务服务器类型 参考PT_QuantPlatform::PT_Quant_APPServerType
 		///@return 无
-		///@note 该信号会在行情服务器连通时主动通知
+		///@note 在业务服务器连通时主动通知
 		virtual void OnConnect(int nSrvType) = 0;
 		///@brief 通知断开
 		///@param nSrvType 业务服务器类型 参考PT_QuantPlatform::PT_Quant_APPServerType
 		///@return 无
-		///@note 该信号会在行情服务器断开时主动通知
+		///@note 在业务服务器断开时主动通知
 		virtual void OnDisconnect(int nSrvType) = 0;
 		///@brief 通知用户信息
 		///@param  pInfo 用户信息
@@ -67,7 +67,19 @@ namespace PT_QuantPlatform
 		///@return   无
 		///@remark   reqDisablePublicCode接口回调
 		virtual void onRspDisablePublicCode(const TD_QuantUserDisablePublicCode* pUserDisablePublicCode, int error) = 0;
-	
+		///修改账户优先级回调
+		///@Param    rsp              修改请求信息
+		///@param    error            修改是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@return   无
+		///@remark   reqUpdateAccountPriority接口回调
+		virtual void onRspUpdateAccountPriority(const TD_RspUpdatePriority* rsp, int error) = 0;
+		///查询账户优先级回调
+		///@Param    rsp              优先级信息
+		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@param    isEnd            是否是最后一条
+		///@return   无
+		///@remark   reqQueryAccountPriority接口回调
+		virtual void onRspQueryAccountPriority(const TD_RspQryPriority* rsp, int error, bool isEnd) = 0;
 	public: //交易业务逻辑回调
 		///下单回调
 		///@param    rsp              下单回调信息
@@ -143,12 +155,16 @@ namespace PT_QuantPlatform
 		///@return   无
 		///@remark   当用户可委托量被改变时推送
 		virtual void onRtnMaxEntrustCount(const TD_RspQryMaxEntrustCount* notice) = 0;
-		///修改用户券池回调
-		///@param    TD_QuantUserCodePool              修改后的信息
-		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///修改用户券池推送
+		///@param    notice              券池信息
 		///@return   无
-		///@remark   reqUpdateUserCodePool接口的回复
+		///@remark   用户券池被修改之后推送股票可买可卖初始值
 		virtual void onRtnUpdateUserCodePool(const TD_QuantUserCodePool* notice) = 0;
+		///模拟资金账号推送
+		///@param    notice              模拟资金账号信息
+		///@return   无
+		///@remark   创建模拟交易环境，登陆时阻塞进行推送所有可用模拟账号信息
+		virtual void onRtnSimulationAccount(const TD_SimulationAccount* notice) = 0;
 	public://行情业务逻辑回调
 		///@brief 响应请求交易日列表
 		///@param[in] nReqID 消息请求序号
@@ -317,17 +333,17 @@ namespace PT_QuantPlatform
 		///@return   无
 		///@remark   静态函数
 		static void Init();
-		///获取股票代码表
+		///解析错误码
 		///@Param    nErrCode             代码号
 		///@Param    szErrmsg             错误码
 		///@Param    len                  szErrmsg内存长度
-		///@remark:  静态函数，调用之前必须先调Init函数
+		///@remark:  静态函数，使用此接口前需调用Init()才能获取完整的错误码解析，否则只能解析系统级别错误
 		static void GetErrMsg(int nErrCode, char* szErrmsg, int len);
-		///设置回测记录
-		///@param    pReq
-		///@return   无
+		///设置回测限制模板
+		///@param    req                  // 设置的回测限制
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用阻塞模式,仅在回测时有用
-		virtual void SetNewBackTest(PT_BackTestReq* pReq, int &err) = 0;
+		virtual int SetNewBackTest(PT_BackTestReq* req) = 0;
 		///登录认证获取权限
 		///@Param    szUseName            登录帐号
 		///@Param    szPasswd             登录密码
@@ -347,38 +363,37 @@ namespace PT_QuantPlatform
 	public:///交易业务接口
 		///下单
 		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
-		///@remark   采用非阻塞模式,
-		///          风控下单，如是强平的话请将userid赋值为需要强平的用户的userid，并将nCloseR赋值为1
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式
 		virtual int reqOrderInsert(TD_ReqOrderInsert* req) = 0;
 		///撤单
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@Param    req                  撤单请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqOrderDelete(TD_ReqOrderDelete* req) = 0;
 		///查询委托
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@Param    req                  查询请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryOrder(TD_ReqQryOrder* req) = 0;
 		///查询成交明细
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@Param    req                  查询请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryMatch(TD_ReqQryMatch* req) = 0;
 		///查询持仓
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@Param    req                  查询请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryPosition(TD_ReqQryPosition* req) = 0;
-		///查询最大可委托量
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///订阅最大可委托量
+		///@Param    req                  查询请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryMaxEntrustCount(TD_ReqQryMaxEntrustCount* req) = 0;
 		///查询资金账号最大可委托量
-		///@Param    req                  下单请求信息
-		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@Param    req                  查询请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryAccountMaxEntrustCount(TD_ReqQryAccountMaxEntrustCount* req) = 0;
 		///订阅最大可委托量推送
@@ -386,7 +401,7 @@ namespace PT_QuantPlatform
 		///@remark   采用非阻塞模式
 		virtual int reqSubscribeMaxEntrustCount() = 0;
 
-	public:
+	public:///行情业务接口
 		///@brief 请求交易日列表
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pWindCode 指定的股票代码列表

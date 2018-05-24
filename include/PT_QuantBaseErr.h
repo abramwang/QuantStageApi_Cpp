@@ -52,6 +52,9 @@ typedef enum
 	EQuantErrorType_WithoutthisAuthority,               //无此权限
 	EQuantErrorType_InvalidCode,                        //非法证券代码
 	EQuantErrorType_NoPisitionToClose,                  //无仓可以平
+	EQuantErrorType_InvalidAction,                      //异常操作
+	EQuantErrorType_NotSetTestBack,                     //未设置回测资金账号，不能正常下单
+	EQuantErrorType_NotAvailableAccount,                //不可用的资金账号
 
 	// QuantApi: 600-800
 	EQuantErrorType_MDNotConnect = 600,               // 尚未连接行情服务器

@@ -1,6 +1,7 @@
 #ifndef _QuantDef_H_
 #define _QuantDef_H_
 #include <stdint.h>
+#include <string.h>
 
 namespace PT_QuantPlatform
 {
@@ -140,34 +141,19 @@ namespace PT_QuantPlatform
 
 	struct PT_BackTestReq
 	{
-		///用户保留字段
-		int     nUserInt;
-		double  nUserDouble;
-		char    szUseStr[128];
+		int64_t nSimAccountId;         // 模拟资金账号
 
-		///用户帐号Id
-		int64_t     nUserId;
 
-		double                nStampTax;                   //  印花税
-		double            nTransferFees;                   //  过户费
-		double             nCommissions;                   //  佣金
 		PT_BackTestReq()
 		{
-			nUserInt = 0;
-			nUserDouble = 0;
-			memset(szUseStr, 0, 128);
-
-			nUserId = 0;
-
-			nStampTax = 0;                   //  印花税
-			nTransferFees = 0;                   //  过户费
-			nCommissions = 0;                   //  佣金
+			nSimAccountId = 0;
 		}
 		virtual ~PT_BackTestReq()
 		{
 
 		}
 	};
+
 	/// <summary>
 	/// 行情结构体
 	/// </summary>
@@ -241,99 +227,104 @@ namespace PT_QuantPlatform
 		int  nExpireDate;               // 期权到期日，YYYYMMDD
 	};
 
+	// 备注: 本结构体各字段中的单位为参考单位, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_MARKET
 	{
 		char            szWindCode[32];         //600001.SH
 		char            szCode[32];             //原始Code
-		int             nActionDay;             //业务发生日(自然日)
+		int             nActionDay;             //日期(YYYYMMDD)
 		int             nTime;                  //时间(HHMMSSmmm)
 		int             nStatus;                //状态
-		unsigned int    nPreClose;              //前收盘价=实际价格(单位: 元/手)x10000
-		unsigned int    nOpen;                  //开盘价=实际价格(单位: 元/手)x10000
-		unsigned int    nHigh;                  //最高价=实际价格(单位: 元/手)x10000
-		unsigned int    nLow;                   //最低价=实际价格(单位: 元/手)x10000
-		unsigned int    nMatch;                 //最新价=实际价格(单位: 元/手)x10000
-		unsigned int    nAskPrice[10];          //申卖价=实际价格(单位: 元/手)x10000
-		unsigned int    nAskVol[10];            //申卖量=实际手数(单位: 手)
-		unsigned int    nBidPrice[10];          //申买价=实际价格(单位: 元/手)x10000
-		unsigned int    nBidVol[10];            //申买量=实际手数(单位: 手)
+		unsigned int    nPreClose;              //前收盘价=实际价格(单位: 元/股)x10000
+		unsigned int    nOpen;                  //开盘价=实际价格(单位: 元/股)x10000
+		unsigned int    nHigh;                  //最高价=实际价格(单位: 元/股)x10000
+		unsigned int    nLow;                   //最低价=实际价格(单位: 元/股)x10000
+		unsigned int    nMatch;                 //最新价=实际价格(单位: 元/股)x10000
+		unsigned int    nAskPrice[10];          //申卖价=实际价格(单位: 元/股)x10000
+		unsigned int    nAskVol[10];            //申卖量=实际股数(单位: 股)
+		unsigned int    nBidPrice[10];          //申买价=实际价格(单位: 元/股)x10000
+		unsigned int    nBidVol[10];            //申买量=实际股数(单位: 股)
 		unsigned int    nNumTrades;             //成交笔数=实际笔数(单位: 笔)
-		int64_t         iVolume;                //成交总量=实际手数(单位: 手)
+		int64_t         iVolume;                //成交总量=实际股数(单位: 股)
 		int64_t         iTurnover;              //成交总金额=实际金额(单位: 元)
-		int64_t         nTotalBidVol;           //委托买入总量=实际手数(单位: 手)
-		int64_t         nTotalAskVol;           //委托卖出总量=实际手数(单位: 手)
-		unsigned int    nWeightedAvgBidPrice;   //加权平均委买价格=实际价格(单位: 元/手)x10000
-		unsigned int    nWeightedAvgAskPrice;   //加权平均委卖价格=实际价格(单位: 元/手)x10000
+		int64_t         nTotalBidVol;           //委托买入总量=实际股数(单位: 股)
+		int64_t         nTotalAskVol;           //委托卖出总量=实际股数(单位: 股)
+		unsigned int    nWeightedAvgBidPrice;   //加权平均委买价格=实际价格(单位: 元/股)x10000
+		unsigned int    nWeightedAvgAskPrice;   //加权平均委卖价格=实际价格(单位: 元/股)x10000
 		int             nIOPV;                  //IOPV净值估值
 		int             nYieldToMaturity;       //到期收益率
-		unsigned int    nHighLimited;           //涨停价=实际价格(单位: 元/手)x10000
-		unsigned int    nLowLimited;            //跌停价=实际价格(单位: 元/手)x10000
+		unsigned int    nHighLimited;           //涨停价=实际价格(单位: 元/股)x10000
+		unsigned int    nLowLimited;            //跌停价=实际价格(单位: 元/股)x10000
 	};
 
+	// 备注: 本结构体各字段中的单位为参考单位, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_INDEX
 	{
 		char        szWindCode[32];         //600001.SH
 		char        szCode[32];             //原始Code
-		int         nActionDay;             //业务发生日(自然日)
+		int         nActionDay;             //日期(YYYYMMDD)
 		int         nTime;                  //时间(HHMMSSmmm)
-		int         nOpenIndex;             //今开盘指数=实际价格(单位: 元/手)x10000
-		int         nHighIndex;             //最高指数=实际价格(单位: 元/手)x10000
-		int         nLowIndex;              //最低指数=实际价格(单位: 元/手)x10000
-		int         nLastIndex;             //最新指数=实际价格(单位: 元/手)x10000
-		int64_t     iTotalVolume;           //参与计算相应指数的交易数量=实际手数(单位: 手)
+		int         nOpenIndex;             //今开盘指数=实际价格(单位: 元/股)x10000
+		int         nHighIndex;             //最高指数=实际价格(单位: 元/股)x10000
+		int         nLowIndex;              //最低指数=实际价格(单位: 元/股)x10000
+		int         nLastIndex;             //最新指数=实际价格(单位: 元/股)x10000
+		int64_t     iTotalVolume;           //参与计算相应指数的交易数量=实际股数(单位: 股)
 		int64_t     iTurnover;              //参与计算相应指数的成交金额=实际金额(单位: 元)
-		int         nPreCloseIndex;         //前盘指数=实际价格(单位: 元/手)x10000
+		int         nPreCloseIndex;         //前盘指数=实际价格(单位: 元/股)x10000
 	};
 
+	// 备注: 本结构体为通用期货数据结构体, 期货品种不同则交易单位不同, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_FUTURE
 	{
 		char            szWindCode[32];         //600001.SH
 		char            szCode[32];             //原始Code
-		int             nActionDay;             //业务发生日(自然日)
+		int             nActionDay;             //日期(YYYYMMDD)
 		int             nTime;                  //时间(HHMMSSmmm)
 		int             nStatus;                //状态
 		int64_t         iPreOpenInterest;       //昨持仓
-		unsigned int    nPreClose;              //昨收盘价=实际价格(单位: 元/手)x10000
-		unsigned int    nPreSettlePrice;        //昨结算=实际价格(单位: 元/手)x10000
-		unsigned int    nOpen;                  //开盘价=实际价格(单位: 元/手)x10000
-		unsigned int    nHigh;                  //最高价=实际价格(单位: 元/手)x10000
-		unsigned int    nLow;                   //最低价=实际价格(单位: 元/手)x10000
-		unsigned int    nMatch;                 //最新价=实际价格(单位: 元/手)x10000
+		unsigned int    nPreClose;              //昨收盘价=实际价格(单位: 元/吨)x10000
+		unsigned int    nPreSettlePrice;        //昨结算=实际价格(单位: 元/吨)x10000
+		unsigned int    nOpen;                  //开盘价=实际价格(单位: 元/吨)x10000
+		unsigned int    nHigh;                  //最高价=实际价格(单位: 元/吨)x10000
+		unsigned int    nLow;                   //最低价=实际价格(单位: 元/吨)x10000
+		unsigned int    nMatch;                 //最新价=实际价格(单位: 元/吨)x10000
 		int64_t         iVolume;                //成交总量=实际手数(单位: 手)
 		int64_t         iTurnover;              //成交总金额=实际金额(单位: 元)
 		int64_t         iOpenInterest;          //持仓总量=实际手数(单位: 手)
-		unsigned int    nClose;                 //今收盘=实际价格(单位: 元/手)x10000
-		unsigned int    nSettlePrice;           //今结算=实际价格(单位: 元/手)x10000
-		unsigned int    nHighLimited;           //涨停价=实际价格(单位: 元/手)x10000
-		unsigned int    nLowLimited;            //跌停价=实际价格(单位: 元/手)x10000
-		unsigned int    nAskPrice[5];           //申卖价=实际价格(单位: 元/手)x10000
+		unsigned int    nClose;                 //今收盘=实际价格(单位: 元/吨)x10000
+		unsigned int    nSettlePrice;           //今结算=实际价格(单位: 元/吨)x10000
+		unsigned int    nHighLimited;           //涨停价=实际价格(单位: 元/吨)x10000
+		unsigned int    nLowLimited;            //跌停价=实际价格(单位: 元/吨)x10000
+		unsigned int    nAskPrice[5];           //申卖价=实际价格(单位: 元/股)x10000
 		unsigned int    nAskVol[5];             //申卖量=实际手数(单位: 手)
-		unsigned int    nBidPrice[5];           //申买价=实际价格(单位: 元/手)x10000
+		unsigned int    nBidPrice[5];           //申买价=实际价格(单位: 元/吨)x10000
 		unsigned int    nBidVol[5];             //申买量=实际手数(单位: 手)
 	};
 
+	// 备注: 本结构体各字段中的单位为参考单位, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_ORDER_QUEUE
 	{
 		char    szWindCode[32]; //600001.SH
 		char    szCode[32];     //原始Code
-		int     nActionDay;     //自然日
+		int     nActionDay;     //日期(YYYYMMDD)
 		int     nTime;          //时间(HHMMSSmmm)
 		int     nSide;          //买卖方向('B':Bid 'A':Ask)
 		int     nPrice;         //委托价格=实际价格(单位: 元/手)x10000
-		int     nOrders;        //订单数量
-		int     nABItems;       //明细个数
-		int     nABVolume[200]; //订单明细=实际手数(单位: 手)
+		int     nOrders;        //挂单挡位
+		int     nABItems;       //委托单数
+		int     nABVolume[200]; //委托数量=实际股数(单位: 股)
 	};
 
+	// 备注: 本结构体各字段中的单位为参考单位, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_TRANSACTION
 	{
 		char    szWindCode[32]; //600001.SH
 		char    szCode[32];     //原始Code
-		int     nActionDay;     //自然日
+		int     nActionDay;     //成交日期(YYYYMMDD)
 		int     nTime;          //成交时间(HHMMSSmmm)
 		int     nIndex;         //成交编号
-		int     nPrice;         //成交价格=实际价格(单位: 元/手)x10000
-		int     nVolume;        //成交数量=实际手数(单位: 手)
+		int     nPrice;         //成交价格=实际价格(单位: 元/股)x10000
+		int     nVolume;        //成交数量=实际股数(单位: 股)
 		int     nTurnover;      //成交金额=实际金额(单位: 元)
 		int     nBSFlag;        //买卖方向(买：'B', 卖：'A', 不明：' ')
 		char    chOrderKind;    //成交类别
@@ -341,6 +332,7 @@ namespace PT_QuantPlatform
 		int     nBidOrder;      //叫买方委托序号
 	};
 
+	// 备注: 本结构体各字段中的单位为参考单位, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_ORDER
 	{
 		char    szWindCode[32]; //600001.SH
@@ -348,28 +340,29 @@ namespace PT_QuantPlatform
 		int     nActionDay;     //委托日期(YYYYMMDD)
 		int     nTime;          //委托时间(HHMMSSmmm)
 		int     nOrder;         //委托号
-		int     nPrice;         //委托价格=实际价格(单位: 元/手)x10000
-		int     nVolume;        //委托数量=实际手数(单位: 手)
+		int     nPrice;         //委托价格=实际价格(单位: 元/股)x10000
+		int     nVolume;        //委托数量=实际股数(单位: 股)
 		char    chOrderKind;    //委托类别
 		char    chFunctionCode; //委托代码('B','S','C')
 	};
 
+	// 备注: 本结构体各字段中的单位为参考单位, 如有异议, 请以市面上常见的行情软件的盘口单位为准
 	struct MD_DATA_KLINE                    //模拟数据请求
 	{
 		MD_CycType nType;                   //周期类型
 		char    szWindCode[32];             //600001.SH
 		char    szCode[32];                 //原始Code
 		MD_ISODateTimeType szDatetime;      //时间
-		int nDate;                          //日期 yyyyMMdd
-		int nTime;                          //时间 hhmmsszzz
-		double  nOpen;                      //开盘价=实际价格(单位: 元/手)
-		double  nHigh;                      //最高价=实际价格(单位: 元/手)
-		double  nLow;                       //最低价=实际价格(单位: 元/手)
-		double  nClose;                     //今收价=实际价格(单位: 元/手)
-		double  nPreClose;                  //昨收价=实际价格(单位: 元/手)
-		double  nHighLimit;                 //涨停价=实际价格(单位: 元/手)
-		double  nLowLimit;                  //跌停价=实际价格(单位: 元/手)
-		int64_t iVolume;                    //成交数量=实际手数(单位: 手)
+		int nDate;                          //日期(YYYYMMDD)
+		int nTime;                          //时间(HHMMSSmmm)
+		double  nOpen;                      //开盘价=实际价格(单位: 元/股)
+		double  nHigh;                      //最高价=实际价格(单位: 元/股)
+		double  nLow;                       //最低价=实际价格(单位: 元/股)
+		double  nClose;                     //今收价=实际价格(单位: 元/股)
+		double  nPreClose;                  //昨收价=实际价格(单位: 元/股)
+		double  nHighLimit;                 //涨停价=实际价格(单位: 元/股)
+		double  nLowLimit;                  //跌停价=实际价格(单位: 元/股)
+		int64_t iVolume;                    //成交数量=实际股数(单位: 股)
 		int64_t nTurover;                   //成交金额=实际金额(单位: 元)
 	};
 #pragma pack(pop)
@@ -475,7 +468,7 @@ namespace PT_QuantPlatform
 		///请求ID（有客户端API维护的唯一ID）
 		int     nReqId;
 
-		int64_t nStragetyId;
+		int64_t nStrategyId;
 
 		///用户保留字段
 		int     nUserInt;
@@ -490,7 +483,7 @@ namespace PT_QuantPlatform
 		TD_Base_Msg()
 		{
 			nReqId = 0;
-			nStragetyId = 0;
+			nStrategyId = 0;
 
 			nUserInt = 0;
 			nUserDouble = 0;
@@ -606,7 +599,7 @@ namespace PT_QuantPlatform
 
 	struct TD_Login
 	{
-		int nId;
+		int64_t nId;
 		TD_PassType szPass;
 		TD_Text szMachineId;
 		TD_Login()
@@ -734,7 +727,63 @@ namespace PT_QuantPlatform
 
 	///撤销订单响应
 	typedef TD_ReqOrderDelete TD_RspOrderDelete;
+	//委托查询请求
+	struct TD_ReqQryPriority : TD_Base_Msg
+	{
+		/// 需要查询的用户Id
+		int64_t               nQueryUserid;
 
+		TD_ReqQryPriority()
+		{
+			nQueryUserid = 0;
+		}
+		virtual ~TD_ReqQryPriority()
+		{
+
+		}
+	};
+
+	struct TD_Priority
+	{
+		int          nPriority;
+		int64_t      nAccountId;
+		TD_Priority()
+		{
+
+		}
+		virtual ~TD_Priority()
+		{
+
+		}
+	};
+	//委托查询请求
+	struct TD_RspQryPriority : TD_Base_Msg
+	{
+		// 用户id
+		int64_t               nQueryUserid;
+		///证券合约代码
+		TD_CodeType           szContractCode;
+
+		int                   nNum;
+		TD_Priority*          pPriority;
+		TD_RspQryPriority()
+		{
+			nQueryUserid = 0;
+			memset(szContractCode, 0, sizeof(TD_Priority));
+			nNum = 0;
+			pPriority = NULL;
+		}
+		virtual ~TD_RspQryPriority()
+		{
+			if(pPriority != NULL)
+			{
+				delete[] pPriority;
+				pPriority = NULL;
+			}
+		}
+	};
+	typedef TD_RspQryPriority TD_ReqUpdatePriority;
+	typedef TD_RspQryPriority TD_RspUpdatePriority;
 	//委托查询请求
 	struct TD_ReqQryOrder : TD_Base_Msg
 	{
@@ -1005,6 +1054,57 @@ namespace PT_QuantPlatform
 	typedef TD_RtnOrderStatusChangeNotice TD_OrderStatus;
 	///盈利推送参数
 	typedef TD_RspQryPosition TD_RtnProfit;
+
+	class TD_SimulationReservation
+	{
+	public:
+		char               szWinCode[64];
+		int                nLendingAmount;             // 底仓数量
+		double             nPrice;                     // 底仓均价
+	public:
+		TD_SimulationReservation()
+		{
+			memset(szWinCode, 0, 64);
+			nLendingAmount = 0;
+			nPrice = 0;
+		}
+		virtual ~TD_SimulationReservation()
+		{
+
+		}
+	};
+	// 模拟资金账号信息
+	class TD_SimulationAccount
+	{
+	public:
+		int64_t               nSimAccountId;
+		char                  szNickName[64];
+		char                  szText[128];
+
+		double                      nTotalAmount;
+		int                         nReservationNum;   // 底仓股票数量
+		TD_SimulationReservation*   pReservationCode;  // 底仓股票代码
+
+	public:
+		TD_SimulationAccount()
+		{
+			nSimAccountId = 0;
+			memset(szNickName, 0, 64);
+			memset(szText, 0, 128);
+
+			nTotalAmount = 0;
+			nReservationNum = 0;
+			pReservationCode = NULL;
+		}
+		virtual ~TD_SimulationAccount()
+		{
+			if(pReservationCode != NULL)
+			{
+				delete[] pReservationCode;
+				pReservationCode = NULL;
+			}
+		}
+	};
 }
 
 
