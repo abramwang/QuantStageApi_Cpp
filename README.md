@@ -11,13 +11,18 @@ QuantPlus_Api_Cpp 是 QuantPlus_Api 接口的 c++ 实现
 
 ## 安装方法
 
-你可以通过 [GitHub Releases](https://github.com/abramwang/PT_QuantBaseApi_Cpp/releases"GitHub Releases") 下载最新的版本并解压至任意目录下
+你可以通过在以下 [地址](https://github.com/abramwang/QuantPlusApi_Cpp/tree/master/bin) 下载最新的版本，其中提供了如下版本
 
-`include` 为开发用头文件
+**Window版本**
 
-`bin` 为各个版本库文件
+- [Win32-msvc-12.0-Debug](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-Win32-msvc-12.0-Debug.zip)
+- [Win32-msvc-12.0-Release](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-Win32-msvc-12.0-Release.zip)
+- [x64-msvc-12.0-Debug](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-x64-msvc-12.0-Debug.zip)
+- [x64-msvc-12.0-Release](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-x64-msvc-12.0-Release.zip)
 
-现阶段暂时提供了Windows64位版本，后续会推出linux及其他平台版本
+**Linux版本**
+
+- [地址](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-linux.tar.gz)
 
 
 
