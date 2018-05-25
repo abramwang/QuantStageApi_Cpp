@@ -20,7 +20,7 @@ namespace PT_QuantPlatform
 	public:
 		PT_QuantSpi() {}
 		virtual ~PT_QuantSpi() {}
-	public:
+	public://系统接口回调
 		///@brief 通知连接
 		///@param nSrvType 业务服务器类型 参考PT_QuantPlatform::PT_Quant_APPServerType
 		///@return 无
@@ -299,7 +299,7 @@ namespace PT_QuantPlatform
 	public:
 		PT_QuantApi();
 		virtual ~PT_QuantApi();
-	public:
+	public:// 系统接口
 		///获取API版本
 		///@param    无
 		///@return   API版本
