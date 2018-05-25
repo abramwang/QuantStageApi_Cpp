@@ -45,7 +45,7 @@ QuantPlus_Api_Cpp 是 QuantPlus_Api 接口的 c++ 实现
 
 1、动态加载，只需将dll文件拷贝到可执行文件同目录下即可，lib文件无用。
 
-2、静态加载，将dll文件拷贝到可执行文件同目录下，同时将lib文件拷贝到项目工程文件同目录下。
+2、静态加载，将dll文件拷贝到可执行文件同目录下，同时将lib文件拷贝到项目工程文件同目录下；请注意宏**WIN32**是否已经预定义，否则请自行定义或者自行指定lib依赖
 
 linux 版本目录结构如下
 
@@ -72,10 +72,6 @@ linux 版本目录结构如下
 将QuantBaseApi目录下所有so文件拷贝到系统默认路径下，或者自行添加环境变量即可
 
 [^注](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/%E4%B8%9A%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E9%80%9A%E6%97%B6%E4%B8%BB%E5%8A%A8%E9%80%9A%E7%9F%A5): 头文件都在[Include](https://github.com/abramwang/QuantPlusApi_Cpp/tree/master/include)中
-
-
-
-**LD_LIBRARY_PATH**下
 
 
 ## 快速开始
