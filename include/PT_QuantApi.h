@@ -42,57 +42,57 @@ namespace PT_QuantPlatform
 		///@param    isEnd                  是否是最后一条
 		///@return   无
 		///@remark   reqQueryAllUser接口的回复
-		virtual void onRspQueryAllUser(const PT_QuantUser* pUserInfo, bool isEnd) = 0;
+		virtual void onRspQueryAllUser(const PT_QuantUser* pUserInfo, bool isEnd){};
 		///查询用户信息回调
 		///@param    pPublicCode              公用券信息
 		///@param    nNum                     公用券数量
 		///@return   无
 		///@remark   reqQueryAllUser接口的回复
-		virtual void onRspPublicCode(const PT_QuantUserCodeControl* pPublicCode, int nNum) = 0;
+		virtual void onRspPublicCode(const PT_QuantUserCodeControl* pPublicCode, int nNum) {};
 		///修改用户信息回调
 		///@param    TD_QuantUserAuthen                修改后的信息
 		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
 		///@remark   reqUpdateUserAuthen接口的回复
-		virtual void onRspUpdateUserAuthen(const TD_QuantUserAuthen* rsp, int error) = 0;
+		virtual void onRspUpdateUserAuthen(const TD_QuantUserAuthen* rsp, int error) {};
 		///修改用户券池回调
 		///@param    TD_QuantUserCodePool              修改后的信息
 		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
 		///@remark   reqUpdateUserCodePool接口的回复
-		virtual void onRspUpdateUserCodePool(const TD_QuantUserCodePool* rsp, int error) = 0;
+		virtual void onRspUpdateUserCodePool(const TD_QuantUserCodePool* rsp, int error) {};
 		///修改用户可用券回调
 		///@Param    pUserDisablePublicCode        需要修改的用户可用券
 		///@param    error                    操作是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
 		///@remark   reqDisablePublicCode接口回调
-		virtual void onRspDisablePublicCode(const TD_QuantUserDisablePublicCode* pUserDisablePublicCode, int error) = 0;
+		virtual void onRspDisablePublicCode(const TD_QuantUserDisablePublicCode* pUserDisablePublicCode, int error) {};
 		///修改账户优先级回调
 		///@Param    rsp              修改请求信息
 		///@param    error            修改是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
 		///@remark   reqUpdateAccountPriority接口回调
-		virtual void onRspUpdateAccountPriority(const TD_RspUpdatePriority* rsp, int error) = 0;
+		virtual void onRspUpdateAccountPriority(const TD_RspUpdatePriority* rsp, int error) {};
 		///查询账户优先级回调
 		///@Param    rsp              优先级信息
 		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@param    isEnd            是否是最后一条
 		///@return   无
 		///@remark   reqQueryAccountPriority接口回调
-		virtual void onRspQueryAccountPriority(const TD_RspQryPriority* rsp, int error, bool isEnd) = 0;
+		virtual void onRspQueryAccountPriority(const TD_RspQryPriority* rsp, int error, bool isEnd) {};
 	public: //交易业务逻辑回调
 		///下单回调
 		///@param    rsp              下单回调信息
 		///@param    error            下单是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
 		///@remark   reqOrderInsert接口的回复
-		virtual void onRspOrderInsert(const TD_RspOrderInsert *rsp, int error) = 0;
+		virtual void onRspOrderInsert(const TD_RspOrderInsert *rsp, int error) {};
 		///撤单回调
 		///@param    rsp              撤单回调信息
 		///@param    error            撤单是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@return   无
 		///@remark   reqOrderDelete接口的回复
-		virtual void onRspOrderDelete(const TD_RspOrderDelete *rsp, int error) = 0;
+		virtual void onRspOrderDelete(const TD_RspOrderDelete *rsp, int error) {};
 
 		///查询委托回调
 		///@param    rsp              委托详细信息
@@ -100,71 +100,71 @@ namespace PT_QuantPlatform
 		///@param    isEnd            是否是最后一条
 		///@return   无
 		///@remark   reqQryOrder接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
-		virtual void onRspQryOrder(const TD_RspQryOrder *rsp, int error, bool isEnd) = 0;
+		virtual void onRspQryOrder(const TD_RspQryOrder *rsp, int error, bool isEnd) {};
 		///查询成交明细
 		///@param    rsp              成交详细信息
 		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@param    isEnd            是否是最后一条
 		///@return   无
 		///@remark   reqQryMatch接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
-		virtual void onRspQryMatch(const TD_RspQryMatch *rsp, int error, bool isEnd) = 0;
+		virtual void onRspQryMatch(const TD_RspQryMatch *rsp, int error, bool isEnd) {};
 		///查询持仓回调
 		///@param    rsp              持仓详细信息
 		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@param    isEnd            是否是最后一条
 		///@return   无
 		///@remark   reqQryPosition接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
-		virtual void onRspQryPosition(const TD_RspQryPosition *rsp, int error, bool isEnd) = 0;
+		virtual void onRspQryPosition(const TD_RspQryPosition *rsp, int error, bool isEnd) {};
 		///查询最大可委托量回调
 		///@param    rsp              可委托量详细信息
 		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@param    isEnd            是否是最后一条
 		///@return   无
 		///@remark   reqQryMaxEntrustCount接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
-		virtual void onRspQryMaxEntrustCount(const TD_RspQryMaxEntrustCount* rsp, int error, bool isEnd) = 0;
+		virtual void onRspQryMaxEntrustCount(const TD_RspQryMaxEntrustCount* rsp, int error, bool isEnd) {};
 		///查询资金帐号最大可委托量回调
 		///@param    rsp              可委托量详细信息
 		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@param    isEnd            是否是最后一条
 		///@return   无
 		///@remark   reqQryAccountMaxEntrustCount接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
-		virtual void onRspQryAccountMaxEntrustCount(const TD_RspQryAccountMaxEntrustCount* rsp, int error, bool isEnd) = 0;
+		virtual void onRspQryAccountMaxEntrustCount(const TD_RspQryAccountMaxEntrustCount* rsp, int error, bool isEnd) {};
 
 		///订单状态改变推送
 		///@param    notice              定单状态信息
 		///@return   无
 		///@remark   该接口在订单状态改变时被调用
-		virtual void onRtnOrderStatusChangeNotice(const TD_RtnOrderStatusChangeNotice *notice) = 0;
+		virtual void onRtnOrderStatusChangeNotice(const TD_RtnOrderStatusChangeNotice *notice) {};
 		///成交明细推送
 		///@param    notice              成交明细信息
 		///@return   无
 		///@remark   该接口在订单发生成交时被调用，推送成交明细
-		virtual void onRtnOrderMatchNotice(const TD_RtnOrderMatchNotice *notice) = 0;
+		virtual void onRtnOrderMatchNotice(const TD_RtnOrderMatchNotice *notice) {};
 		///持仓浮盈推送
 		///@param    notice              持仓浮盈信息
 		///@return   无
 		///@remark   该接口频率与Tick数据同步，推送持仓的的浮盈信息
-		virtual void onRtnProfit(const TD_RtnProfit *notice) = 0;
+		virtual void onRtnProfit(const TD_RtnProfit *notice) {};
 		///用户权限信息推送
 		///@param    notice              用户权限信息
 		///@return   无
 		///@remark   当用户权限信息被修改时推送；登陆时也会推送一次
-		virtual void onRtnUserAuthen(const TD_QuantUserAuthen* notice) = 0;
+		virtual void onRtnUserAuthen(const TD_QuantUserAuthen* notice) {};
 		///最大可委托量推送
 		///@param    notice              用户权限信息
 		///@return   无
 		///@remark   当用户可委托量被改变时推送
-		virtual void onRtnMaxEntrustCount(const TD_RspQryMaxEntrustCount* notice) = 0;
+		virtual void onRtnMaxEntrustCount(const TD_RspQryMaxEntrustCount* notice) {};
 		///修改用户券池推送
 		///@param    notice              券池信息
 		///@return   无
 		///@remark   用户券池被修改之后推送股票可买可卖初始值
-		virtual void onRtnUpdateUserCodePool(const TD_QuantUserCodePool* notice) = 0;
+		virtual void onRtnUpdateUserCodePool(const TD_QuantUserCodePool* notice) {};
 		///模拟资金账号推送
 		///@param    notice              模拟资金账号信息
 		///@return   无
 		///@remark   创建模拟交易环境，登陆时阻塞进行推送所有可用模拟账号信息
-		virtual void onRtnSimulationAccount(const TD_SimulationAccount* notice) = 0;
+		virtual void onRtnSimulationAccount(const TD_SimulationAccount* notice) {};
 	public://行情业务逻辑回调
 		///@brief 响应请求交易日列表
 		///@param[in] nReqID 消息请求序号
@@ -175,7 +175,7 @@ namespace PT_QuantPlatform
 		///@param[in] nErrNo 响应失败的错误码
 		///@param[in] szErrMsg 响应失败的错误描述
 		///@return 无
-		virtual void OnRspTradingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay, int nErrNo, const char *szErrMsg) = 0;
+		virtual void OnRspTradingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay, int nErrNo, const char *szErrMsg) {};
 		///@brief 响应请求停牌日列表
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pWindCode 指定的股票代码表
@@ -186,7 +186,7 @@ namespace PT_QuantPlatform
 		///@param[in] szErrMsg 响应失败的错误描述
 		///@return 无
 		///@note 该信号会在请求停牌日列表后主动通知
-		virtual void OnRspHaltingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay, int nErrNo, const char *szErrMsg) = 0;
+		virtual void OnRspHaltingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay, int nErrNo, const char *szErrMsg) {};
 		///@brief 响应请求订阅行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] nSubType 指定的订阅类型
@@ -199,14 +199,14 @@ namespace PT_QuantPlatform
 		///@param[in] szErrMsg 响应失败的错误描述
 		///@return 无
 		///@note 该信号会在请求订阅行情后主动通知
-		virtual void OnRspSubQuote(MD_ReqID nReqID, MD_SubType nSubType, MD_CycType nCycType, const MD_CodeType *pSubWindCode, long nSubWindCodeNum, MD_ISODateTimeType szBeginTime, MD_ISODateTimeType szEndTime, int nErrNo, const char *szErrMsg) = 0;
+		virtual void OnRspSubQuote(MD_ReqID nReqID, MD_SubType nSubType, MD_CycType nCycType, const MD_CodeType *pSubWindCode, long nSubWindCodeNum, MD_ISODateTimeType szBeginTime, MD_ISODateTimeType szEndTime, int nErrNo, const char *szErrMsg) {};
 		///@brief 通知交易代码表
 		///@param[in] pWindCode 指定的股票代码表
 		///@param[in] nWindCodeNum 指定的股票代码数量
 		///@param[in] pOptionCode 指定的期权代码表
 		///@param[in] nOptionCodeNum 指定的期权代码数量
 		///@return 无
-		virtual void OnRtnTradingCode(const MD_DATA_CODE *pWindCode, long nWindCodeNum, const MD_DATA_OPTION_CODE *pOptionCode, long nOptionCodeNum) = 0;
+		virtual void OnRtnTradingCode(const MD_DATA_CODE *pWindCode, long nWindCodeNum, const MD_DATA_OPTION_CODE *pOptionCode, long nOptionCodeNum) {};
 		///@brief 通知交易日列表
 		///@param[in] nReqID 消息请求序号
 		///@param[in] szWindCode 指定的股票的代码(该指针若为nullptr, 则表示整个市场的交易日列表)
@@ -214,7 +214,7 @@ namespace PT_QuantPlatform
 		///@param[in] nDayNum 交易日个数
 		///@return 无
 		///@note 该信号会在请求交易日列表后主动通知
-		virtual void OnRtnTradingDay(MD_ReqID nReqID, const char *szWindCode, const MD_ISODateTimeType *pDay, long nDayNum) = 0;
+		virtual void OnRtnTradingDay(MD_ReqID nReqID, const char *szWindCode, const MD_ISODateTimeType *pDay, long nDayNum) {};
 		///@brief 通知停牌日列表
 		///@param[in] nReqID 消息请求序号
 		///@param[in] szWindCode 指定股票的代码
@@ -222,72 +222,72 @@ namespace PT_QuantPlatform
 		///@param[in] nDayNum 交易日个数
 		///@return 无
 		///@note 该信号会在请求停牌日列表后主动通知
-		virtual void OnRtnHaltingDay(MD_ReqID nReqID, const char *szWindCode, const MD_ISODateTimeType *pDay, long nDayNum) = 0;
+		virtual void OnRtnHaltingDay(MD_ReqID nReqID, const char *szWindCode, const MD_ISODateTimeType *pDay, long nDayNum) {};
 		///@brief 通知个股行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pMarket 个股的行情数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnMarket(MD_ReqID nReqID, MD_DATA_MARKET *pMarket) = 0;
+		virtual void OnRtnMarket(MD_ReqID nReqID, MD_DATA_MARKET *pMarket) {};
 		///@brief 通知K线行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pKLine K线行情数据地址
 		///@return 无
 		///@note 该信号会在请求历史K线行情或订阅实时K线行情后主动通知
-		virtual void OnRtnKLine(MD_ReqID nReqID, MD_DATA_KLINE *pKLine) = 0;
+		virtual void OnRtnKLine(MD_ReqID nReqID, MD_DATA_KLINE *pKLine) {};
 		///@brief 通知指数行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pIndex 指数行情数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnIndex(MD_ReqID nReqID, MD_DATA_INDEX *pIndex) = 0;
+		virtual void OnRtnIndex(MD_ReqID nReqID, MD_DATA_INDEX *pIndex) {};
 		///@brief 通知逐笔成交
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pTrans 逐笔成交数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnTransaction(MD_ReqID nReqID, MD_DATA_TRANSACTION *pTrans) = 0;
+		virtual void OnRtnTransaction(MD_ReqID nReqID, MD_DATA_TRANSACTION *pTrans) {};
 		///@brief 通知委托队列
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pQueue 委托队列数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnOrderQueue(MD_ReqID nReqID, MD_DATA_ORDER_QUEUE *pQueue) = 0;
+		virtual void OnRtnOrderQueue(MD_ReqID nReqID, MD_DATA_ORDER_QUEUE *pQueue) {};
 		///@brief 通知逐笔委托
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pOrder 逐笔委托数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnOrder(MD_ReqID nReqID, MD_DATA_ORDER *pOrder) = 0;
+		virtual void OnRtnOrder(MD_ReqID nReqID, MD_DATA_ORDER *pOrder) {};
 		///@brief 通知期货行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pFuture 期货行情数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnFuture(MD_ReqID nReqID, MD_DATA_FUTURE *pFuture) = 0;
+		virtual void OnRtnFuture(MD_ReqID nReqID, MD_DATA_FUTURE *pFuture) {};
 		///@brief 通知期权行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pOption 期权行情数据地址
 		///@return 无
 		///@note 该信号会在请求历史逐笔行情或订阅实时逐笔行情后主动通知
-		virtual void OnRtnFutureOption(MD_ReqID nReqID, MD_DATA_FUTURE *pOption) = 0;
+		virtual void OnRtnFutureOption(MD_ReqID nReqID, MD_DATA_FUTURE *pOption) {};
 		///@brief 通知开市消息
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pDate 开市日期地址
 		///@return 无
 		///@note 该信号会在请求历史行情或订阅实时行情后主动通知
-		virtual void OnRtnDayBegin(MD_ReqID nReqID, MD_ISODateTimeType pDate) = 0;
+		virtual void OnRtnDayBegin(MD_ReqID nReqID, MD_ISODateTimeType pDate) {};
 		///@brief 通知闭市消息
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pDate 闭市日期地址
 		///@return 无
 		///@note 该信号会在请求历史行情或订阅实时行情后主动通知
-		virtual void OnRtnDayEnd(MD_ReqID nReqID, MD_ISODateTimeType pDate) = 0;
+		virtual void OnRtnDayEnd(MD_ReqID nReqID, MD_ISODateTimeType pDate) {};
 		///@brief 通知实效性消息
 		///@param[in] nReqID
 		///@return 无
 		///@note 该信号只在请求实时行情时出现, 用于表示之后的数据为实时推送行情数据
-		virtual void OnRtnTimeless(MD_ReqID nReqID) = 0;
+		virtual void OnRtnTimeless(MD_ReqID nReqID) {};
 	};
 
 #ifdef WIN32

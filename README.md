@@ -1,6 +1,12 @@
 ![img](http://www.quantplus.com.cn/static/img/logo_2.png)
 # QuantPlus_Api_Cpp
 
+| 项目名称 | QuantPlus量化系统平台      | 研发单位 | 上海云察信息科技有限公司 |
+| ---- | -------------------- | ---- | ------------ |
+| 文档名称 | QuantBaseApi cpp开发手册 | 项目版本 | beta5.1.3    |
+| 文档状态 | 编辑中                  | 发布日期 | 2018.05.25   |
+| 文档编辑 | 杨军辉、王龙               | 文档版本 | 0.1          |
+
 [项目主页](http://www.quantplus.com.cn/"项目主页") 
 
 QuantPlus_Api_Cpp是QuantPlus团队根据多年国内二级市场上的量化交易经验，将底层量化接口开放出来的一个产品。旨在为国内二级市场的**量化开发者**在数据、算法、交易等方面提供全面支持。目前已开放上证、深圳、中金所三个市场的level2深度行情数据、常用技术分析指标库、普通股票交易、融资融券交易的接口，不久后将开放个股期权交易接口的使用。
@@ -22,8 +28,54 @@ QuantPlus_Api_Cpp 是 QuantPlus_Api 接口的 c++ 实现
 
 **Linux版本**
 
-- [地址](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-linux.tar.gz)
+- [Download](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/PT_QuantApi.tar.gz)
 
+
+下载完成后解压至任意目录下。其中，windows版本的目录结构如下
+
+```
+├─QuantBaseApi
+	├─PT_MarketDataApi.dll
+	├─PT_QuantApi.dll
+	├─PT_TradeDataApi.dll
+	└─PT_QuantApi.lib
+
+
+```
+
+1、动态加载，只需将dll文件拷贝到可执行文件同目录下即可，lib文件无用。
+
+2、静态加载，将dll文件拷贝到可执行文件同目录下，同时将lib文件拷贝到项目工程文件同目录下。
+
+linux 版本目录结构如下
+
+```
+├─QuantBaseApi
+	├─libboost_chrono.so.1.64.0
+	├─libboost_context.so.1.64.0
+	├─libboost_coroutine.so.1.64.0
+	├─libboost_date_time.so.1.64.0
+	├─libboost_filesystem.so.1.64.0
+	├─libboost_program_options.so.1.64.0
+	├─libboost_system.so.1.64.0
+	├─libboost_thread.so.1.64.0
+	├─libprotobuf.so.13
+	├─libPT_MarketDataApi.so
+	├─libPT_QuantApi.so
+	├─libPT_TradeDataApi.so
+	├─libPTNetwork.so
+	├─libsnappy.so.1
+	└─libz.so.1
+
+```
+
+将QuantBaseApi目录下所有so文件拷贝到系统默认路径下，或者自行添加环境变量即可
+
+[^注](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/%E4%B8%9A%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E9%80%9A%E6%97%B6%E4%B8%BB%E5%8A%A8%E9%80%9A%E7%9F%A5): 头文件都在[Include](https://github.com/abramwang/QuantPlusApi_Cpp/tree/master/include)中
+
+
+
+**LD_LIBRARY_PATH**下
 
 
 ## 快速开始
@@ -82,5 +134,21 @@ int main(int argc, char const *argv[])
 }
 ```
 
+## 文档 [详情](https://github.com/abramwang/QuantPlusApi_Cpp/tree/master/doc)
 
+整个 QuantPlus_BaseApi 按照功能分类提供了3种类型的接口
+
+**系统接口** [详情](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3.md)
+
+系统接口，API实例初始化、创建、删除、错误码的转换、股票代码表的获取、用户的登陆以及相关回调等功能
+
+系统函数全部为同步函数！
+
+**交易接口** [详情](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/%E4%BA%A4%E6%98%93%E6%8E%A5%E5%8F%A3.md)
+
+交易业务请求及相关回调、推送接口
+
+**行情接口** [详情](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/%E8%A1%8C%E6%83%85%E6%8E%A5%E5%8F%A3.md)
+
+行情业务请求及相关回调、推送接口
 
