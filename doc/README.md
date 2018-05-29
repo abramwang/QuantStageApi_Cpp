@@ -51,7 +51,7 @@
 
 - 模拟引擎 
 
-  ![](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/doc/png/%E6%A8%A1%E6%8B%9F%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B.png)
+  ![](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/cf64ceea6fcf2a3fa64f2736553692c6196d8752/doc/png/%E6%A8%A1%E6%8B%9F%E5%BC%95%E6%93%8E%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B.png)
 
   [示例代码](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/demo/%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%8B%9F%E5%BC%95%E6%93%8E.md)
 
