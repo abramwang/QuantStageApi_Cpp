@@ -34,7 +34,8 @@ QuantPlus_Api_Cpp 是 QuantPlus_Api 接口的 c++ 实现
 
 **Linux版本**
 
-- [Download](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/PT_QuantApi.tar.gz)
+- [linux-gcc4.8](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/linux-gcc4.8.tar.gz)
+- [linux-gcc5.4](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/linux-gcc5.4.tar.gz)
 
 
 下载完成后解压至任意目录下。其中，windows版本的目录结构如下
@@ -76,6 +77,12 @@ linux 版本目录结构如下
 ```
 
 将QuantBaseApi目录下所有so文件拷贝到系统默认路径下，或者自行添加环境变量即可
+
+snappy版本为1.1.3
+
+protobuf版本为3.3.0
+
+boost版本为1.64
 
 [^注](https://github.com/abramwang/QuantPlusApi_Cpp/blob/master/doc/%E4%B8%9A%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E9%80%9A%E6%97%B6%E4%B8%BB%E5%8A%A8%E9%80%9A%E7%9F%A5): 头文件都在[Include](https://github.com/abramwang/QuantPlusApi_Cpp/tree/master/include)中
 
