@@ -13,7 +13,7 @@
 #include "PT_QuantBaseErr.h"
 #include "PT_QuantDef.h"
 
-namespace PT_QuantPlatform
+namespace QuantPlus
 {
 	class PT_QuantSpi
 	{
@@ -22,12 +22,12 @@ namespace PT_QuantPlatform
 		virtual ~PT_QuantSpi() {}
 	public://系统接口回调
 		///@brief 通知连接
-		///@param nSrvType 业务服务器类型 参考PT_QuantPlatform::PT_Quant_APPServerType
+		///@param nSrvType 业务服务器类型 参考QuantPlus::PT_Quant_APPServerType
 		///@return 无
 		///@note 在业务服务器连通时主动通知
 		virtual void OnConnect(int nSrvType) = 0;
 		///@brief 通知断开
-		///@param nSrvType 业务服务器类型 参考PT_QuantPlatform::PT_Quant_APPServerType
+		///@param nSrvType 业务服务器类型 参考QuantPlus::PT_Quant_APPServerType
 		///@return 无
 		///@note 在业务服务器断开时主动通知
 		virtual void OnDisconnect(int nSrvType) = 0;

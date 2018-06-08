@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
-namespace PT_QuantPlatform
+namespace QuantPlus
 {
 	/// <summary>
 	/// QuantApi

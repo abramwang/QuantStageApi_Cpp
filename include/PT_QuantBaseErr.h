@@ -3,9 +3,9 @@
 
 #ifndef PT_QUANTBASEAPI_NAMESPACE
 #define PT_QUANTBASEAPI_NAMESPACE
-#define PT_QUANTBASEAPI_NAMESPACE_BEGIN    namespace PT_QuantPlatform {
+#define PT_QUANTBASEAPI_NAMESPACE_BEGIN    namespace QuantPlus {
 #define PT_QUANTBASEAPI_NAMESPACE_END      }
-#define USE_PT_QUANTBASEAPI_NAMESPACE      using namespace PT_QuantPlatform;
+#define USE_PT_QUANTBASEAPI_NAMESPACE      using namespace QuantPlus;
 #endif /* PT_QUANTBASEAPI_NAMESPACE */
 
 #include <stdint.h>
