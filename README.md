@@ -100,7 +100,7 @@ using namespace std;
 
 #include <PT_QuantApi.h>
 
-using namespace PT_QuantPlatform;
+using namespace QuantPlus;
 
 //创建一个自己的回调数据处理类
 class MySpi : public PT_QuantSpi{
