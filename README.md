@@ -1,7 +1,6 @@
-![img](http://www.quantplus.com.cn/static/img/logo_2.png)
 # QuantPlus_Api_Cpp
 
-| 项目名称 | QuantPlus量化系统平台      | 研发单位 | 上海云察信息科技有限公司 |
+| 项目名称 | Quant量化系统平台      | 研发单位 |  |
 | ---- | -------------------- | ---- | ------------ |
 | 文档名称 | QuantBaseApi cpp开发手册 | 项目版本 | beta5.1.3    |
 | 文档状态 | 编辑中                  | 发布日期 | 2018.05.25   |
