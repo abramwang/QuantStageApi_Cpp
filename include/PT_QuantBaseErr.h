@@ -51,16 +51,28 @@ typedef enum
 	EQuantErrorType_StrategyRiskCantWithDrawn,          //策略强平无法撤单
 	EQuantErrorType_WithoutthisAuthority,               //无此权限
 	EQuantErrorType_InvalidCode,                        //非法证券代码
-	EQuantErrorType_NoPisitionToClose,                  //无仓可以平
+	EQuantErrorType_NoPisitionToClose,                  //风控强平时，无仓可以平
 	EQuantErrorType_InvalidAction,                      //异常操作
 	EQuantErrorType_NotSetTestBack,                     //未设置回测资金账号，不能正常下单
 	EQuantErrorType_NotAvailableAccount,                //不可用的资金账号
+	EQuantErrorType_CenterServerError,                  //权限服务器异常，暂时无法修改权限
+	EQuantErrorType_NoPriority,                         //用户优先级异常
+	EQuantErrorType_NoAccountAvaliable,                 //资金通道异常
+	EQuantErrorType_NotEnoughVolumeTobeUsed,            //资金账户可用券不够
 
 	// QuantApi: 600-800
 	EQuantErrorType_MDNotConnect = 600,               // 尚未连接行情服务器
 	EQuantErrorType_TDNotConnect,                     // 尚未连接交易服务器
 	EQuantErrorType_MDNotAvaliable,                   // 无法正常使用行情
 	EQuantErrorType_TDNotAvaliable,                   // 无法正常使用交易
+
+	// LoginErrorCode : 900-905
+	EQuantErrorType_ErrorLoginInfo = 900,				//用户名密码不匹配
+	EQuantErrorType_TDErrorApiVersion_TEST,		        //测试交易服务器api版本号不兼容
+	EQuantErrorType_TDErrorApiVersion_REAL,				//实盘交易服务器api版本号不兼容
+	EQuantErrorType_MDErrorApiVersion_REALTIME,			//实时行情服务器api版本号不兼容
+	EQuantErrorType_MDErrorApiVersion_HISTORY,			//历史行情服务器api版本号不兼容
+	EQuantErrorType_MDErrorApiVersion_CACHE,			//缓存行情服务器api版本号不兼容
 
 } EQuantErrorType;
 

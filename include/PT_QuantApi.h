@@ -20,7 +20,7 @@ namespace QuantPlus
 	public:
 		PT_QuantSpi() {}
 		virtual ~PT_QuantSpi() {}
-	public://系统接口回调
+	public:
 		///@brief 通知连接
 		///@param nSrvType 业务服务器类型 参考QuantPlus::PT_Quant_APPServerType
 		///@return 无
@@ -35,14 +35,14 @@ namespace QuantPlus
 		///@param  pInfo 用户信息
 		///@return 无
 		///@note 登录成功之后返回的用户信息
-		virtual void onRtnUserInfo(const PT_QuantUserBase* pInfo) = 0;
+		virtual void onRtnUserInfo(const PT_QuantUserBase* pInfo) {};
 	public://非业务级别指令回调
 		///查询用户信息回调
 		///@param    pUserInfo              回调信息指针
 		///@param    isEnd                  是否是最后一条
 		///@return   无
 		///@remark   reqQueryAllUser接口的回复
-		virtual void onRspQueryAllUser(const PT_QuantUser* pUserInfo, bool isEnd){};
+		virtual void onRspQueryAllUser(const PT_QuantUser* pUserInfo, bool isEnd) {};
 		///查询用户信息回调
 		///@param    pPublicCode              公用券信息
 		///@param    nNum                     公用券数量
@@ -122,7 +122,14 @@ namespace QuantPlus
 		///@return   无
 		///@remark   reqQryMaxEntrustCount接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
 		virtual void onRspQryMaxEntrustCount(const TD_RspQryMaxEntrustCount* rsp, int error, bool isEnd) {};
-		///查询资金帐号最大可委托量回调
+		///查询资金帐号信息初始值回调
+		///@param    rsp              可委托量详细信息
+		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@param    isEnd            是否是最后一条
+		///@return   无
+		///@remark   reqQryAccountInitMaxEntrustCount接口的回复，该接口有可能会重复触发直到最后一条IsEnd为True rsp为空的消息
+		virtual void onRspQryAccountInitMaxEntrustCount(const TD_RspQryInitAccountMaxEntrustCount* rsp, int error, bool isEnd) {};
+		///查询资金帐号当前信息回调
 		///@param    rsp              可委托量详细信息
 		///@param    error            查询是否成功，非0代表失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@param    isEnd            是否是最后一条
@@ -299,7 +306,7 @@ namespace QuantPlus
 	public:
 		PT_QuantApi();
 		virtual ~PT_QuantApi();
-	public:// 系统接口
+	public:
 		///获取API版本
 		///@param    无
 		///@return   API版本
@@ -347,9 +354,9 @@ namespace QuantPlus
 		///登录认证获取权限
 		///@Param    szUseName            登录帐号
 		///@Param    szPasswd             登录密码
-		///@return   true登录成功
+		///@return   返回0登录成功,非0登录失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark:  采用阻塞模式
-		virtual bool Login(char* szUseName, char* szPasswd) = 0;
+		virtual int Login(char* szUseName, char* szPasswd) = 0;
 		///获取股票代码表
 		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark:  采用阻塞模式
@@ -360,6 +367,36 @@ namespace QuantPlus
 		///退出同步执行
 		///@remark:  强行退出同步执行
 		virtual void BreakExec() = 0;
+	public:// 非业务级别接口
+		///获取所有用户信息
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark:  采用阻塞模式
+		//  virtual int reqQueryAllUser() = 0;
+		///修改用户权限
+		///@Param    req                  请求指令
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式，修改方式为覆盖修改
+		//  virtual int reqUpdateUserAuthen(TD_QuantUserAuthen* pUserAuthen) = 0;
+		///修改用户可用券
+		///@Param    req                  请求指令
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式，修改方式为增量修改,当Id为-1000的时候修改的是公用券
+		//  virtual int reqUpdateUserCodePool(TD_QuantUserCodePool* pUserCodePool) =0;
+		///修改用户可用券
+		///@Param    pUserDisablePublicCode        需要修改的用户可用券
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式，修改方式为增量修改
+		//  virtual int reqDisablePublicCode(TD_QuantUserDisablePublicCode* pUserDisablePublicCode) = 0;
+		///修改账户优先级
+		///@Param    req          修改请求信息
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式,修改为覆盖修改
+		//  virtual int reqUpdateAccountPriority(TD_ReqUpdatePriority* req) = 0;
+		///查询账户优先级
+		///@Param    req          查询请求信息
+		///@return   返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式，nUserId为0，默认为查询全部
+		//  virtual int reqQueryAccountPriority(TD_ReqQryPriority* req) = 0;
 	public:///交易业务接口
 		///下单
 		///@Param    req                  下单请求信息
@@ -391,7 +428,12 @@ namespace QuantPlus
 		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
 		virtual int reqQryMaxEntrustCount(TD_ReqQryMaxEntrustCount* req) = 0;
-		///查询资金账号最大可委托量
+		///查询资金帐号信息初始值
+		///@Param    req                  查询请求信息
+		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
+		///@remark   采用非阻塞模式
+		virtual int reqQryAccountInitMaxEntrustCount(TD_ReqQryAccountMaxEntrustCount* req) = 0;
+		///查询资金帐号当前信息
 		///@Param    req                  查询请求信息
 		///@return   返回不为0，发送失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@remark   采用非阻塞模式
@@ -401,7 +443,7 @@ namespace QuantPlus
 		///@remark   采用非阻塞模式
 		virtual int reqSubscribeMaxEntrustCount() = 0;
 
-	public:///行情业务接口
+	public:
 		///@brief 请求交易日列表
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pWindCode 指定的股票代码列表
@@ -410,7 +452,7 @@ namespace QuantPlus
 		///@param[in] szEndDay 指定的结束日期
 		///@return 无
 		///@note 如果调用者为pWindCode插入的是动态内存, 由调用者负责释放, 本接口内部不作释放处理
-		virtual int ReqTradingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay) = 0;
+		virtual int ReqTradingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, const MD_ISODateTimeType szBeginDay, const MD_ISODateTimeType szEndDay) = 0;
 		///@brief 请求停牌日列表
 		///@param[in] nReqID 消息请求序号
 		///@param[in] pWindCode 指定的股票代码列表
@@ -419,7 +461,7 @@ namespace QuantPlus
 		///@param[in] szEndDay 指定的结束日期
 		///@return 无
 		///@note 如果调用者为pWindCode插入的是动态内存, 由调用者负责释放, 本接口内部不作释放处理
-		virtual int ReqHaltingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay) = 0;
+		virtual int ReqHaltingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, const MD_ISODateTimeType szBeginDay, const MD_ISODateTimeType szEndDay) = 0;
 		///@brief 请求订阅行情
 		///@param[in] nReqID 消息请求序号
 		///@param[in] nSubType 订阅行情类型
@@ -449,7 +491,7 @@ namespace QuantPlus
 		///@param[in] szEndTime 指定的结束时间
 		///@return 返回不为0，请求失败，错误码参考TQuantErrorType::EQuantErrorType
 		///@note 如果调用者为pSubWindCode插入的是动态内存, 由调用者负责释放, 本接口内部不作释放处理
-		virtual int ReqSubQuote(MD_ReqID nReqID, MD_SubType nSubType, MD_CycType nCycType, const MD_CodeType *pSubWindCode, long nSubWindCodeNum, MD_ISODateTimeType szBeginTime, MD_ISODateTimeType szEndTime) = 0;
+		virtual int ReqSubQuote(MD_ReqID nReqID, MD_SubType nSubType, MD_CycType nCycType, const MD_CodeType *pSubWindCode, long nSubWindCodeNum, const MD_ISODateTimeType szBeginTime, const MD_ISODateTimeType szEndTime) = 0;
 	};
 }
 #endif//_PT_StrategyApi_H_
