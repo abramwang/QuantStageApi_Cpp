@@ -23,14 +23,14 @@ QuantBase_Api_Cpp 是 QuantBase_Api 接口的 c++ 实现
 
   终端基于c++Api进行开发，账户与Api通用，用户可用终端数据作为参考
 
-**Window版本**
+**Window版本**（建议使用环境：xp以上）
 
 - [Win32-msvc-12.0-Debug](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-Win32-msvc-12.0-Debug.zip)
 - [Win32-msvc-12.0-Release](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-Win32-msvc-12.0-Release.zip)
 - [x64-msvc-12.0-Debug](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-x64-msvc-12.0-Debug.zip)
 - [x64-msvc-12.0-Release](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-x64-msvc-12.0-Release.zip)
 
-**Linux版本**
+**Linux版本**（建议使用环境：ubuntu 16.04）
 
 - [linux-gcc4.8](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc4.8.tar.gz)
 - [linux-gcc5.4](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc5.4.tar.gz)
