@@ -10,52 +10,54 @@ namespace QuantPlus
 	/// </summary>
 	typedef char PT_CodeType[64];
 
-	// ĞĞÇé»·¾³
+	// è¡Œæƒ…ç¯å¢ƒ
 	enum PT_QuantMdAppEType
 	{
-		PT_QuantMdAppEType_Test = 0,            // ²âÊÔ»·¾³
-		PT_QuantMdAppEType_Real,                // Éú²ú»·¾³
+		PT_QuantMdAppEType_Test = 0,            // æµ‹è¯•ç¯å¢ƒ
+		PT_QuantMdAppEType_Real,                // ç”Ÿäº§ç¯å¢ƒ
 	};
 
-	// ½»Ò×»·¾³
+	// äº¤æ˜“ç¯å¢ƒ
 	enum PT_QuantTdAppEType
 	{
-		PT_QuantTdAppEType_Real,                // Éú²ú»·¾³
-		PT_QuantTdAppEType_Test,                // ²âÊÔ»·¾³
-		PT_QuantTdAppEType_Simulation           // Ä£Äâ»·¾³
+		PT_QuantTdAppEType_Real,                // ç”Ÿäº§ç¯å¢ƒ
+		PT_QuantTdAppEType_Test,                // æµ‹è¯•ç¯å¢ƒ
+		PT_QuantTdAppEType_Simulation           // æ¨¡æ‹Ÿç¯å¢ƒ
 	};
 
-	// ÒµÎñ·şÎñÆ÷ÀàĞÍ
+	// ä¸šåŠ¡æœåŠ¡å™¨ç±»å‹
 	enum PT_Quant_APPServerType
 	{
-		PT_Quant_APPServerType_RealMdServer = 0,            // ÊµÊ±ĞĞÇé·şÎñÆ÷
-		PT_Quant_APPServerType_HisrotyMdServer,             // ÀúÊ·ĞĞÇé·şÎñÆ÷
-		PT_Quant_APPServerType_CacheMdServer,               // ÊµÊ±»º´æ·şÎñÆ÷
+		PT_Quant_APPServerType_RealMdServer = 0,            // å®æ—¶è¡Œæƒ…æœåŠ¡å™¨
+		PT_Quant_APPServerType_HisrotyMdServer,             // å†å²è¡Œæƒ…æœåŠ¡å™¨
+		PT_Quant_APPServerType_CacheMdServer,               // å®æ—¶ç¼“å­˜æœåŠ¡å™¨
 
-		PT_Quant_APPServerType_TDServer = 10,               //  ½»Ò×·şÎñÆ÷
+		PT_Quant_APPServerType_TDServer = 10,               //  äº¤æ˜“æœåŠ¡å™¨
 	};
 
-	// ÓÃ»§½ÇÉ«
+	// ç”¨æˆ·è§’è‰²
 	enum PT_QuantUserType
 	{
-		PT_QuantUserType_Risk = 1,                       //  ·ç¿ØÔ±
-		PT_QuantUserType_Trade                           //  ½»Ò×Ô±
+		PT_QuantUserType_Risk = 1,                       //  é£æ§å‘˜
+		PT_QuantUserType_Trade                           //  äº¤æ˜“å‘˜
 	};
 
-	// ÓÃ»§ĞÅÏ¢
+	// ç”¨æˆ·ä¿¡æ¯
 	class PT_QuantUserBase
 	{
 	public:
 		int64_t                        nId;
-		char               szUserName[128];                 // ÓÃ»§Ãû
-		char               szNickName[128];                 // ÓÃ»§±ğÃû
-		int                       nGroupId;                 // ×éID
+		char               szUserName[128];                 // ç”¨æˆ·å
+		char               szNickName[128];                 // ç”¨æˆ·åˆ«å
+		int                       nGroupId;                 // ç»„ID
 
-		PT_QuantUserType   nUserRole;                       // ÓÃ»§½ÇÉ«
+		PT_QuantUserType   nUserRole;                       // ç”¨æˆ·è§’è‰²
 
-		double          nStampTax;                   //  Ó¡»¨Ë°
-		double          nTransferFees;               //  ¹ı»§·Ñ
-		double          nCommissions;                //  Ó¶½ğ
+		double          nStampTax;                   //  å°èŠ±ç¨
+		double          nTransferFees;               //  è¿‡æˆ·è´¹
+		double          nCommissions;                //  ä½£é‡‘
+
+		char			szSecurityCode[32];					//éªŒè¯ç 
 
 		PT_QuantUserBase()
 		{
@@ -68,6 +70,8 @@ namespace QuantPlus
 			nStampTax = 0;
 			nTransferFees = 0;
 			nCommissions = 0;
+
+			memset(szSecurityCode, 0, 32);
 		}
 		virtual ~PT_QuantUserBase()
 		{
@@ -75,13 +79,13 @@ namespace QuantPlus
 		}
 	};
 
-	// È¯³ØÀà
+	// åˆ¸æ± ç±»
 	class PT_QuantUserCodeControl
 	{
 	public:
 		char               szWinCode[64];
-		double             nCaptial;                   // ×î´ó¿ÉÓÃ×Ê½ğ
-		int                nLendingAmount;             // ×î´ó¿ÉÓÃÈ¯
+		double             nCaptial;                   // æœ€å¤§å¯ç”¨èµ„é‡‘
+		int                nLendingAmount;             // æœ€å¤§å¯ç”¨åˆ¸
 		PT_QuantUserCodeControl()
 		{
 			memset(szWinCode, 0, 64);
@@ -93,20 +97,26 @@ namespace QuantPlus
 	class PT_QuantUser : public PT_QuantUserBase
 	{
 	public:
-		bool               ifStopTrade;                     // ÊÇ·ñÍ£»ú
-		int               nStopTradePostion;                // Í£»úÎ»(¿÷Ëã×Ê½ğÁ¿)
-		double     nStopPercentTradePostion;                // Í£»úÎ»(¿÷Ëğ±ÈÀı)
+		bool               ifStopTrade;                     // æ˜¯å¦åœæœº
+		int               nStopTradePostion;                // åœæœºä½(äºç®—èµ„é‡‘é‡)
+		double     nStopPercentTradePostion;                // åœæœºä½(äºæŸæ¯”ä¾‹)
 
-		int                nSinglePositionHoldTime;         // µ¥±Ê³Ö²ÖÊ±¼äãĞÖµ
-		int                nSinglePositionLoss;             // µ¥±Ê³Ö²Ö¿÷ËğãĞÖµ(¿÷Ëã×Ê½ğÁ¿)
-		double      nSinglePercentPositionLoss;             // µ¥±Ê³Ö²Ö¿÷ËğãĞÖµ(¿÷Ëğ±ÈÀı)
+		int                nSinglePositionHoldTime;         // å•ç¬”æŒä»“æ—¶é—´é˜ˆå€¼
+		int                nSinglePositionLoss;             // å•ç¬”æŒä»“äºæŸé˜ˆå€¼(äºç®—èµ„é‡‘é‡)
+		double      nSinglePercentPositionLoss;             // å•ç¬”æŒä»“äºæŸé˜ˆå€¼(äºæŸæ¯”ä¾‹)
 
-		int                      nCodeControlNum;       //  ¿ÉÓÃÈ¯ÊıÁ¿
-		PT_QuantUserCodeControl* pCodeControl;          // £¨¿ÉÓÃÈ¯ĞÅÏ¢£©Ö¸ÕëÆ«ÒÆ
+		int                      nCodeControlNum;       //  å¯ç”¨åˆ¸æ•°é‡
+		PT_QuantUserCodeControl* pCodeControl;          // ï¼ˆå¯ç”¨åˆ¸ä¿¡æ¯ï¼‰æŒ‡é’ˆåç§»
 
 		int                      nDisableCodeNum;
 		PT_CodeType*             pDisableCode;
 
+		/////add by long.wang 
+		int64_t  	basePoint;							 	 // bpå€¼
+		int32_t		forceClosePostion;						 // å¼ºå¹³ä½
+		double 		nPercentForceClosePostion ; 			 // å¼ºå¹³ä½æ¯”ä¾‹		
+		/////
+		
 		PT_QuantUser()
 		{
 			ifStopTrade = false;
@@ -122,6 +132,12 @@ namespace QuantPlus
 
 			nDisableCodeNum = 0;
 			pDisableCode = NULL;
+
+			///// add by long.wang
+			basePoint = 0;
+			forceClosePostion = 0;
+			nPercentForceClosePostion = 0.0;
+			/////
 		}
 		virtual ~PT_QuantUser()
 		{
@@ -141,7 +157,7 @@ namespace QuantPlus
 
 	struct PT_BackTestReq
 	{
-		int64_t nSimAccountId;         // Ä£Äâ×Ê½ğÕËºÅ
+		int64_t nSimAccountId;         // æ¨¡æ‹Ÿèµ„é‡‘è´¦å·
 
 
 		PT_BackTestReq()
@@ -155,46 +171,46 @@ namespace QuantPlus
 	};
 
 	/// <summary>
-	/// ĞĞÇé½á¹¹Ìå
+	/// è¡Œæƒ…ç»“æ„ä½“
 	/// </summary>
 #pragma pack(push)
 #pragma pack(1)
 	typedef long MD_ReqID;
 	typedef char MD_CodeType[32];
 	typedef char MD_CodeName[32];
-	typedef char MD_ISODateTimeType[21];    //ÈÕÆÚºÍÊ±¼äÀàĞÍ(¸ñÊ½ yyyy-MM-dd hh:mm:ss)
+	typedef char MD_ISODateTimeType[21];    //æ—¥æœŸå’Œæ—¶é—´ç±»å‹(æ ¼å¼ yyyy-MM-dd hh:mm:ss)
 	typedef char MD_ShortText[128];
 	typedef char MD_Text[1024];
 
-	// ·şÎñÆ÷ÀàĞÍ
+	// æœåŠ¡å™¨ç±»å‹
 	typedef long MD_SrvType;
-#define MD_SrvType_none            0x0000   // Î´ÖªÀàĞÍ
-#define MD_SrvType_history         0x0001   // ÀúÊ·»º´æĞĞÇé·şÎñÆ÷
-#define MD_SrvType_cache           0x0002   // ÊµÊ±»º´æĞĞÇé·şÎñÆ÷
-#define MD_SrvType_realtime        0x0004   // ÊµÊ±ÍÆËÍĞĞÇé·şÎñÆ÷
+#define MD_SrvType_none            0x0000   // æœªçŸ¥ç±»å‹
+#define MD_SrvType_history         0x0001   // å†å²ç¼“å­˜è¡Œæƒ…æœåŠ¡å™¨
+#define MD_SrvType_cache           0x0002   // å®æ—¶ç¼“å­˜è¡Œæƒ…æœåŠ¡å™¨
+#define MD_SrvType_realtime        0x0004   // å®æ—¶æ¨é€è¡Œæƒ…æœåŠ¡å™¨
 
-	// ÖÜÆÚÀàĞÍ
+	// å‘¨æœŸç±»å‹
 	typedef long MD_CycType;
-#define MD_CycType_none            0x0000   // Î´ÖªÀàĞÍ
-#define MD_CycType_second_10       0x0001   // 10Ãë
-#define MD_CycType_minute          0x0002   // ·Ö
-#define MD_CycType_minute_5        0x0004   // 5·Ö
-#define MD_CycType_minute_15       0x0008   // 15·Ö
-#define MD_CycType_minute_30       0x0010   // 30·Ö
-#define MD_CycType_hour            0x0020   // Ğ¡Ê±
-#define MD_CycType_day             0x0040   // ÈÕ
+#define MD_CycType_none            0x0000   // æœªçŸ¥ç±»å‹
+#define MD_CycType_second_10       0x0001   // 10ç§’
+#define MD_CycType_minute          0x0002   // åˆ†
+#define MD_CycType_minute_5        0x0004   // 5åˆ†
+#define MD_CycType_minute_15       0x0008   // 15åˆ†
+#define MD_CycType_minute_30       0x0010   // 30åˆ†
+#define MD_CycType_hour            0x0020   // å°æ—¶
+#define MD_CycType_day             0x0040   // æ—¥
 
-	// ¶©ÔÄÀàĞÍ
+	// è®¢é˜…ç±»å‹
 	typedef long MD_SubType;
-#define MD_SubType_none            0x0000   // Î´ÖªÀàĞÍ
-#define MD_SubType_market          0x0001   // ¸ö¹ÉĞĞÇé
-#define MD_SubType_index           0x0002   // Ö¸ÊıĞĞÇé
-#define MD_SubType_trans           0x0004   // Öğ±Ê³É½»
-#define MD_SubType_order           0x0008   // Öğ±ÊÎ¯ÍĞ
-#define MD_SubType_order_queue     0x0010   // Î¯ÍĞ¶ÓÁĞ
-#define MD_SubType_future          0x0020   // ÆÚ»õĞĞÇé
-#define MD_SubType_future_option   0x0040   // ÆÚÈ¨ĞĞÇé
-#define MD_SubType_kline           0x0080   // KÏßĞĞÇé
+#define MD_SubType_none            0x0000   // æœªçŸ¥ç±»å‹
+#define MD_SubType_market          0x0001   // ä¸ªè‚¡è¡Œæƒ…
+#define MD_SubType_index           0x0002   // æŒ‡æ•°è¡Œæƒ…
+#define MD_SubType_trans           0x0004   // é€ç¬”æˆäº¤
+#define MD_SubType_order           0x0008   // é€ç¬”å§”æ‰˜
+#define MD_SubType_order_queue     0x0010   // å§”æ‰˜é˜Ÿåˆ—
+#define MD_SubType_future          0x0020   // æœŸè´§è¡Œæƒ…
+#define MD_SubType_future_option   0x0040   // æœŸæƒè¡Œæƒ…
+#define MD_SubType_kline           0x0080   // Kçº¿è¡Œæƒ…
 
 	struct MD_DATA_CODE
 	{
@@ -202,7 +218,7 @@ namespace QuantPlus
 		char    szMarket[8];            //market code: SHF
 		char    szCode[32];             //original code:ag1302
 		char    szENName[32];
-		char    szCNName[32];           //chinese name: »¦Òø1302
+		char    szCNName[32];           //chinese name: æ²ªé“¶1302
 		int     nType;
 	};
 
@@ -210,168 +226,168 @@ namespace QuantPlus
 	{
 		MD_DATA_CODE basicCode;
 
-		char szContractID[32];          // ÆÚÈ¨ºÏÔ¼´úÂë
-		char szUnderlyingSecurityID[32];// ±êµÄÖ¤È¯´úÂë
-		char chCallOrPut;               // ÈÏ¹ºÈÏ¹ÁC1        ÈÏ¹º£¬Ôò±¾×Ö¶ÎÎª¡°C¡±£»ÈôÎªÈÏ¹Á£¬Ôò±¾×Ö¶ÎÎª¡°P¡±
-		int  nExerciseDate;             // ÆÚÈ¨ĞĞÈ¨ÈÕ£¬YYYYMMDD
+		char szContractID[32];          // æœŸæƒåˆçº¦ä»£ç 
+		char szUnderlyingSecurityID[32];// æ ‡çš„è¯åˆ¸ä»£ç 
+		char chCallOrPut;               // è®¤è´­è®¤æ²½C1        è®¤è´­ï¼Œåˆ™æœ¬å­—æ®µä¸ºâ€œCâ€ï¼›è‹¥ä¸ºè®¤æ²½ï¼Œåˆ™æœ¬å­—æ®µä¸ºâ€œPâ€
+		int  nExerciseDate;             // æœŸæƒè¡Œæƒæ—¥ï¼ŒYYYYMMDD
 
-		//À©³ä×Ö¶Î
-		char chUnderlyingType;          // ±êµÄÖ¤È¯ÀàĞÍC3    0-A¹É 1-ETF (EBS ¨C ETF£¬ ASH ¨C A ¹É)
-		char chOptionType;              // Å·Ê½ÃÀÊ½C1        ÈôÎªÅ·Ê½ÆÚÈ¨£¬Ôò±¾×Ö¶ÎÎª¡°E¡±£»ÈôÎªÃÀÊ½ÆÚÈ¨£¬Ôò±¾×Ö¶ÎÎª¡°A¡±
+		//æ‰©å……å­—æ®µ
+		char chUnderlyingType;          // æ ‡çš„è¯åˆ¸ç±»å‹C3    0-Aè‚¡ 1-ETF (EBS â€“ ETFï¼Œ ASH â€“ A è‚¡)
+		char chOptionType;              // æ¬§å¼ç¾å¼C1        è‹¥ä¸ºæ¬§å¼æœŸæƒï¼Œåˆ™æœ¬å­—æ®µä¸ºâ€œEâ€ï¼›è‹¥ä¸ºç¾å¼æœŸæƒï¼Œåˆ™æœ¬å­—æ®µä¸ºâ€œAâ€
 
-		char chPriceLimitType;          // ÕÇµø·ùÏŞÖÆÀàĞÍC1 ¡®N¡¯±íÊ¾ÓĞÕÇµø·ùÏŞÖÆÀàĞÍ, ¡®R¡¯±íÊ¾ÎŞÕÇµø·ùÏŞÖÆÀàĞÍ
-		int  nContractMultiplierUnit;   // ºÏÔ¼µ¥Î»,         ¾­¹ı³ıÈ¨³ıÏ¢µ÷ÕûºóµÄºÏÔ¼µ¥Î», Ò»¶¨ÊÇÕûÊı
-		int  nExercisePrice;            // ÆÚÈ¨ĞĞÈ¨¼Û,       ¾­¹ı³ıÈ¨³ıÏ¢µ÷ÕûºóµÄÆÚÈ¨ĞĞÈ¨¼Û£¬ÓÒ¶ÔÆë£¬¾«È·µ½Àå
-		int  nStartDate;                // ÆÚÈ¨Ê×¸ö½»Ò×ÈÕ,YYYYMMDD
-		int  nEndDate;                  // ÆÚÈ¨×îºó½»Ò×ÈÕ/ĞĞÈ¨ÈÕ£¬YYYYMMDD
-		int  nExpireDate;               // ÆÚÈ¨µ½ÆÚÈÕ£¬YYYYMMDD
+		char chPriceLimitType;          // æ¶¨è·Œå¹…é™åˆ¶ç±»å‹C1 â€˜Nâ€™è¡¨ç¤ºæœ‰æ¶¨è·Œå¹…é™åˆ¶ç±»å‹, â€˜Râ€™è¡¨ç¤ºæ— æ¶¨è·Œå¹…é™åˆ¶ç±»å‹
+		int  nContractMultiplierUnit;   // åˆçº¦å•ä½,         ç»è¿‡é™¤æƒé™¤æ¯è°ƒæ•´åçš„åˆçº¦å•ä½, ä¸€å®šæ˜¯æ•´æ•°
+		int  nExercisePrice;            // æœŸæƒè¡Œæƒä»·,       ç»è¿‡é™¤æƒé™¤æ¯è°ƒæ•´åçš„æœŸæƒè¡Œæƒä»·ï¼Œå³å¯¹é½ï¼Œç²¾ç¡®åˆ°å˜
+		int  nStartDate;                // æœŸæƒé¦–ä¸ªäº¤æ˜“æ—¥,YYYYMMDD
+		int  nEndDate;                  // æœŸæƒæœ€åäº¤æ˜“æ—¥/è¡Œæƒæ—¥ï¼ŒYYYYMMDD
+		int  nExpireDate;               // æœŸæƒåˆ°æœŸæ—¥ï¼ŒYYYYMMDD
 	};
 
-	// ±¸×¢: ±¾½á¹¹Ìå¸÷×Ö¶ÎÖĞµÄµ¥Î»Îª²Î¿¼µ¥Î», ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“å„å­—æ®µä¸­çš„å•ä½ä¸ºå‚è€ƒå•ä½, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
 	struct MD_DATA_MARKET
 	{
 		char            szWindCode[32];         //600001.SH
-		char            szCode[32];             //Ô­Ê¼Code
-		int             nActionDay;             //ÈÕÆÚ(YYYYMMDD)
-		int             nTime;                  //Ê±¼ä(HHMMSSmmm)
-		int             nStatus;                //×´Ì¬
-		unsigned int    nPreClose;              //Ç°ÊÕÅÌ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nOpen;                  //¿ªÅÌ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nHigh;                  //×î¸ß¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nLow;                   //×îµÍ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nMatch;                 //×îĞÂ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nAskPrice[10];          //ÉêÂô¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nAskVol[10];            //ÉêÂôÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		unsigned int    nBidPrice[10];          //ÉêÂò¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nBidVol[10];            //ÉêÂòÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		unsigned int    nNumTrades;             //³É½»±ÊÊı=Êµ¼Ê±ÊÊı(µ¥Î»: ±Ê)
-		int64_t         iVolume;                //³É½»×ÜÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		int64_t         iTurnover;              //³É½»×Ü½ğ¶î=Êµ¼Ê½ğ¶î(µ¥Î»: Ôª)
-		int64_t         nTotalBidVol;           //Î¯ÍĞÂòÈë×ÜÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		int64_t         nTotalAskVol;           //Î¯ÍĞÂô³ö×ÜÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		unsigned int    nWeightedAvgBidPrice;   //¼ÓÈ¨Æ½¾ùÎ¯Âò¼Û¸ñ=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nWeightedAvgAskPrice;   //¼ÓÈ¨Æ½¾ùÎ¯Âô¼Û¸ñ=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int             nIOPV;                  //IOPV¾»Öµ¹ÀÖµ
-		int             nYieldToMaturity;       //µ½ÆÚÊÕÒæÂÊ
-		unsigned int    nHighLimited;           //ÕÇÍ£¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nLowLimited;            //µøÍ£¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
+		char            szCode[32];             //åŸå§‹Code
+		int             nActionDay;             //æ—¥æœŸ(YYYYMMDD)
+		int             nTime;                  //æ—¶é—´(HHMMSSmmm)
+		int             nStatus;                //çŠ¶æ€
+		unsigned int    nPreClose;              //å‰æ”¶ç›˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nOpen;                  //å¼€ç›˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nHigh;                  //æœ€é«˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nLow;                   //æœ€ä½ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nMatch;                 //æœ€æ–°ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nAskPrice[10];          //ç”³å–ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nAskVol[10];            //ç”³å–é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		unsigned int    nBidPrice[10];          //ç”³ä¹°ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nBidVol[10];            //ç”³ä¹°é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		unsigned int    nNumTrades;             //æˆäº¤ç¬”æ•°=å®é™…ç¬”æ•°(å•ä½: ç¬”)
+		int64_t         iVolume;                //æˆäº¤æ€»é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		int64_t         iTurnover;              //æˆäº¤æ€»é‡‘é¢=å®é™…é‡‘é¢(å•ä½: å…ƒ)
+		int64_t         nTotalBidVol;           //å§”æ‰˜ä¹°å…¥æ€»é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		int64_t         nTotalAskVol;           //å§”æ‰˜å–å‡ºæ€»é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		unsigned int    nWeightedAvgBidPrice;   //åŠ æƒå¹³å‡å§”ä¹°ä»·æ ¼=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nWeightedAvgAskPrice;   //åŠ æƒå¹³å‡å§”å–ä»·æ ¼=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int             nIOPV;                  //IOPVå‡€å€¼ä¼°å€¼
+		int             nYieldToMaturity;       //åˆ°æœŸæ”¶ç›Šç‡
+		unsigned int    nHighLimited;           //æ¶¨åœä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nLowLimited;            //è·Œåœä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
 	};
 
-	// ±¸×¢: ±¾½á¹¹Ìå¸÷×Ö¶ÎÖĞµÄµ¥Î»Îª²Î¿¼µ¥Î», ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“å„å­—æ®µä¸­çš„å•ä½ä¸ºå‚è€ƒå•ä½, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
 	struct MD_DATA_INDEX
 	{
 		char        szWindCode[32];         //600001.SH
-		char        szCode[32];             //Ô­Ê¼Code
-		int         nActionDay;             //ÈÕÆÚ(YYYYMMDD)
-		int         nTime;                  //Ê±¼ä(HHMMSSmmm)
-		int         nOpenIndex;             //½ñ¿ªÅÌÖ¸Êı=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int         nHighIndex;             //×î¸ßÖ¸Êı=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int         nLowIndex;              //×îµÍÖ¸Êı=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int         nLastIndex;             //×îĞÂÖ¸Êı=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int64_t     iTotalVolume;           //²ÎÓë¼ÆËãÏàÓ¦Ö¸ÊıµÄ½»Ò×ÊıÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		int64_t     iTurnover;              //²ÎÓë¼ÆËãÏàÓ¦Ö¸ÊıµÄ³É½»½ğ¶î=Êµ¼Ê½ğ¶î(µ¥Î»: Ôª)
-		int         nPreCloseIndex;         //Ç°ÅÌÖ¸Êı=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
+		char        szCode[32];             //åŸå§‹Code
+		int         nActionDay;             //æ—¥æœŸ(YYYYMMDD)
+		int         nTime;                  //æ—¶é—´(HHMMSSmmm)
+		int         nOpenIndex;             //ä»Šå¼€ç›˜æŒ‡æ•°=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int         nHighIndex;             //æœ€é«˜æŒ‡æ•°=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int         nLowIndex;              //æœ€ä½æŒ‡æ•°=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int         nLastIndex;             //æœ€æ–°æŒ‡æ•°=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int64_t     iTotalVolume;           //å‚ä¸è®¡ç®—ç›¸åº”æŒ‡æ•°çš„äº¤æ˜“æ•°é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		int64_t     iTurnover;              //å‚ä¸è®¡ç®—ç›¸åº”æŒ‡æ•°çš„æˆäº¤é‡‘é¢=å®é™…é‡‘é¢(å•ä½: å…ƒ)
+		int         nPreCloseIndex;         //å‰ç›˜æŒ‡æ•°=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
 	};
 
-	// ±¸×¢: ±¾½á¹¹ÌåÎªÍ¨ÓÃÆÚ»õÊı¾İ½á¹¹Ìå, ÆÚ»õÆ·ÖÖ²»Í¬Ôò½»Ò×µ¥Î»²»Í¬, ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“ä¸ºé€šç”¨æœŸè´§æ•°æ®ç»“æ„ä½“, æœŸè´§å“ç§ä¸åŒåˆ™äº¤æ˜“å•ä½ä¸åŒ, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
 	struct MD_DATA_FUTURE
 	{
 		char            szWindCode[32];         //600001.SH
-		char            szCode[32];             //Ô­Ê¼Code
-		int             nActionDay;             //ÈÕÆÚ(YYYYMMDD)
-		int             nTime;                  //Ê±¼ä(HHMMSSmmm)
-		int             nStatus;                //×´Ì¬
-		int64_t         iPreOpenInterest;       //×ò³Ö²Ö
-		unsigned int    nPreClose;              //×òÊÕÅÌ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nPreSettlePrice;        //×ò½áËã=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nOpen;                  //¿ªÅÌ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nHigh;                  //×î¸ß¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nLow;                   //×îµÍ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nMatch;                 //×îĞÂ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		int64_t         iVolume;                //³É½»×ÜÁ¿=Êµ¼ÊÊÖÊı(µ¥Î»: ÊÖ)
-		int64_t         iTurnover;              //³É½»×Ü½ğ¶î=Êµ¼Ê½ğ¶î(µ¥Î»: Ôª)
-		int64_t         iOpenInterest;          //³Ö²Ö×ÜÁ¿=Êµ¼ÊÊÖÊı(µ¥Î»: ÊÖ)
-		unsigned int    nClose;                 //½ñÊÕÅÌ=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nSettlePrice;           //½ñ½áËã=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nHighLimited;           //ÕÇÍ£¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nLowLimited;            //µøÍ£¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nAskPrice[5];           //ÉêÂô¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		unsigned int    nAskVol[5];             //ÉêÂôÁ¿=Êµ¼ÊÊÖÊı(µ¥Î»: ÊÖ)
-		unsigned int    nBidPrice[5];           //ÉêÂò¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¶Ö)x10000
-		unsigned int    nBidVol[5];             //ÉêÂòÁ¿=Êµ¼ÊÊÖÊı(µ¥Î»: ÊÖ)
+		char            szCode[32];             //åŸå§‹Code
+		int             nActionDay;             //æ—¥æœŸ(YYYYMMDD)
+		int             nTime;                  //æ—¶é—´(HHMMSSmmm)
+		int             nStatus;                //çŠ¶æ€
+		int64_t         iPreOpenInterest;       //æ˜¨æŒä»“
+		unsigned int    nPreClose;              //æ˜¨æ”¶ç›˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nPreSettlePrice;        //æ˜¨ç»“ç®—=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nOpen;                  //å¼€ç›˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nHigh;                  //æœ€é«˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nLow;                   //æœ€ä½ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nMatch;                 //æœ€æ–°ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		int64_t         iVolume;                //æˆäº¤æ€»é‡=å®é™…æ‰‹æ•°(å•ä½: æ‰‹)
+		int64_t         iTurnover;              //æˆäº¤æ€»é‡‘é¢=å®é™…é‡‘é¢(å•ä½: å…ƒ)
+		int64_t         iOpenInterest;          //æŒä»“æ€»é‡=å®é™…æ‰‹æ•°(å•ä½: æ‰‹)
+		unsigned int    nClose;                 //ä»Šæ”¶ç›˜=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nSettlePrice;           //ä»Šç»“ç®—=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nHighLimited;           //æ¶¨åœä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nLowLimited;            //è·Œåœä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nAskPrice[5];           //ç”³å–ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		unsigned int    nAskVol[5];             //ç”³å–é‡=å®é™…æ‰‹æ•°(å•ä½: æ‰‹)
+		unsigned int    nBidPrice[5];           //ç”³ä¹°ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/å¨)x10000
+		unsigned int    nBidVol[5];             //ç”³ä¹°é‡=å®é™…æ‰‹æ•°(å•ä½: æ‰‹)
 	};
 
-	// ±¸×¢: ±¾½á¹¹Ìå¸÷×Ö¶ÎÖĞµÄµ¥Î»Îª²Î¿¼µ¥Î», ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“å„å­—æ®µä¸­çš„å•ä½ä¸ºå‚è€ƒå•ä½, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
 	struct MD_DATA_ORDER_QUEUE
 	{
 		char    szWindCode[32]; //600001.SH
-		char    szCode[32];     //Ô­Ê¼Code
-		int     nActionDay;     //ÈÕÆÚ(YYYYMMDD)
-		int     nTime;          //Ê±¼ä(HHMMSSmmm)
-		int     nSide;          //ÂòÂô·½Ïò('B':Bid 'A':Ask)
-		int     nPrice;         //Î¯ÍĞ¼Û¸ñ=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/ÊÖ)x10000
-		int     nOrders;        //¹Òµ¥µ²Î»
-		int     nABItems;       //Î¯ÍĞµ¥Êı
-		int     nABVolume[200]; //Î¯ÍĞÊıÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
+		char    szCode[32];     //åŸå§‹Code
+		int     nActionDay;     //æ—¥æœŸ(YYYYMMDD)
+		int     nTime;          //æ—¶é—´(HHMMSSmmm)
+		int     nSide;          //ä¹°å–æ–¹å‘('B':Bid 'A':Ask)
+		int     nPrice;         //å§”æ‰˜ä»·æ ¼=å®é™…ä»·æ ¼(å•ä½: å…ƒ/æ‰‹)x10000
+		int     nOrders;        //æŒ‚å•æŒ¡ä½
+		int     nABItems;       //å§”æ‰˜å•æ•°
+		int     nABVolume[200]; //å§”æ‰˜æ•°é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
 	};
 
-	// ±¸×¢: ±¾½á¹¹Ìå¸÷×Ö¶ÎÖĞµÄµ¥Î»Îª²Î¿¼µ¥Î», ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“å„å­—æ®µä¸­çš„å•ä½ä¸ºå‚è€ƒå•ä½, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
 	struct MD_DATA_TRANSACTION
 	{
 		char    szWindCode[32]; //600001.SH
-		char    szCode[32];     //Ô­Ê¼Code
-		int     nActionDay;     //³É½»ÈÕÆÚ(YYYYMMDD)
-		int     nTime;          //³É½»Ê±¼ä(HHMMSSmmm)
-		int     nIndex;         //³É½»±àºÅ
-		int     nPrice;         //³É½»¼Û¸ñ=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int     nVolume;        //³É½»ÊıÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		int     nTurnover;      //³É½»½ğ¶î=Êµ¼Ê½ğ¶î(µ¥Î»: Ôª)
-		int     nBSFlag;        //ÂòÂô·½Ïò(Âò£º'B', Âô£º'A', ²»Ã÷£º' ')
-		char    chOrderKind;    //³É½»Àà±ğ
-		int     nAskOrder;      //½ĞÂô·½Î¯ÍĞĞòºÅ
-		int     nBidOrder;      //½ĞÂò·½Î¯ÍĞĞòºÅ
+		char    szCode[32];     //åŸå§‹Code
+		int     nActionDay;     //æˆäº¤æ—¥æœŸ(YYYYMMDD)
+		int     nTime;          //æˆäº¤æ—¶é—´(HHMMSSmmm)
+		int     nIndex;         //æˆäº¤ç¼–å·
+		int     nPrice;         //æˆäº¤ä»·æ ¼=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int     nVolume;        //æˆäº¤æ•°é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		int     nTurnover;      //æˆäº¤é‡‘é¢=å®é™…é‡‘é¢(å•ä½: å…ƒ)
+		int     nBSFlag;        //ä¹°å–æ–¹å‘(ä¹°ï¼š'B', å–ï¼š'A', ä¸æ˜ï¼š' ')
+		char    chOrderKind;    //æˆäº¤ç±»åˆ«
+		int     nAskOrder;      //å«å–æ–¹å§”æ‰˜åºå·
+		int     nBidOrder;      //å«ä¹°æ–¹å§”æ‰˜åºå·
 	};
 
-	// ±¸×¢: ±¾½á¹¹Ìå¸÷×Ö¶ÎÖĞµÄµ¥Î»Îª²Î¿¼µ¥Î», ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“å„å­—æ®µä¸­çš„å•ä½ä¸ºå‚è€ƒå•ä½, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
 	struct MD_DATA_ORDER
 	{
 		char    szWindCode[32]; //600001.SH
-		char    szCode[32];     //Ô­Ê¼Code
-		int     nActionDay;     //Î¯ÍĞÈÕÆÚ(YYYYMMDD)
-		int     nTime;          //Î¯ÍĞÊ±¼ä(HHMMSSmmm)
-		int     nOrder;         //Î¯ÍĞºÅ
-		int     nPrice;         //Î¯ÍĞ¼Û¸ñ=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)x10000
-		int     nVolume;        //Î¯ÍĞÊıÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		char    chOrderKind;    //Î¯ÍĞÀà±ğ
-		char    chFunctionCode; //Î¯ÍĞ´úÂë('B','S','C')
+		char    szCode[32];     //åŸå§‹Code
+		int     nActionDay;     //å§”æ‰˜æ—¥æœŸ(YYYYMMDD)
+		int     nTime;          //å§”æ‰˜æ—¶é—´(HHMMSSmmm)
+		int     nOrder;         //å§”æ‰˜å·
+		int     nPrice;         //å§”æ‰˜ä»·æ ¼=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)x10000
+		int     nVolume;        //å§”æ‰˜æ•°é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		char    chOrderKind;    //å§”æ‰˜ç±»åˆ«
+		char    chFunctionCode; //å§”æ‰˜ä»£ç ('B','S','C')
 	};
 
-	// ±¸×¢: ±¾½á¹¹Ìå¸÷×Ö¶ÎÖĞµÄµ¥Î»Îª²Î¿¼µ¥Î», ÈçÓĞÒìÒé, ÇëÒÔÊĞÃæÉÏ³£¼ûµÄĞĞÇéÈí¼şµÄÅÌ¿Úµ¥Î»Îª×¼
-	struct MD_DATA_KLINE                    //Ä£ÄâÊı¾İÇëÇó
+	// å¤‡æ³¨: æœ¬ç»“æ„ä½“å„å­—æ®µä¸­çš„å•ä½ä¸ºå‚è€ƒå•ä½, å¦‚æœ‰å¼‚è®®, è¯·ä»¥å¸‚é¢ä¸Šå¸¸è§çš„è¡Œæƒ…è½¯ä»¶çš„ç›˜å£å•ä½ä¸ºå‡†
+	struct MD_DATA_KLINE                    //æ¨¡æ‹Ÿæ•°æ®è¯·æ±‚
 	{
-		MD_CycType nType;                   //ÖÜÆÚÀàĞÍ
+		MD_CycType nType;                   //å‘¨æœŸç±»å‹
 		char    szWindCode[32];             //600001.SH
-		char    szCode[32];                 //Ô­Ê¼Code
-		MD_ISODateTimeType szDatetime;      //Ê±¼ä
-		int nDate;                          //ÈÕÆÚ(YYYYMMDD)
-		int nTime;                          //Ê±¼ä(HHMMSSmmm)
-		double  nOpen;                      //¿ªÅÌ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		double  nHigh;                      //×î¸ß¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		double  nLow;                       //×îµÍ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		double  nClose;                     //½ñÊÕ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		double  nPreClose;                  //×òÊÕ¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		double  nHighLimit;                 //ÕÇÍ£¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		double  nLowLimit;                  //µøÍ£¼Û=Êµ¼Ê¼Û¸ñ(µ¥Î»: Ôª/¹É)
-		int64_t iVolume;                    //³É½»ÊıÁ¿=Êµ¼Ê¹ÉÊı(µ¥Î»: ¹É)
-		int64_t nTurover;                   //³É½»½ğ¶î=Êµ¼Ê½ğ¶î(µ¥Î»: Ôª)
+		char    szCode[32];                 //åŸå§‹Code
+		MD_ISODateTimeType szDatetime;      //æ—¶é—´
+		int nDate;                          //æ—¥æœŸ(YYYYMMDD)
+		int nTime;                          //æ—¶é—´(HHMMSSmmm)
+		double  nOpen;                      //å¼€ç›˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		double  nHigh;                      //æœ€é«˜ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		double  nLow;                       //æœ€ä½ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		double  nClose;                     //ä»Šæ”¶ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		double  nPreClose;                  //æ˜¨æ”¶ä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		double  nHighLimit;                 //æ¶¨åœä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		double  nLowLimit;                  //è·Œåœä»·=å®é™…ä»·æ ¼(å•ä½: å…ƒ/è‚¡)
+		int64_t iVolume;                    //æˆäº¤æ•°é‡=å®é™…è‚¡æ•°(å•ä½: è‚¡)
+		int64_t nTurover;                   //æˆäº¤é‡‘é¢=å®é™…é‡‘é¢(å•ä½: å…ƒ)
 	};
 #pragma pack(pop)
 	/// <summary>
-	/// ½»Ò×½á¹¹Ìå
+	/// äº¤æ˜“ç»“æ„ä½“
 	/// </summary>
 	typedef char TD_CodeType[32];
 	typedef char TD_CodeName[32];
-	typedef char TD_ISODateTimeType[21];    //ÈÕÆÚºÍÊ±¼äÀàĞÍ(¸ñÊ½ yyyy-MM-dd hh:mm:ss)
+	typedef char TD_ISODateTimeType[21];    //æ—¥æœŸå’Œæ—¶é—´ç±»å‹(æ ¼å¼ yyyy-MM-dd hh:mm:ss)
 	typedef char TD_OrderIdType[64];
 	typedef char TD_AccountType[64];
 	typedef char TD_PassType[64];
@@ -381,63 +397,63 @@ namespace QuantPlus
 	enum TD_TradeType
 	{
 		TD_TradeType_None,
-		TD_TradeType_Sell,      //Âô³ö
-		TD_TradeType_Buy        //ÂòÈë
+		TD_TradeType_Sell,      //å–å‡º
+		TD_TradeType_Buy        //ä¹°å…¥
 	};
 
 	enum TD_OffsetType
 	{
 		TD_OffsetType_None,
-		TD_OffsetType_Open,                 //¿ª²Ö
-		TD_OffsetType_Close,                //Æ½²Ö
+		TD_OffsetType_Open,                 //å¼€ä»“
+		TD_OffsetType_Close,                //å¹³ä»“
 	};
 
 	enum TD_OrderStatusType
 	{
-		TD_OrderStatusType_fail = -10,          ///Ö¸ÁîÊ§°Ü
-		TD_OrderStatusType_removed,             ///³·µ¥³É¹¦
-		TD_OrderStatusType_allDealed,           ///È«²¿³É½»
+		TD_OrderStatusType_fail = -10,          ///æŒ‡ä»¤å¤±è´¥
+		TD_OrderStatusType_removed,             ///æ’¤å•æˆåŠŸ
+		TD_OrderStatusType_allDealed,           ///å…¨éƒ¨æˆäº¤
 
-		TD_OrderStatusType_unAccpet = 0,        ///Î´½ÓÊÜ
-		TD_OrderStatusType_accpeted,            ///ÒÑ½ÓÊÜÎ´ÊÜÀí
-		TD_OrderStatusType_queued,              ///ÕıÔÚÅÅ¶Ó  (ÒÑÊÜÀí×´Ì¬)
-		//      TD_OrderStatusType_toModify,            ///´ı±¨¸Äµ¥
-		//      TD_OrderStatusType_modifing,            ///ÒÑ±¨¸Äµ¥
-		//      TD_OrderStatusType_modified,            ///¸Äµ¥ÊÜÀí
-		TD_OrderStatusType_toRemove,            ///´ı±¨³·µ¥
-		TD_OrderStatusType_removing,            ///ÒÑ±¨´ı³·
-		TD_OrderStatusType_partRemoved,         ///²¿·Ö³·µ¥
-		TD_OrderStatusType_partDealed,          ///²¿·Ö³É½»
+		TD_OrderStatusType_unAccpet = 0,        ///æœªæ¥å—
+		TD_OrderStatusType_accpeted,            ///å·²æ¥å—æœªå—ç†
+		TD_OrderStatusType_queued,              ///æ­£åœ¨æ’é˜Ÿ  (å·²å—ç†çŠ¶æ€)
+		//      TD_OrderStatusType_toModify,            ///å¾…æŠ¥æ”¹å•
+		//      TD_OrderStatusType_modifing,            ///å·²æŠ¥æ”¹å•
+		//      TD_OrderStatusType_modified,            ///æ”¹å•å—ç†
+		TD_OrderStatusType_toRemove,            ///å¾…æŠ¥æ’¤å•
+		TD_OrderStatusType_removing,            ///å·²æŠ¥å¾…æ’¤
+		TD_OrderStatusType_partRemoved,         ///éƒ¨åˆ†æ’¤å•
+		TD_OrderStatusType_partDealed,          ///éƒ¨åˆ†æˆäº¤
 	};
 
 	struct TD_OrderDetail
 	{
-		///Î¯ÍĞ±àºÅ£¨broker »ò½»Ò×ËùµÄÎ¨Ò»±àºÅ£©
+		///å§”æ‰˜ç¼–å·ï¼ˆbroker æˆ–äº¤æ˜“æ‰€çš„å”¯ä¸€ç¼–å·ï¼‰
 		TD_OrderIdType  szOrderStreamId;
-		///È¯ÉÌ×Ê½ğÕË»§Id
-		int             nAccountId;                 //  ÈçĞèÖ¸¶¨×Ê½ğÕËºÅÏÂµ¥£¬´Ë×Ö¶ÎÔÚÏÂµ¥µÄÊ±ºòĞèÒªÌîĞ´
-		///×Ê½ğÕË»§±ğÃû
+		///åˆ¸å•†èµ„é‡‘è´¦æˆ·Id
+		int             nAccountId;                 //  å¦‚éœ€æŒ‡å®šèµ„é‡‘è´¦å·ä¸‹å•ï¼Œæ­¤å­—æ®µåœ¨ä¸‹å•çš„æ—¶å€™éœ€è¦å¡«å†™
+		///èµ„é‡‘è´¦æˆ·åˆ«å
 		TD_AccountType  szAccountNickName;
 
-		///Î¯ÍĞÉê±¨Á¿
-		int             nOrderVol;                  //  ÈçĞèÖ¸¶¨×Ê½ğÕËºÅÏÂµ¥£¬´Ë×Ö¶ÎÔÚÏÂµ¥µÄÊ±ºòĞèÒªÌîĞ´
+		///å§”æ‰˜ç”³æŠ¥é‡
+		int             nOrderVol;                  //  å¦‚éœ€æŒ‡å®šèµ„é‡‘è´¦å·ä¸‹å•ï¼Œæ­¤å­—æ®µåœ¨ä¸‹å•çš„æ—¶å€™éœ€è¦å¡«å†™
 
-		///³É½»¾ù¼Û  * 10000
+		///æˆäº¤å‡ä»·  * 10000
 		int             nDealedPrice;
-		///³É½»Á¿
+		///æˆäº¤é‡
 		int             nDealedVol;
 
-		///³·µ¥ÊıÁ¿
+		///æ’¤å•æ•°é‡
 		int             nWithDrawnVol;
 
-		///Î¯ÍĞÊ±¼ä
+		///å§”æ‰˜æ—¶é—´
 		TD_ISODateTimeType  szOrderTime;
-		/// ×´Ì¬
+		/// çŠ¶æ€
 		TD_OrderStatusType  nStatus;
-		//±¸×¢
+		//å¤‡æ³¨
 		TD_Text             szText;
 
-		//ÊÖĞø·Ñ
+		//æ‰‹ç»­è´¹
 		double              nFee;
 		TD_OrderDetail()
 		{
@@ -465,19 +481,19 @@ namespace QuantPlus
 
 	struct TD_Base_Msg
 	{
-		///ÇëÇóID£¨ÓĞ¿Í»§¶ËAPIÎ¬»¤µÄÎ¨Ò»ID£©
+		///è¯·æ±‚IDï¼ˆæœ‰å®¢æˆ·ç«¯APIç»´æŠ¤çš„å”¯ä¸€IDï¼‰
 		int     nReqId;
 
 		int64_t nStrategyId;
 
-		///ÓÃ»§±£Áô×Ö¶Î
+		///ç”¨æˆ·ä¿ç•™å­—æ®µ
 		int     nUserInt;
 		double  nUserDouble;
 		TD_Text szUseStr;
 
-		///ÓÃ»§ÕÊºÅId
+		///ç”¨æˆ·å¸å·Id
 		int64_t     nUserId;
-		///¿Í»§¶Ë±àºÅ
+		///å®¢æˆ·ç«¯ç¼–å·
 		TD_ClientIdType  szClientId;
 
 		TD_Base_Msg()
@@ -498,20 +514,20 @@ namespace QuantPlus
 		}
 	};
 
-	// ÓÃ»§È¨ÏŞ
+	// ç”¨æˆ·æƒé™
 	class TD_QuantUserAuthen : public TD_Base_Msg
 	{
 	public:
 		int64_t                        nId;
 		int                         nGroupId;
 
-		bool                        ifStopTrade;                     // ÊÇ·ñÍ£»ú
-		int                        nStopTradePostion;                // Í£»úÎ»(¿÷Ëã×Ê½ğÁ¿)
-		double              nStopPercentTradePostion;                // Í£»úÎ»(¿÷Ëğ±ÈÀı)
+		bool                        ifStopTrade;                     // æ˜¯å¦åœæœº
+		int                        nStopTradePostion;                // åœæœºä½(äºç®—èµ„é‡‘é‡)
+		double              nStopPercentTradePostion;                // åœæœºä½(äºæŸæ¯”ä¾‹)
 
-		int                         nSinglePositionHoldTime;         // µ¥±Ê³Ö²ÖÊ±¼äãĞÖµ
-		int                         nSinglePositionLoss;             // µ¥±Ê³Ö²Ö¿÷ËğãĞÖµ(¿÷Ëã×Ê½ğÁ¿)
-		double               nSinglePercentPositionLoss;             // µ¥±Ê³Ö²Ö¿÷ËğãĞÖµ(¿÷Ëğ±ÈÀı)
+		int                         nSinglePositionHoldTime;         // å•ç¬”æŒä»“æ—¶é—´é˜ˆå€¼
+		int                         nSinglePositionLoss;             // å•ç¬”æŒä»“äºæŸé˜ˆå€¼(äºç®—èµ„é‡‘é‡)
+		double               nSinglePercentPositionLoss;             // å•ç¬”æŒä»“äºæŸé˜ˆå€¼(äºæŸæ¯”ä¾‹)
 		TD_QuantUserAuthen()
 		{
 			nId = 0;
@@ -535,19 +551,19 @@ namespace QuantPlus
 	{
 	public:
 		char               szWinCode[64];
-		double             nCaptial;                   // ×î´ó¿ÉÓÃ×Ê½ğ
-		int                nLendingAmount;             // ×î´ó¿ÉÓÃÈ¯
+		double             nCaptial;                   // æœ€å¤§å¯ç”¨èµ„é‡‘
+		int                nLendingAmount;             // æœ€å¤§å¯ç”¨åˆ¸
 	};
 
-	// ÓÃ»§¹ÉÆ±³Ø
+	// ç”¨æˆ·è‚¡ç¥¨æ± 
 	class TD_QuantUserCodePool : public TD_Base_Msg
 	{
 	public:
 		int64_t                        nId;
 		int                         nGroupId;
 
-		int                      nCodeControlNum;       //  ¿ÉÓÃÈ¯ÊıÁ¿
-		TD_QuantUserCodeInfo* pCodeControl;          // £¨¿ÉÓÃÈ¯ĞÅÏ¢£©Ö¸ÕëÆ«ÒÆ
+		int                      nCodeControlNum;       //  å¯ç”¨åˆ¸æ•°é‡
+		TD_QuantUserCodeInfo* pCodeControl;          // ï¼ˆå¯ç”¨åˆ¸ä¿¡æ¯ï¼‰æŒ‡é’ˆåç§»
 
 		TD_QuantUserCodePool()
 		{
@@ -568,15 +584,15 @@ namespace QuantPlus
 		}
 	};
 
-	// ÓÃ»§¹ÉÆ±³Ø
+	// ç”¨æˆ·è‚¡ç¥¨æ± 
 	class TD_QuantUserDisablePublicCode : public TD_Base_Msg
 	{
 	public:
 		int64_t                        nId;
 		int                         nGroupId;
 
-		int                      nDisablePublicCodeNum;          //  ²»¿ÉÓÃ¹«ÓÃÈ¯ÊıÁ¿
-		TD_CodeType*             pDisablePublicCode;             //  ²»¿ÉÓÃ¹«ÓÃÈ¯Ö¸Õë
+		int                      nDisablePublicCodeNum;          //  ä¸å¯ç”¨å…¬ç”¨åˆ¸æ•°é‡
+		TD_CodeType*             pDisablePublicCode;             //  ä¸å¯ç”¨å…¬ç”¨åˆ¸æŒ‡é’ˆ
 
 		TD_QuantUserDisablePublicCode()
 		{
@@ -614,28 +630,28 @@ namespace QuantPlus
 		}
 	};
 
-	// ÏÂµ¥
+	// ä¸‹å•
 	struct TD_ReqOrderInsert : TD_Base_Msg
 	{
-		///Ö¤È¯ºÏÔ¼´úÂë
+		///è¯åˆ¸åˆçº¦ä»£ç 
 		TD_CodeType     szContractCode;
-		///Ö¤È¯ºÏÔ¼Ãû³Æ
+		///è¯åˆ¸åˆçº¦åç§°
 		TD_CodeName     szContractName;
-		///½»Ò×ÀàĞÍ Âò¡¢Âô
+		///äº¤æ˜“ç±»å‹ ä¹°ã€å–
 		TD_TradeType    nTradeType;
-		//¿ªÆ½²ÖÀàĞÍ
+		//å¼€å¹³ä»“ç±»å‹
 		TD_OffsetType   nOffsetType;
-		///Î¯ÍĞ¼Û  *10000
+		///å§”æ‰˜ä»·  *10000
 		int             nOrderPrice;
-		///Î¯ÍĞÁ¿
+		///å§”æ‰˜é‡
 		int             nOrderVol;
-		///  ¶©µ¥·Ö±ÊÊı
+		///  è®¢å•åˆ†ç¬”æ•°
 		int            nOrderNum;
-		///  ¶©µ¥Ã÷Ï¸£¨Ö¸ÕëÆ«ÒÆ£©
-		TD_OrderDetail*    pOrderDetail;                // ÈçĞèÖ¸¶¨×Ê½ğÕËºÅÏÂµ¥£¬ĞèÒªÌî¶ÔÓ¦µÄ×Ê½ğÕËºÅidÒÔ¼°ÏÂµ½¸Ã×Ê½ğÕËºÅµÄÎ¯ÍĞÊıÁ¿
+		///  è®¢å•æ˜ç»†ï¼ˆæŒ‡é’ˆåç§»ï¼‰
+		TD_OrderDetail*    pOrderDetail;                // å¦‚éœ€æŒ‡å®šèµ„é‡‘è´¦å·ä¸‹å•ï¼Œéœ€è¦å¡«å¯¹åº”çš„èµ„é‡‘è´¦å·idä»¥åŠä¸‹åˆ°è¯¥èµ„é‡‘è´¦å·çš„å§”æ‰˜æ•°é‡
 
-		//ÊÇ·ñÊÇ·ç¿ØÇ¿Æ½
-		int                nCloseR;           // 0Õı³£Æ½²Ö,1Îª·ç¿Ø¸ÉÔ¤Æ½²Ö,2Îª·şÎñÆ÷·ç¿Ø²ßÂÔ´ïµ½Ç¿Æ½Î»Æ½²Ö
+		//æ˜¯å¦æ˜¯é£æ§å¼ºå¹³
+		int                nCloseR;           // 0æ­£å¸¸å¹³ä»“,1ä¸ºé£æ§å¹²é¢„å¹³ä»“,2ä¸ºæœåŠ¡å™¨é£æ§ç­–ç•¥è¾¾åˆ°å¼ºå¹³ä½å¹³ä»“
 		TD_ReqOrderInsert()
 		{
 
@@ -660,29 +676,29 @@ namespace QuantPlus
 
 	struct TD_RspOrderInsert : TD_ReqOrderInsert
 	{
-		/// ¶©µ¥ËùÊôÓÃ»§UserId
+		/// è®¢å•æ‰€å±ç”¨æˆ·UserId
 		int64_t         nOrderOwnerId;
-		///·şÎñÆ÷Î¬»¤£¨·şÎñÎ¨Ò»£©
+		///æœåŠ¡å™¨ç»´æŠ¤ï¼ˆæœåŠ¡å”¯ä¸€ï¼‰
 		int64_t         nOrderId;
 
-		///Ìá½»Éê±¨Á¿
+		///æäº¤ç”³æŠ¥é‡
 		int             nSubmitVol;
-		///³É½»¾ù¼Û  * 10000
+		///æˆäº¤å‡ä»·  * 10000
 		int             nDealedPrice;
-		///³É½»×ÜÁ¿
+		///æˆäº¤æ€»é‡
 		int             nDealedVol;
 
-		///³·µ¥×ÜÁ¿
+		///æ’¤å•æ€»é‡
 		int             nTotalWithDrawnVol;
 
-		//·Ïµ¥ÊıÁ¿
+		//åºŸå•æ•°é‡
 		int             nInValid;
-		/// ×´Ì¬
+		/// çŠ¶æ€
 		TD_OrderStatusType  nStatus;
-		/// ÏÂµ¥Ê±¼ä
+		/// ä¸‹å•æ—¶é—´
 		TD_ISODateTimeType  szInsertTime;
 
-		//ÊÖĞø·Ñ
+		//æ‰‹ç»­è´¹
 		double               nFee;
 		TD_RspOrderInsert()
 		{
@@ -707,12 +723,12 @@ namespace QuantPlus
 		}
 	};
 
-	// ³·µ¥
+	// æ’¤å•
 	struct TD_ReqOrderDelete : TD_Base_Msg
 	{
-		///Ô­Ê¼¶©µ¥·şÎñÆ÷Î¨Ò»Id
+		///åŸå§‹è®¢å•æœåŠ¡å™¨å”¯ä¸€Id
 		int64_t         nOrderId;
-		///Î¯ÍĞ±àºÅ£¨broker »ò½»Ò×ËùµÄÎ¨Ò»±àºÅ£©
+		///å§”æ‰˜ç¼–å·ï¼ˆbroker æˆ–äº¤æ˜“æ‰€çš„å”¯ä¸€ç¼–å·ï¼‰
 		TD_OrderIdType  szOrderStreamId;
 		TD_ReqOrderDelete()
 		{
@@ -725,12 +741,12 @@ namespace QuantPlus
 		}
 	};
 
-	///³·Ïú¶©µ¥ÏìÓ¦
+	///æ’¤é”€è®¢å•å“åº”
 	typedef TD_ReqOrderDelete TD_RspOrderDelete;
-	//Î¯ÍĞ²éÑ¯ÇëÇó
+	//å§”æ‰˜æŸ¥è¯¢è¯·æ±‚
 	struct TD_ReqQryPriority : TD_Base_Msg
 	{
-		/// ĞèÒª²éÑ¯µÄÓÃ»§Id
+		/// éœ€è¦æŸ¥è¯¢çš„ç”¨æˆ·Id
 		int64_t               nQueryUserid;
 
 		TD_ReqQryPriority()
@@ -756,12 +772,12 @@ namespace QuantPlus
 
 		}
 	};
-	//Î¯ÍĞ²éÑ¯ÇëÇó
+	//å§”æ‰˜æŸ¥è¯¢è¯·æ±‚
 	struct TD_RspQryPriority : TD_Base_Msg
 	{
-		// ÓÃ»§id
+		// ç”¨æˆ·id
 		int64_t               nQueryUserid;
-		///Ö¤È¯ºÏÔ¼´úÂë
+		///è¯åˆ¸åˆçº¦ä»£ç 
 		TD_CodeType           szContractCode;
 
 		int                   nNum;
@@ -784,14 +800,14 @@ namespace QuantPlus
 	};
 	typedef TD_RspQryPriority TD_ReqUpdatePriority;
 	typedef TD_RspQryPriority TD_RspUpdatePriority;
-	//Î¯ÍĞ²éÑ¯ÇëÇó
+	//å§”æ‰˜æŸ¥è¯¢è¯·æ±‚
 	struct TD_ReqQryOrder : TD_Base_Msg
 	{
-		///Ö¤È¯ºÏÔ¼´úÂë
+		///è¯åˆ¸åˆçº¦ä»£ç 
 		TD_CodeType             szContractCode;
-		///ÆğÊ¼Î»ÖÃ(²»ÌîÄ¬ÈÏ´ÓÍ·¿ªÊ¼)
+		///èµ·å§‹ä½ç½®(ä¸å¡«é»˜è®¤ä»å¤´å¼€å§‹)
 		int                     nIndex;
-		///ÊıÁ¿£¨²»ÌîÄ¬ÈÏ²éÈ«²¿£©
+		///æ•°é‡ï¼ˆä¸å¡«é»˜è®¤æŸ¥å…¨éƒ¨ï¼‰
 		int                     nNum;
 
 		TD_ReqQryOrder()
@@ -806,14 +822,14 @@ namespace QuantPlus
 		}
 	};
 
-	//³É½»²éÑ¯ÇëÇó
+	//æˆäº¤æŸ¥è¯¢è¯·æ±‚
 	struct TD_ReqQryMatch : TD_Base_Msg
 	{
-		///Ö¤È¯ºÏÔ¼´úÂë
+		///è¯åˆ¸åˆçº¦ä»£ç 
 		TD_CodeType     szContractCode;
-		///ÆğÊ¼Î»ÖÃ(²»ÌîÄ¬ÈÏ´ÓÍ·¿ªÊ¼)
+		///èµ·å§‹ä½ç½®(ä¸å¡«é»˜è®¤ä»å¤´å¼€å§‹)
 		int             nIndex;
-		///ÊıÁ¿£¨²»ÌîÄ¬ÈÏ²éÈ«²¿£©
+		///æ•°é‡ï¼ˆä¸å¡«é»˜è®¤æŸ¥å…¨éƒ¨ï¼‰
 		int             nNum;
 
 		TD_ReqQryMatch()
@@ -828,10 +844,10 @@ namespace QuantPlus
 		}
 	};
 
-	///³Ö²Ö²éÑ¯ÇëÇó
+	///æŒä»“æŸ¥è¯¢è¯·æ±‚
 	struct TD_ReqQryPosition : TD_Base_Msg
 	{
-		/// Ö¤È¯ºÏÔ¼´úÂë
+		/// è¯åˆ¸åˆçº¦ä»£ç 
 		TD_CodeType     szContractCode;
 		TD_ReqQryPosition()
 		{
@@ -843,18 +859,18 @@ namespace QuantPlus
 		}
 	};
 
-	///³Ö²Ö²éÑ¯»Øµ÷
+	///æŒä»“æŸ¥è¯¢å›è°ƒ
 	struct TD_RspQryPosition : TD_Base_Msg
 	{
-		///  Ö¤È¯ºÏÔ¼´úÂë
+		///  è¯åˆ¸åˆçº¦ä»£ç 
 		TD_CodeType     szContractCode;
-		///  ³Ö²Ö×ÜÁ¿
+		///  æŒä»“æ€»é‡
 		int     nPosition;
-		///  ³Ö²Ö¾ù¼Û * 10000
+		///  æŒä»“å‡ä»· * 10000
 		double      nPrice;
-		///  ¸¡Ó¯
+		///  æµ®ç›ˆ
 		double  nProfit;
-		///  ÒÑ½áËãµÄÓ¯Àû
+		///  å·²ç»“ç®—çš„ç›ˆåˆ©
 		double nSelltleProfit;
 		TD_RspQryPosition()
 		{
@@ -870,10 +886,10 @@ namespace QuantPlus
 		}
 	};
 
-	///×î´ó¿ÉÎ¯ÍĞÁ¿²éÑ¯ÇëÇó
+	///æœ€å¤§å¯å§”æ‰˜é‡æŸ¥è¯¢è¯·æ±‚
 	struct TD_ReqQryMaxEntrustCount : TD_Base_Msg
 	{
-		/// ¹ÉÆ±´úÂë
+		/// è‚¡ç¥¨ä»£ç 
 		TD_CodeType szContractCode;
 		TD_ReqQryMaxEntrustCount()
 		{
@@ -885,12 +901,12 @@ namespace QuantPlus
 		}
 	};
 
-	///×Ê½ğÕËºÅ×î´ó¿ÉÎ¯ÍĞÁ¿²éÑ¯ÇëÇó
+	///èµ„é‡‘è´¦å·æœ€å¤§å¯å§”æ‰˜é‡æŸ¥è¯¢è¯·æ±‚
 	struct TD_ReqQryAccountMaxEntrustCount : TD_Base_Msg
 	{
-		/// ¹ÉÆ±´úÂë
+		/// è‚¡ç¥¨ä»£ç 
 		TD_CodeType szContractCode;
-		/// ×Ê½ğÕËºÅ
+		/// èµ„é‡‘è´¦å·
 		int         nAccountId;
 
 		TD_ReqQryAccountMaxEntrustCount()
@@ -904,14 +920,14 @@ namespace QuantPlus
 		}
 	};
 
-	///  ¿ÉÎ¯ÍĞÊıÁ¿
+	///  å¯å§”æ‰˜æ•°é‡
 	struct StockMaxEntrustCount
 	{
-		///  ¹ÉÆ±´úÂë
+		///  è‚¡ç¥¨ä»£ç 
 		TD_CodeType szContractCode;
-		///  ×î´ó¿ÉÂò×Ê½ğÁ¿
+		///  æœ€å¤§å¯ä¹°èµ„é‡‘é‡
 		double nMaxBuyCaptial;
-		///  ×î´ó¿ÉÂô
+		///  æœ€å¤§å¯å–
 		int nMaxSellVol;
 		StockMaxEntrustCount()
 		{
@@ -925,7 +941,7 @@ namespace QuantPlus
 		}
 	};
 
-	///  ²éÑ¯×î´ó¿ÉÎ¯ÍĞÊıÁ¿»Øµ÷
+	///  æŸ¥è¯¢æœ€å¤§å¯å§”æ‰˜æ•°é‡å›è°ƒ
 	struct TD_RspQryMaxEntrustCount : public TD_Base_Msg
 	{
 		StockMaxEntrustCount pStockMaxEntrustCount;
@@ -938,22 +954,80 @@ namespace QuantPlus
 
 		}
 	};
+	///  èµ„é‡‘è´¦å·ä¿¡æ¯åˆå§‹å€¼å›è°ƒ
+	struct TD_RspQryInitAccountMaxEntrustCount : TD_Base_Msg
+	{
+		///  èµ„é‡‘è´¦å·
+		int nAccountId;
+		///  èµ„é‡‘è´¦æˆ·åˆ«å
+		TD_AccountType  szAccountNickName;
+		///  å¯ç”¨è‚¡ç¥¨æ•°
+		int nNum;
+		///  æŒ‡é’ˆåç§»
+		StockMaxEntrustCount* pStockMaxEntrustCount;
+		///  èµ„é‡‘é€šé“æ˜¯å¦å¯ç”¨
+		bool bStatus;
+		///  èµ„é‡‘è´¦å·å±‚é¢å¯ç”¨èµ„é‡‘
+		int nAvailableCaptial;
 
-	///  ×Ê½ğÕËºÅ×î´ó¿ÉÎ¯ÍĞÁ¿»Øµ÷
+		TD_RspQryInitAccountMaxEntrustCount()
+		{
+			memset(szAccountNickName, 0, sizeof(TD_AccountType));
+			nAccountId = 0;
+			nNum = 0;
+			pStockMaxEntrustCount = NULL;
+			bStatus = 0;
+			nAvailableCaptial = 0;
+		}
+		virtual ~TD_RspQryInitAccountMaxEntrustCount()
+		{
+			if (pStockMaxEntrustCount)
+			{
+				delete[] pStockMaxEntrustCount;
+			}
+		}
+	};
+	struct StockAccountMaxEntrustCount
+	{
+		///  è¯åˆ¸åˆçº¦ä»£ç 
+		TD_CodeType     szContractCode;
+		///  æŒä»“æ€»é‡
+		int     nTotalPosition;
+		///  å¯å–é‡
+		int     nAvailablePosition;
+		///  èµ„é‡‘è´¦å·å±‚é¢å½“æ—¥åˆå§‹æŒä»“
+		int     nLastPosition;
+
+		StockAccountMaxEntrustCount()
+		{
+			memset(szContractCode, 0, sizeof(TD_CodeType));
+			nTotalPosition = 0;
+			nAvailablePosition = 0;
+			nLastPosition = 0;
+		}
+		virtual ~StockAccountMaxEntrustCount()
+		{
+
+		}
+	};
+
+	///  èµ„é‡‘è´¦å·æœ€å¤§å¯å§”æ‰˜é‡å›è°ƒ
 	struct TD_RspQryAccountMaxEntrustCount : TD_Base_Msg
 	{
-		///  ×Ê½ğÕËºÅ
+		///  èµ„é‡‘è´¦å·
 		int nAccountId;
-		///×Ê½ğÕË»§±ğÃû
+		///  èµ„é‡‘è´¦æˆ·åˆ«å
 		TD_AccountType  szAccountNickName;
-		///  ¿ÉÓÃ¹ÉÆ±Êı
+		///  å¯ç”¨è‚¡ç¥¨æ•°
 		int nNum;
-		///  Ö¸ÕëÆ«ÒÆ
-		StockMaxEntrustCount* pStockMaxEntrustCount;
-		///  ×Ê½ğÍ¨µÀÊÇ·ñ¿ÉÓÃ
+		///  æŒ‡é’ˆåç§»
+		StockAccountMaxEntrustCount* pStockMaxEntrustCount;
+		///  èµ„é‡‘é€šé“æ˜¯å¦å¯ç”¨
 		bool bStatus;
-		///  ×Ê½ğÕËºÅ²ãÃæ¿ÉÓÃ×Ê½ğ
+		///  èµ„é‡‘è´¦å·å±‚é¢å¯ç”¨èµ„é‡‘
 		int nAvailableCaptial;
+		//   èµ„é‡‘è´¦å·å±‚é¢å½“æ—¥åˆå§‹èµ„é‡‘
+		int nTotalCaptial;
 
 		TD_RspQryAccountMaxEntrustCount()
 		{
@@ -963,6 +1037,7 @@ namespace QuantPlus
 			pStockMaxEntrustCount = NULL;
 			bStatus = 0;
 			nAvailableCaptial = 0;
+			nTotalCaptial = 0;
 		}
 		virtual ~TD_RspQryAccountMaxEntrustCount()
 		{
@@ -973,33 +1048,33 @@ namespace QuantPlus
 		}
 	};
 
-	///¶©µ¥×´Ì¬±ä»¯Í¨Öª
+	///è®¢å•çŠ¶æ€å˜åŒ–é€šçŸ¥
 	typedef TD_RspOrderInsert TD_RtnOrderStatusChangeNotice;
 
-	///³É½»»Øµ÷Í¨Öª
+	///æˆäº¤å›è°ƒé€šçŸ¥
 	struct TD_RtnOrderMatchNotice : TD_Base_Msg
 	{
-		/// Î¯ÍĞ±àºÅ
+		/// å§”æ‰˜ç¼–å·
 		int64_t             nOrderId;
-		///Î¯ÍĞ±àºÅ£¨broker »ò½»Ò×ËùµÄÎ¨Ò»±àºÅ£©
+		///å§”æ‰˜ç¼–å·ï¼ˆbroker æˆ–äº¤æ˜“æ‰€çš„å”¯ä¸€ç¼–å·ï¼‰
 		TD_OrderIdType      szOrderStreamId;
-		///ÏµÍ³±àºÅ
+		///ç³»ç»Ÿç¼–å·
 		int64_t             nMatchStreamId;
-		///³É½»¼Û * 10000
+		///æˆäº¤ä»· * 10000
 		double              nMatchPrice;
-		///³É½»Á¿
+		///æˆäº¤é‡
 		int                 nMatchVol;
-		/// ¹ÉÆ±´úÂë
+		/// è‚¡ç¥¨ä»£ç 
 		TD_CodeType         szContractCode;
-		///Ö¤È¯ºÏÔ¼Ãû³Æ
+		///è¯åˆ¸åˆçº¦åç§°
 		TD_CodeName     szContractName;
-		/// ³É½»Ê±¼ä
+		/// æˆäº¤æ—¶é—´
 		TD_ISODateTimeType  szMatchTime;
-		///½»Ò×ÀàĞÍ Âò¡¢Âô
+		///äº¤æ˜“ç±»å‹ ä¹°ã€å–
 		TD_TradeType    nTradeType;
-		///È¯ÉÌ×Ê½ğÕË»§Id
+		///åˆ¸å•†èµ„é‡‘è´¦æˆ·Id
 		int             nAccountId;
-		///×Ê½ğÕË»§±ğÃû
+		///èµ„é‡‘è´¦æˆ·åˆ«å
 		TD_AccountType  szAccountNickName;
 
 
@@ -1024,7 +1099,7 @@ namespace QuantPlus
 		}
 	};
 
-	///Î¯ÍĞ²éÑ¯ÏìÓ¦
+	///å§”æ‰˜æŸ¥è¯¢å“åº”
 	struct TD_RspQryOrder : public TD_RtnOrderStatusChangeNotice
 	{
 		int            nIndex;
@@ -1037,7 +1112,7 @@ namespace QuantPlus
 
 		}
 	};
-	///³É½»²éÑ¯ÏìÓ¦
+	///æˆäº¤æŸ¥è¯¢å“åº”
 	struct TD_RspQryMatch : public TD_RtnOrderMatchNotice
 	{
 		int nIndex;
@@ -1050,17 +1125,17 @@ namespace QuantPlus
 
 		}
 	};
-	///¶©µ¥×´Ì¬
+	///è®¢å•çŠ¶æ€
 	typedef TD_RtnOrderStatusChangeNotice TD_OrderStatus;
-	///Ó¯ÀûÍÆËÍ²ÎÊı
+	///ç›ˆåˆ©æ¨é€å‚æ•°
 	typedef TD_RspQryPosition TD_RtnProfit;
 
 	class TD_SimulationReservation
 	{
 	public:
 		char               szWinCode[64];
-		int                nLendingAmount;             // µ×²ÖÊıÁ¿
-		double             nPrice;                     // µ×²Ö¾ù¼Û
+		int                nLendingAmount;             // åº•ä»“æ•°é‡
+		double             nPrice;                     // åº•ä»“å‡ä»·
 	public:
 		TD_SimulationReservation()
 		{
@@ -1073,7 +1148,7 @@ namespace QuantPlus
 
 		}
 	};
-	// Ä£Äâ×Ê½ğÕËºÅĞÅÏ¢
+	// æ¨¡æ‹Ÿèµ„é‡‘è´¦å·ä¿¡æ¯
 	class TD_SimulationAccount
 	{
 	public:
@@ -1082,8 +1157,8 @@ namespace QuantPlus
 		char                  szText[128];
 
 		double                      nTotalAmount;
-		int                         nReservationNum;   // µ×²Ö¹ÉÆ±ÊıÁ¿
-		TD_SimulationReservation*   pReservationCode;  // µ×²Ö¹ÉÆ±´úÂë
+		int                         nReservationNum;   // åº•ä»“è‚¡ç¥¨æ•°é‡
+		TD_SimulationReservation*   pReservationCode;  // åº•ä»“è‚¡ç¥¨ä»£ç 
 
 	public:
 		TD_SimulationAccount()
