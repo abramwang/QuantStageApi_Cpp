@@ -2,11 +2,11 @@
 
 | 项目名称 | Quant量化系统平台      | 研发单位 |  |
 | ---- | -------------------- | ---- | ------------ |
-| 文档名称 | QuantBaseApi cpp开发手册 | 项目版本 | beta5.1.3    |
-| 文档状态 | 编辑中                  | 发布日期 | 2018.05.25   |
+| 文档名称 | QuantBaseApi cpp开发手册 | 项目版本 | beta5.2.0   |
+| 文档状态 | 编辑中                  | 发布日期 | 2018.09.25  |
 | 文档编辑 | 杨军辉、王龙               | 文档版本 | 0.1          |
 
-[项目主页](http://www.quantplus.com.cn/"项目主页") 
+[项目主页](https://www.quantstage.com/) 
 
 QuantBase_Api_Cpp是QuantBase团队根据多年国内二级市场上的量化交易经验，将底层量化接口开放出来的一个产品。旨在为国内二级市场的**量化开发者**在数据、算法、交易等方面提供全面支持。目前已开放上证、深圳、中金所三个市场的level2深度行情数据、常用技术分析指标库、普通股票交易、融资融券交易的接口，不久后将开放个股期权交易接口的使用。
 
@@ -19,21 +19,21 @@ QuantBase_Api_Cpp 是 QuantBase_Api 接口的 c++ 实现
 
 **终端下载**
 
-- [Windows-64位](http://47.97.196.117/currentVersion.zip)
+- [Windows-64位](https://download.quantstage.com/)
 
   终端基于c++Api进行开发，账户与Api通用，用户可用终端数据作为参考
 
 **Window版本**
 
-- [Win32-msvc-12.0-Debug](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-Win32-msvc-12.0-Debug.zip)
-- [Win32-msvc-12.0-Release](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-Win32-msvc-12.0-Release.zip)
-- [x64-msvc-12.0-Debug](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-x64-msvc-12.0-Debug.zip)
-- [x64-msvc-12.0-Release](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/lib-x64-msvc-12.0-Release.zip)
+- [Win32-msvc-12.0-Debug](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-Win32-msvc-12.0-Debug.zip)
+- [Win32-msvc-12.0-Release](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-Win32-msvc-12.0-Release.zip)
+- [x64-msvc-12.0-Debug](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-x64-msvc-12.0-Debug.zip)
+- [x64-msvc-12.0-Release](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-x64-msvc-12.0-Release.zip)
 
 **Linux版本**
 
-- [linux-gcc4.8](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/linux-gcc4.8.tar.gz)
-- [linux-gcc5.4](https://raw.githubusercontent.com/abramwang/QuantPlusApi_Cpp/master/bin/linux-gcc5.4.tar.gz)
+- [linux-gcc4.8](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc4.8.tar.gz)
+- [linux-gcc5.4](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc5.4.tar.gz)
 
 
 下载完成后解压至任意目录下。其中，windows版本的目录结构如下
