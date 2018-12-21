@@ -67,8 +67,7 @@ linux 版本目录结构如下
 	├─libPT_QuantApi.so
 	├─libPT_TradeDataApi.so
 	├─libPTNetwork.so
-	├─libsnappy.so.1
-	└─libz.so.1
+	└─libsnappy.so.1
 
 ```
 
