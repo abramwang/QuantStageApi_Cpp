@@ -2,8 +2,8 @@
 
 | 项目名称 | Quant量化系统平台      | 研发单位 |  |
 | ---- | -------------------- | ---- | ------------ |
-| 文档名称 | QuantBaseApi cpp开发手册 | 项目版本 | beta5.2.0   |
-| 文档状态 | 编辑中                  | 发布日期 | 2018.09.28 |
+| 文档名称 | QuantBaseApi cpp开发手册 | 项目版本 | beta5.2.1   |
+| 文档状态 | 编辑中                  | 发布日期 | 2018.12.21 |
 | 文档编辑 | 杨军辉、王龙               | 文档版本 | 0.1          |
 
 [项目主页](https://www.quantstage.com/) 
@@ -25,15 +25,13 @@ QuantBase_Api_Cpp 是 QuantBase_Api 接口的 c++ 实现
 
 **Window版本**（建议使用环境：xp以上）
 
-- [Win32-msvc-12.0-Debug](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-Win32-msvc-12.0-Debug.zip)
-- [Win32-msvc-12.0-Release](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-Win32-msvc-12.0-Release.zip)
 - [x64-msvc-12.0-Debug](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-x64-msvc-12.0-Debug.zip)
 - [x64-msvc-12.0-Release](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/lib-x64-msvc-12.0-Release.zip)
 
 **Linux版本**（建议使用环境：ubuntu 16.04）
 
-- [linux-gcc4.8](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc4.8.tar.gz)
-- [linux-gcc5.4](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc5.4.tar.gz)
+- [linux-gcc4.8](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc4.8.zip)
+- [linux-gcc5.4](https://github.com/abramwang/QuantStageApi_Cpp/raw/master/bin/linux-gcc5.4.zip)
 
 
 下载完成后解压至任意目录下。其中，windows版本的目录结构如下
@@ -69,8 +67,7 @@ linux 版本目录结构如下
 	├─libPT_QuantApi.so
 	├─libPT_TradeDataApi.so
 	├─libPTNetwork.so
-	├─libsnappy.so.1
-	└─libz.so.1
+	└─libsnappy.so.1
 
 ```
 
