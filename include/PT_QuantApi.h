@@ -21,279 +21,284 @@ namespace QuantPlus
 		PT_QuantSpi() {}
 		virtual ~PT_QuantSpi() {}
 	public:
-		///@brief Í¨ÖªÁ¬½Ó
-		///@param nSrvType ÒµÎñ·şÎñÆ÷ÀàĞÍ ²Î¿¼QuantPlus::PT_Quant_APPServerType
-		///@return ÎŞ
-		///@note ÔÚÒµÎñ·şÎñÆ÷Á¬Í¨Ê±Ö÷¶¯Í¨Öª
+		///@brief é€šçŸ¥è¿æ¥
+		///@param nSrvType ä¸šåŠ¡æœåŠ¡å™¨ç±»å‹ å‚è€ƒQuantPlus::PT_Quant_APPServerType
+		///@return æ— 
+		///@note åœ¨ä¸šåŠ¡æœåŠ¡å™¨è¿é€šæ—¶ä¸»åŠ¨é€šçŸ¥
 		virtual void OnConnect(int nSrvType) = 0;
-		///@brief Í¨Öª¶Ï¿ª
-		///@param nSrvType ÒµÎñ·şÎñÆ÷ÀàĞÍ ²Î¿¼QuantPlus::PT_Quant_APPServerType
-		///@return ÎŞ
-		///@note ÔÚÒµÎñ·şÎñÆ÷¶Ï¿ªÊ±Ö÷¶¯Í¨Öª
+		///@brief é€šçŸ¥æ–­å¼€
+		///@param nSrvType ä¸šåŠ¡æœåŠ¡å™¨ç±»å‹ å‚è€ƒQuantPlus::PT_Quant_APPServerType
+		///@return æ— 
+		///@note åœ¨ä¸šåŠ¡æœåŠ¡å™¨æ–­å¼€æ—¶ä¸»åŠ¨é€šçŸ¥
 		virtual void OnDisconnect(int nSrvType) = 0;
-		///@brief Í¨ÖªÓÃ»§ĞÅÏ¢
-		///@param  pInfo ÓÃ»§ĞÅÏ¢
-		///@return ÎŞ
-		///@note µÇÂ¼³É¹¦Ö®ºó·µ»ØµÄÓÃ»§ĞÅÏ¢
+		///@brief é€šçŸ¥ç”¨æˆ·ä¿¡æ¯
+		///@param  pInfo ç”¨æˆ·ä¿¡æ¯
+		///@return æ— 
+		///@note ç™»å½•æˆåŠŸä¹‹åè¿”å›çš„ç”¨æˆ·ä¿¡æ¯
 		virtual void onRtnUserInfo(const PT_QuantUserBase* pInfo) {};
-	public://·ÇÒµÎñ¼¶±ğÖ¸Áî»Øµ÷
-		///²éÑ¯ÓÃ»§ĞÅÏ¢»Øµ÷
-		///@param    pUserInfo              »Øµ÷ĞÅÏ¢Ö¸Õë
-		///@param    isEnd                  ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQueryAllUser½Ó¿ÚµÄ»Ø¸´
+        ///@brief é€šçŸ¥ç”¨æˆ·ç™»å½•è­¦å‘Šä¿¡æ¯
+        ///@param  nLoginWarnType å‚è€ƒPT_QuantBaseErr.hä¸­LoginWarnType
+        ///@return æ— 
+        ///@note ç™»å½•è­¦å‘Šæ—¶æ¨é€
+        virtual void onRtnLoginWarn(int nLoginWarnType) {};
+	public://éä¸šåŠ¡çº§åˆ«æŒ‡ä»¤å›è°ƒ
+		///æŸ¥è¯¢ç”¨æˆ·ä¿¡æ¯å›è°ƒ
+		///@param    pUserInfo              å›è°ƒä¿¡æ¯æŒ‡é’ˆ
+		///@param    isEnd                  æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQueryAllUseræ¥å£çš„å›å¤
 		virtual void onRspQueryAllUser(const PT_QuantUser* pUserInfo, bool isEnd) {};
-		///²éÑ¯ÓÃ»§ĞÅÏ¢»Øµ÷
-		///@param    pPublicCode              ¹«ÓÃÈ¯ĞÅÏ¢
-		///@param    nNum                     ¹«ÓÃÈ¯ÊıÁ¿
-		///@return   ÎŞ
-		///@remark   reqQueryAllUser½Ó¿ÚµÄ»Ø¸´
+		///æŸ¥è¯¢ç”¨æˆ·ä¿¡æ¯å›è°ƒ
+		///@param    pPublicCode              å…¬ç”¨åˆ¸ä¿¡æ¯
+		///@param    nNum                     å…¬ç”¨åˆ¸æ•°é‡
+		///@return   æ— 
+		///@remark   reqQueryAllUseræ¥å£çš„å›å¤
 		virtual void onRspPublicCode(const PT_QuantUserCodeControl* pPublicCode, int nNum) {};
-		///ĞŞ¸ÄÓÃ»§ĞÅÏ¢»Øµ÷
-		///@param    TD_QuantUserAuthen                ĞŞ¸ÄºóµÄĞÅÏ¢
-		///@param    error                    ²Ù×÷ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@return   ÎŞ
-		///@remark   reqUpdateUserAuthen½Ó¿ÚµÄ»Ø¸´
+		///ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯å›è°ƒ
+		///@param    TD_QuantUserAuthen                ä¿®æ”¹åçš„ä¿¡æ¯
+		///@param    error                    æ“ä½œæ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@return   æ— 
+		///@remark   reqUpdateUserAuthenæ¥å£çš„å›å¤
 		virtual void onRspUpdateUserAuthen(const TD_QuantUserAuthen* rsp, int error) {};
-		///ĞŞ¸ÄÓÃ»§È¯³Ø»Øµ÷
-		///@param    TD_QuantUserCodePool              ĞŞ¸ÄºóµÄĞÅÏ¢
-		///@param    error                    ²Ù×÷ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@return   ÎŞ
-		///@remark   reqUpdateUserCodePool½Ó¿ÚµÄ»Ø¸´
+		///ä¿®æ”¹ç”¨æˆ·åˆ¸æ± å›è°ƒ
+		///@param    TD_QuantUserCodePool              ä¿®æ”¹åçš„ä¿¡æ¯
+		///@param    error                    æ“ä½œæ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@return   æ— 
+		///@remark   reqUpdateUserCodePoolæ¥å£çš„å›å¤
 		virtual void onRspUpdateUserCodePool(const TD_QuantUserCodePool* rsp, int error) {};
-		///ĞŞ¸ÄÓÃ»§¿ÉÓÃÈ¯»Øµ÷
-		///@Param    pUserDisablePublicCode        ĞèÒªĞŞ¸ÄµÄÓÃ»§¿ÉÓÃÈ¯
-		///@param    error                    ²Ù×÷ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@return   ÎŞ
-		///@remark   reqDisablePublicCode½Ó¿Ú»Øµ÷
+		///ä¿®æ”¹ç”¨æˆ·å¯ç”¨åˆ¸å›è°ƒ
+		///@Param    pUserDisablePublicCode        éœ€è¦ä¿®æ”¹çš„ç”¨æˆ·å¯ç”¨åˆ¸
+		///@param    error                    æ“ä½œæ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@return   æ— 
+		///@remark   reqDisablePublicCodeæ¥å£å›è°ƒ
 		virtual void onRspDisablePublicCode(const TD_QuantUserDisablePublicCode* pUserDisablePublicCode, int error) {};
-		///ĞŞ¸ÄÕË»§ÓÅÏÈ¼¶»Øµ÷
-		///@Param    rsp              ĞŞ¸ÄÇëÇóĞÅÏ¢
-		///@param    error            ĞŞ¸ÄÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@return   ÎŞ
-		///@remark   reqUpdateAccountPriority½Ó¿Ú»Øµ÷
+		///ä¿®æ”¹è´¦æˆ·ä¼˜å…ˆçº§å›è°ƒ
+		///@Param    rsp              ä¿®æ”¹è¯·æ±‚ä¿¡æ¯
+		///@param    error            ä¿®æ”¹æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@return   æ— 
+		///@remark   reqUpdateAccountPriorityæ¥å£å›è°ƒ
 		virtual void onRspUpdateAccountPriority(const TD_RspUpdatePriority* rsp, int error) {};
-		///²éÑ¯ÕË»§ÓÅÏÈ¼¶»Øµ÷
-		///@Param    rsp              ÓÅÏÈ¼¶ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQueryAccountPriority½Ó¿Ú»Øµ÷
+		///æŸ¥è¯¢è´¦æˆ·ä¼˜å…ˆçº§å›è°ƒ
+		///@Param    rsp              ä¼˜å…ˆçº§ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQueryAccountPriorityæ¥å£å›è°ƒ
 		virtual void onRspQueryAccountPriority(const TD_RspQryPriority* rsp, int error, bool isEnd) {};
-	public: //½»Ò×ÒµÎñÂß¼­»Øµ÷
-		///ÏÂµ¥»Øµ÷
-		///@param    rsp              ÏÂµ¥»Øµ÷ĞÅÏ¢
-		///@param    error            ÏÂµ¥ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@return   ÎŞ
-		///@remark   reqOrderInsert½Ó¿ÚµÄ»Ø¸´
+	public: //äº¤æ˜“ä¸šåŠ¡é€»è¾‘å›è°ƒ
+		///ä¸‹å•å›è°ƒ
+		///@param    rsp              ä¸‹å•å›è°ƒä¿¡æ¯
+		///@param    error            ä¸‹å•æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@return   æ— 
+		///@remark   reqOrderInsertæ¥å£çš„å›å¤
 		virtual void onRspOrderInsert(const TD_RspOrderInsert *rsp, int error) {};
-		///³·µ¥»Øµ÷
-		///@param    rsp              ³·µ¥»Øµ÷ĞÅÏ¢
-		///@param    error            ³·µ¥ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@return   ÎŞ
-		///@remark   reqOrderDelete½Ó¿ÚµÄ»Ø¸´
+		///æ’¤å•å›è°ƒ
+		///@param    rsp              æ’¤å•å›è°ƒä¿¡æ¯
+		///@param    error            æ’¤å•æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@return   æ— 
+		///@remark   reqOrderDeleteæ¥å£çš„å›å¤
 		virtual void onRspOrderDelete(const TD_RspOrderDelete *rsp, int error) {};
 
-		///²éÑ¯Î¯ÍĞ»Øµ÷
-		///@param    rsp              Î¯ÍĞÏêÏ¸ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQryOrder½Ó¿ÚµÄ»Ø¸´£¬¸Ã½Ó¿ÚÓĞ¿ÉÄÜ»áÖØ¸´´¥·¢Ö±µ½×îºóÒ»ÌõIsEndÎªTrue rspÎª¿ÕµÄÏûÏ¢
+		///æŸ¥è¯¢å§”æ‰˜å›è°ƒ
+		///@param    rsp              å§”æ‰˜è¯¦ç»†ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQryOrderæ¥å£çš„å›å¤ï¼Œè¯¥æ¥å£æœ‰å¯èƒ½ä¼šé‡å¤è§¦å‘ç›´åˆ°æœ€åä¸€æ¡IsEndä¸ºTrue rspä¸ºç©ºçš„æ¶ˆæ¯
 		virtual void onRspQryOrder(const TD_RspQryOrder *rsp, int error, bool isEnd) {};
-		///²éÑ¯³É½»Ã÷Ï¸
-		///@param    rsp              ³É½»ÏêÏ¸ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQryMatch½Ó¿ÚµÄ»Ø¸´£¬¸Ã½Ó¿ÚÓĞ¿ÉÄÜ»áÖØ¸´´¥·¢Ö±µ½×îºóÒ»ÌõIsEndÎªTrue rspÎª¿ÕµÄÏûÏ¢
+		///æŸ¥è¯¢æˆäº¤æ˜ç»†
+		///@param    rsp              æˆäº¤è¯¦ç»†ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQryMatchæ¥å£çš„å›å¤ï¼Œè¯¥æ¥å£æœ‰å¯èƒ½ä¼šé‡å¤è§¦å‘ç›´åˆ°æœ€åä¸€æ¡IsEndä¸ºTrue rspä¸ºç©ºçš„æ¶ˆæ¯
 		virtual void onRspQryMatch(const TD_RspQryMatch *rsp, int error, bool isEnd) {};
-		///²éÑ¯³Ö²Ö»Øµ÷
-		///@param    rsp              ³Ö²ÖÏêÏ¸ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQryPosition½Ó¿ÚµÄ»Ø¸´£¬¸Ã½Ó¿ÚÓĞ¿ÉÄÜ»áÖØ¸´´¥·¢Ö±µ½×îºóÒ»ÌõIsEndÎªTrue rspÎª¿ÕµÄÏûÏ¢
+		///æŸ¥è¯¢æŒä»“å›è°ƒ
+		///@param    rsp              æŒä»“è¯¦ç»†ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQryPositionæ¥å£çš„å›å¤ï¼Œè¯¥æ¥å£æœ‰å¯èƒ½ä¼šé‡å¤è§¦å‘ç›´åˆ°æœ€åä¸€æ¡IsEndä¸ºTrue rspä¸ºç©ºçš„æ¶ˆæ¯
 		virtual void onRspQryPosition(const TD_RspQryPosition *rsp, int error, bool isEnd) {};
-		///²éÑ¯×î´ó¿ÉÎ¯ÍĞÁ¿»Øµ÷
-		///@param    rsp              ¿ÉÎ¯ÍĞÁ¿ÏêÏ¸ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQryMaxEntrustCount½Ó¿ÚµÄ»Ø¸´£¬¸Ã½Ó¿ÚÓĞ¿ÉÄÜ»áÖØ¸´´¥·¢Ö±µ½×îºóÒ»ÌõIsEndÎªTrue rspÎª¿ÕµÄÏûÏ¢
+		///æŸ¥è¯¢æœ€å¤§å¯å§”æ‰˜é‡å›è°ƒ
+		///@param    rsp              å¯å§”æ‰˜é‡è¯¦ç»†ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQryMaxEntrustCountæ¥å£çš„å›å¤ï¼Œè¯¥æ¥å£æœ‰å¯èƒ½ä¼šé‡å¤è§¦å‘ç›´åˆ°æœ€åä¸€æ¡IsEndä¸ºTrue rspä¸ºç©ºçš„æ¶ˆæ¯
 		virtual void onRspQryMaxEntrustCount(const TD_RspQryMaxEntrustCount* rsp, int error, bool isEnd) {};
-		///²éÑ¯×Ê½ğÕÊºÅĞÅÏ¢³õÊ¼Öµ»Øµ÷
-		///@param    rsp              ¿ÉÎ¯ÍĞÁ¿ÏêÏ¸ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQryAccountInitMaxEntrustCount½Ó¿ÚµÄ»Ø¸´£¬¸Ã½Ó¿ÚÓĞ¿ÉÄÜ»áÖØ¸´´¥·¢Ö±µ½×îºóÒ»ÌõIsEndÎªTrue rspÎª¿ÕµÄÏûÏ¢
+		///æŸ¥è¯¢èµ„é‡‘å¸å·ä¿¡æ¯åˆå§‹å€¼å›è°ƒ
+		///@param    rsp              å¯å§”æ‰˜é‡è¯¦ç»†ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQryAccountInitMaxEntrustCountæ¥å£çš„å›å¤ï¼Œè¯¥æ¥å£æœ‰å¯èƒ½ä¼šé‡å¤è§¦å‘ç›´åˆ°æœ€åä¸€æ¡IsEndä¸ºTrue rspä¸ºç©ºçš„æ¶ˆæ¯
 		virtual void onRspQryAccountInitMaxEntrustCount(const TD_RspQryInitAccountMaxEntrustCount* rsp, int error, bool isEnd) {};
-		///²éÑ¯×Ê½ğÕÊºÅµ±Ç°ĞÅÏ¢»Øµ÷
-		///@param    rsp              ¿ÉÎ¯ÍĞÁ¿ÏêÏ¸ĞÅÏ¢
-		///@param    error            ²éÑ¯ÊÇ·ñ³É¹¦£¬·Ç0´ú±íÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@param    isEnd            ÊÇ·ñÊÇ×îºóÒ»Ìõ
-		///@return   ÎŞ
-		///@remark   reqQryAccountMaxEntrustCount½Ó¿ÚµÄ»Ø¸´£¬¸Ã½Ó¿ÚÓĞ¿ÉÄÜ»áÖØ¸´´¥·¢Ö±µ½×îºóÒ»ÌõIsEndÎªTrue rspÎª¿ÕµÄÏûÏ¢
+		///æŸ¥è¯¢èµ„é‡‘å¸å·å½“å‰ä¿¡æ¯å›è°ƒ
+		///@param    rsp              å¯å§”æ‰˜é‡è¯¦ç»†ä¿¡æ¯
+		///@param    error            æŸ¥è¯¢æ˜¯å¦æˆåŠŸï¼Œé0ä»£è¡¨å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@param    isEnd            æ˜¯å¦æ˜¯æœ€åä¸€æ¡
+		///@return   æ— 
+		///@remark   reqQryAccountMaxEntrustCountæ¥å£çš„å›å¤ï¼Œè¯¥æ¥å£æœ‰å¯èƒ½ä¼šé‡å¤è§¦å‘ç›´åˆ°æœ€åä¸€æ¡IsEndä¸ºTrue rspä¸ºç©ºçš„æ¶ˆæ¯
 		virtual void onRspQryAccountMaxEntrustCount(const TD_RspQryAccountMaxEntrustCount* rsp, int error, bool isEnd) {};
 
-		///¶©µ¥×´Ì¬¸Ä±äÍÆËÍ
-		///@param    notice              ¶¨µ¥×´Ì¬ĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   ¸Ã½Ó¿ÚÔÚ¶©µ¥×´Ì¬¸Ä±äÊ±±»µ÷ÓÃ
+		///è®¢å•çŠ¶æ€æ”¹å˜æ¨é€
+		///@param    notice              å®šå•çŠ¶æ€ä¿¡æ¯
+		///@return   æ— 
+		///@remark   è¯¥æ¥å£åœ¨è®¢å•çŠ¶æ€æ”¹å˜æ—¶è¢«è°ƒç”¨
 		virtual void onRtnOrderStatusChangeNotice(const TD_RtnOrderStatusChangeNotice *notice) {};
-		///³É½»Ã÷Ï¸ÍÆËÍ
-		///@param    notice              ³É½»Ã÷Ï¸ĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   ¸Ã½Ó¿ÚÔÚ¶©µ¥·¢Éú³É½»Ê±±»µ÷ÓÃ£¬ÍÆËÍ³É½»Ã÷Ï¸
+		///æˆäº¤æ˜ç»†æ¨é€
+		///@param    notice              æˆäº¤æ˜ç»†ä¿¡æ¯
+		///@return   æ— 
+		///@remark   è¯¥æ¥å£åœ¨è®¢å•å‘ç”Ÿæˆäº¤æ—¶è¢«è°ƒç”¨ï¼Œæ¨é€æˆäº¤æ˜ç»†
 		virtual void onRtnOrderMatchNotice(const TD_RtnOrderMatchNotice *notice) {};
-		///³Ö²Ö¸¡Ó¯ÍÆËÍ
-		///@param    notice              ³Ö²Ö¸¡Ó¯ĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   ¸Ã½Ó¿ÚÆµÂÊÓëTickÊı¾İÍ¬²½£¬ÍÆËÍ³Ö²ÖµÄµÄ¸¡Ó¯ĞÅÏ¢
+		///æŒä»“æµ®ç›ˆæ¨é€
+		///@param    notice              æŒä»“æµ®ç›ˆä¿¡æ¯
+		///@return   æ— 
+		///@remark   è¯¥æ¥å£é¢‘ç‡ä¸Tickæ•°æ®åŒæ­¥ï¼Œæ¨é€æŒä»“çš„çš„æµ®ç›ˆä¿¡æ¯
 		virtual void onRtnProfit(const TD_RtnProfit *notice) {};
-		///ÓÃ»§È¨ÏŞĞÅÏ¢ÍÆËÍ
-		///@param    notice              ÓÃ»§È¨ÏŞĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   µ±ÓÃ»§È¨ÏŞĞÅÏ¢±»ĞŞ¸ÄÊ±ÍÆËÍ£»µÇÂ½Ê±Ò²»áÍÆËÍÒ»´Î
+		///ç”¨æˆ·æƒé™ä¿¡æ¯æ¨é€
+		///@param    notice              ç”¨æˆ·æƒé™ä¿¡æ¯
+		///@return   æ— 
+		///@remark   å½“ç”¨æˆ·æƒé™ä¿¡æ¯è¢«ä¿®æ”¹æ—¶æ¨é€ï¼›ç™»é™†æ—¶ä¹Ÿä¼šæ¨é€ä¸€æ¬¡
 		virtual void onRtnUserAuthen(const TD_QuantUserAuthen* notice) {};
-		///×î´ó¿ÉÎ¯ÍĞÁ¿ÍÆËÍ
-		///@param    notice              ÓÃ»§È¨ÏŞĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   µ±ÓÃ»§¿ÉÎ¯ÍĞÁ¿±»¸Ä±äÊ±ÍÆËÍ
+		///æœ€å¤§å¯å§”æ‰˜é‡æ¨é€
+		///@param    notice              ç”¨æˆ·æƒé™ä¿¡æ¯
+		///@return   æ— 
+		///@remark   å½“ç”¨æˆ·å¯å§”æ‰˜é‡è¢«æ”¹å˜æ—¶æ¨é€
 		virtual void onRtnMaxEntrustCount(const TD_RspQryMaxEntrustCount* notice) {};
-		///ĞŞ¸ÄÓÃ»§È¯³ØÍÆËÍ
-		///@param    notice              È¯³ØĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   ÓÃ»§È¯³Ø±»ĞŞ¸ÄÖ®ºóÍÆËÍ¹ÉÆ±¿ÉÂò¿ÉÂô³õÊ¼Öµ
+		///ä¿®æ”¹ç”¨æˆ·åˆ¸æ± æ¨é€
+		///@param    notice              åˆ¸æ± ä¿¡æ¯
+		///@return   æ— 
+		///@remark   ç”¨æˆ·åˆ¸æ± è¢«ä¿®æ”¹ä¹‹åæ¨é€è‚¡ç¥¨å¯ä¹°å¯å–åˆå§‹å€¼
 		virtual void onRtnUpdateUserCodePool(const TD_QuantUserCodePool* notice) {};
-		///Ä£Äâ×Ê½ğÕËºÅÍÆËÍ
-		///@param    notice              Ä£Äâ×Ê½ğÕËºÅĞÅÏ¢
-		///@return   ÎŞ
-		///@remark   ´´½¨Ä£Äâ½»Ò×»·¾³£¬µÇÂ½Ê±×èÈû½øĞĞÍÆËÍËùÓĞ¿ÉÓÃÄ£ÄâÕËºÅĞÅÏ¢
+		///æ¨¡æ‹Ÿèµ„é‡‘è´¦å·æ¨é€
+		///@param    notice              æ¨¡æ‹Ÿèµ„é‡‘è´¦å·ä¿¡æ¯
+		///@return   æ— 
+		///@remark   åˆ›å»ºæ¨¡æ‹Ÿäº¤æ˜“ç¯å¢ƒï¼Œç™»é™†æ—¶é˜»å¡è¿›è¡Œæ¨é€æ‰€æœ‰å¯ç”¨æ¨¡æ‹Ÿè´¦å·ä¿¡æ¯
 		virtual void onRtnSimulationAccount(const TD_SimulationAccount* notice) {};
-	public://ĞĞÇéÒµÎñÂß¼­»Øµ÷
-		///@brief ÏìÓ¦ÇëÇó½»Ò×ÈÕÁĞ±í
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂëÁĞ±í
-		///@param[in] nWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] szBeginDay Ö¸¶¨µÄÆğÊ¼ÈÕÆÚ
-		///@param[in] szEndDay Ö¸¶¨µÄ½áÊøÈÕÆÚ
-		///@param[in] nErrNo ÏìÓ¦Ê§°ÜµÄ´íÎóÂë
-		///@param[in] szErrMsg ÏìÓ¦Ê§°ÜµÄ´íÎóÃèÊö
-		///@return ÎŞ
+	public://è¡Œæƒ…ä¸šåŠ¡é€»è¾‘å›è°ƒ
+		///@brief å“åº”è¯·æ±‚äº¤æ˜“æ—¥åˆ—è¡¨
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç åˆ—è¡¨
+		///@param[in] nWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] szBeginDay æŒ‡å®šçš„èµ·å§‹æ—¥æœŸ
+		///@param[in] szEndDay æŒ‡å®šçš„ç»“æŸæ—¥æœŸ
+		///@param[in] nErrNo å“åº”å¤±è´¥çš„é”™è¯¯ç 
+		///@param[in] szErrMsg å“åº”å¤±è´¥çš„é”™è¯¯æè¿°
+		///@return æ— 
 		virtual void OnRspTradingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay, int nErrNo, const char *szErrMsg) {};
-		///@brief ÏìÓ¦ÇëÇóÍ£ÅÆÈÕÁĞ±í
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂë±í
-		///@param[in] nWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] szBeginDay Ö¸¶¨µÄÆğÊ¼ÈÕÆÚ
-		///@param[in] szEndDay Ö¸¶¨µÄ½áÊøÈÕÆÚ
-		///@param[in] nErrNo ÏìÓ¦Ê§°ÜµÄ´íÎóÂë
-		///@param[in] szErrMsg ÏìÓ¦Ê§°ÜµÄ´íÎóÃèÊö
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÍ£ÅÆÈÕÁĞ±íºóÖ÷¶¯Í¨Öª
+		///@brief å“åº”è¯·æ±‚åœç‰Œæ—¥åˆ—è¡¨
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç è¡¨
+		///@param[in] nWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] szBeginDay æŒ‡å®šçš„èµ·å§‹æ—¥æœŸ
+		///@param[in] szEndDay æŒ‡å®šçš„ç»“æŸæ—¥æœŸ
+		///@param[in] nErrNo å“åº”å¤±è´¥çš„é”™è¯¯ç 
+		///@param[in] szErrMsg å“åº”å¤±è´¥çš„é”™è¯¯æè¿°
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚åœç‰Œæ—¥åˆ—è¡¨åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRspHaltingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, MD_ISODateTimeType szBeginDay, MD_ISODateTimeType szEndDay, int nErrNo, const char *szErrMsg) {};
-		///@brief ÏìÓ¦ÇëÇó¶©ÔÄĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] nSubType Ö¸¶¨µÄ¶©ÔÄÀàĞÍ
-		///@param[in] nCycType Ö¸¶¨µÄKÏßÖÜÆÚÀàĞÍ(Èç¹ûnSubTypeÎ´°üº¬KÏß¶©ÔÄÀàĞÍ, Çë½«¸Ã²ÎÊıÖÃÎª0)
-		///@param[in] pSubWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂë±í
-		///@param[in] nSubWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] szBeginTime Ö¸¶¨µÄÆğÊ¼Ê±¼ä
-		///@param[in] szEndTime Ö¸¶¨µÄ½áÊøÊ±¼ä
-		///@param[in] nErrNo ÏìÓ¦Ê§°ÜµÄ´íÎóÂë
-		///@param[in] szErrMsg ÏìÓ¦Ê§°ÜµÄ´íÎóÃèÊö
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇó¶©ÔÄĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief å“åº”è¯·æ±‚è®¢é˜…è¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] nSubType æŒ‡å®šçš„è®¢é˜…ç±»å‹
+		///@param[in] nCycType æŒ‡å®šçš„Kçº¿å‘¨æœŸç±»å‹(å¦‚æœnSubTypeæœªåŒ…å«Kçº¿è®¢é˜…ç±»å‹, è¯·å°†è¯¥å‚æ•°ç½®ä¸º0)
+		///@param[in] pSubWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç è¡¨
+		///@param[in] nSubWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] szBeginTime æŒ‡å®šçš„èµ·å§‹æ—¶é—´
+		///@param[in] szEndTime æŒ‡å®šçš„ç»“æŸæ—¶é—´
+		///@param[in] nErrNo å“åº”å¤±è´¥çš„é”™è¯¯ç 
+		///@param[in] szErrMsg å“åº”å¤±è´¥çš„é”™è¯¯æè¿°
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚è®¢é˜…è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRspSubQuote(MD_ReqID nReqID, MD_SubType nSubType, MD_CycType nCycType, const MD_CodeType *pSubWindCode, long nSubWindCodeNum, MD_ISODateTimeType szBeginTime, MD_ISODateTimeType szEndTime, int nErrNo, const char *szErrMsg) {};
-		///@brief Í¨Öª½»Ò×´úÂë±í
-		///@param[in] pWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂë±í
-		///@param[in] nWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] pOptionCode Ö¸¶¨µÄÆÚÈ¨´úÂë±í
-		///@param[in] nOptionCodeNum Ö¸¶¨µÄÆÚÈ¨´úÂëÊıÁ¿
-		///@return ÎŞ
+		///@brief é€šçŸ¥äº¤æ˜“ä»£ç è¡¨
+		///@param[in] pWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç è¡¨
+		///@param[in] nWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] pOptionCode æŒ‡å®šçš„æœŸæƒä»£ç è¡¨
+		///@param[in] nOptionCodeNum æŒ‡å®šçš„æœŸæƒä»£ç æ•°é‡
+		///@return æ— 
 		virtual void OnRtnTradingCode(const MD_DATA_CODE *pWindCode, long nWindCodeNum, const MD_DATA_OPTION_CODE *pOptionCode, long nOptionCodeNum) {};
-		///@brief Í¨Öª½»Ò×ÈÕÁĞ±í
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] szWindCode Ö¸¶¨µÄ¹ÉÆ±µÄ´úÂë(¸ÃÖ¸ÕëÈôÎªnullptr, Ôò±íÊ¾Õû¸öÊĞ³¡µÄ½»Ò×ÈÕÁĞ±í)
-		///@param[in] pDay ½»Ò×ÈÕÁĞ±í
-		///@param[in] nDayNum ½»Ò×ÈÕ¸öÊı
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇó½»Ò×ÈÕÁĞ±íºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥äº¤æ˜“æ—¥åˆ—è¡¨
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] szWindCode æŒ‡å®šçš„è‚¡ç¥¨çš„ä»£ç (è¯¥æŒ‡é’ˆè‹¥ä¸ºnullptr, åˆ™è¡¨ç¤ºæ•´ä¸ªå¸‚åœºçš„äº¤æ˜“æ—¥åˆ—è¡¨)
+		///@param[in] pDay äº¤æ˜“æ—¥åˆ—è¡¨
+		///@param[in] nDayNum äº¤æ˜“æ—¥ä¸ªæ•°
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚äº¤æ˜“æ—¥åˆ—è¡¨åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnTradingDay(MD_ReqID nReqID, const char *szWindCode, const MD_ISODateTimeType *pDay, long nDayNum) {};
-		///@brief Í¨ÖªÍ£ÅÆÈÕÁĞ±í
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] szWindCode Ö¸¶¨¹ÉÆ±µÄ´úÂë
-		///@param[in] pDay ½»Ò×ÈÕÁĞ±í
-		///@param[in] nDayNum ½»Ò×ÈÕ¸öÊı
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÍ£ÅÆÈÕÁĞ±íºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥åœç‰Œæ—¥åˆ—è¡¨
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] szWindCode æŒ‡å®šè‚¡ç¥¨çš„ä»£ç 
+		///@param[in] pDay äº¤æ˜“æ—¥åˆ—è¡¨
+		///@param[in] nDayNum äº¤æ˜“æ—¥ä¸ªæ•°
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚åœç‰Œæ—¥åˆ—è¡¨åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnHaltingDay(MD_ReqID nReqID, const char *szWindCode, const MD_ISODateTimeType *pDay, long nDayNum) {};
-		///@brief Í¨Öª¸ö¹ÉĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pMarket ¸ö¹ÉµÄĞĞÇéÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥ä¸ªè‚¡è¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pMarket ä¸ªè‚¡çš„è¡Œæƒ…æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnMarket(MD_ReqID nReqID, MD_DATA_MARKET *pMarket) {};
-		///@brief Í¨ÖªKÏßĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pKLine KÏßĞĞÇéÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·KÏßĞĞÇé»ò¶©ÔÄÊµÊ±KÏßĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥Kçº¿è¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pKLine Kçº¿è¡Œæƒ…æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²Kçº¿è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶Kçº¿è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnKLine(MD_ReqID nReqID, MD_DATA_KLINE *pKLine) {};
-		///@brief Í¨ÖªÖ¸ÊıĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pIndex Ö¸ÊıĞĞÇéÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥æŒ‡æ•°è¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pIndex æŒ‡æ•°è¡Œæƒ…æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnIndex(MD_ReqID nReqID, MD_DATA_INDEX *pIndex) {};
-		///@brief Í¨ÖªÖğ±Ê³É½»
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pTrans Öğ±Ê³É½»Êı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥é€ç¬”æˆäº¤
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pTrans é€ç¬”æˆäº¤æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnTransaction(MD_ReqID nReqID, MD_DATA_TRANSACTION *pTrans) {};
-		///@brief Í¨ÖªÎ¯ÍĞ¶ÓÁĞ
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pQueue Î¯ÍĞ¶ÓÁĞÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥å§”æ‰˜é˜Ÿåˆ—
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pQueue å§”æ‰˜é˜Ÿåˆ—æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnOrderQueue(MD_ReqID nReqID, MD_DATA_ORDER_QUEUE *pQueue) {};
-		///@brief Í¨ÖªÖğ±ÊÎ¯ÍĞ
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pOrder Öğ±ÊÎ¯ÍĞÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥é€ç¬”å§”æ‰˜
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pOrder é€ç¬”å§”æ‰˜æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnOrder(MD_ReqID nReqID, MD_DATA_ORDER *pOrder) {};
-		///@brief Í¨ÖªÆÚ»õĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pFuture ÆÚ»õĞĞÇéÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥æœŸè´§è¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pFuture æœŸè´§è¡Œæƒ…æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnFuture(MD_ReqID nReqID, MD_DATA_FUTURE *pFuture) {};
-		///@brief Í¨ÖªÆÚÈ¨ĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pOption ÆÚÈ¨ĞĞÇéÊı¾İµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·Öğ±ÊĞĞÇé»ò¶©ÔÄÊµÊ±Öğ±ÊĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥æœŸæƒè¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pOption æœŸæƒè¡Œæƒ…æ•°æ®åœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²é€ç¬”è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶é€ç¬”è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnFutureOption(MD_ReqID nReqID, MD_DATA_FUTURE *pOption) {};
-		///@brief Í¨Öª¿ªÊĞÏûÏ¢
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pDate ¿ªÊĞÈÕÆÚµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·ĞĞÇé»ò¶©ÔÄÊµÊ±ĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥å¼€å¸‚æ¶ˆæ¯
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pDate å¼€å¸‚æ—¥æœŸåœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnDayBegin(MD_ReqID nReqID, MD_ISODateTimeType pDate) {};
-		///@brief Í¨Öª±ÕÊĞÏûÏ¢
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pDate ±ÕÊĞÈÕÆÚµØÖ·
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅ»áÔÚÇëÇóÀúÊ·ĞĞÇé»ò¶©ÔÄÊµÊ±ĞĞÇéºóÖ÷¶¯Í¨Öª
+		///@brief é€šçŸ¥é—­å¸‚æ¶ˆæ¯
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pDate é—­å¸‚æ—¥æœŸåœ°å€
+		///@return æ— 
+		///@note è¯¥ä¿¡å·ä¼šåœ¨è¯·æ±‚å†å²è¡Œæƒ…æˆ–è®¢é˜…å®æ—¶è¡Œæƒ…åä¸»åŠ¨é€šçŸ¥
 		virtual void OnRtnDayEnd(MD_ReqID nReqID, MD_ISODateTimeType pDate) {};
-		///@brief Í¨ÖªÊµĞ§ĞÔÏûÏ¢
+		///@brief é€šçŸ¥å®æ•ˆæ€§æ¶ˆæ¯
 		///@param[in] nReqID
-		///@return ÎŞ
-		///@note ¸ÃĞÅºÅÖ»ÔÚÇëÇóÊµÊ±ĞĞÇéÊ±³öÏÖ, ÓÃÓÚ±íÊ¾Ö®ºóµÄÊı¾İÎªÊµÊ±ÍÆËÍĞĞÇéÊı¾İ
+		///@return æ— 
+		///@note è¯¥ä¿¡å·åªåœ¨è¯·æ±‚å®æ—¶è¡Œæƒ…æ—¶å‡ºç°, ç”¨äºè¡¨ç¤ºä¹‹åçš„æ•°æ®ä¸ºå®æ—¶æ¨é€è¡Œæƒ…æ•°æ®
 		virtual void OnRtnTimeless(MD_ReqID nReqID) {};
 	};
 
@@ -307,190 +312,190 @@ namespace QuantPlus
 		PT_QuantApi();
 		virtual ~PT_QuantApi();
 	public:
-		///»ñÈ¡API°æ±¾
-		///@param    ÎŞ
-		///@return   API°æ±¾
-		///@remark   ¾²Ì¬º¯Êı
+		///è·å–APIç‰ˆæœ¬
+		///@param    æ— 
+		///@return   APIç‰ˆæœ¬
+		///@remark   é™æ€å‡½æ•°
 		static char* getVersion();
-		///´´½¨ÊµÀı
-		///@param    spi                  »Øµ÷Ö¸Õë
-		///@param    bEnableLog           ÊÇ·ñ¿ªÆôÈÕÖ¾
-		///@param    nTdType              ½»Ò×»·¾³
-		///@param    nMdType              ĞĞÇé»·¾³
-		///@return   TradeDataApiÀàĞÍµÄ¶ÔÏóÊµÀı
-		///@remark   Ä¬ÈÏÁ¬½ÓÉÏÑ¡ÔñµÄ»·¾³
+		///åˆ›å»ºå®ä¾‹
+		///@param    spi                  å›è°ƒæŒ‡é’ˆ
+		///@param    bEnableLog           æ˜¯å¦å¼€å¯æ—¥å¿—
+		///@param    nTdType              äº¤æ˜“ç¯å¢ƒ
+		///@param    nMdType              è¡Œæƒ…ç¯å¢ƒ
+		///@return   TradeDataApiç±»å‹çš„å¯¹è±¡å®ä¾‹
+		///@remark   é»˜è®¤è¿æ¥ä¸Šé€‰æ‹©çš„ç¯å¢ƒ
 		static PT_QuantApi* createApi(PT_QuantSpi* spi, bool bEnableLog, PT_QuantTdAppEType nTdType, PT_QuantMdAppEType nMdType);
-		///´´½¨ÊµÀı
-		///@param    spi                  »Øµ÷Ö¸Õë
-		///@param    bEnableLog           ÊÇ·ñ¿ªÆôÈÕÖ¾
-		///@param    nTdType              ½»Ò×»·¾³
-		///@param    bTdConnect           ÊÇ·ñ¼¤»î½»Ò×»·¾³
-		///@param    nMdType              ĞĞÇé»·¾³
-		///@param    bMdConnect           ÊÇ·ñ¼¤»îĞĞÇé»·¾³
-		///@return   TradeDataApiÀàĞÍµÄ¶ÔÏóÊµÀı
-		///@remark   ¾²Ì¬º¯Êı
+		///åˆ›å»ºå®ä¾‹
+		///@param    spi                  å›è°ƒæŒ‡é’ˆ
+		///@param    bEnableLog           æ˜¯å¦å¼€å¯æ—¥å¿—
+		///@param    nTdType              äº¤æ˜“ç¯å¢ƒ
+		///@param    bTdConnect           æ˜¯å¦æ¿€æ´»äº¤æ˜“ç¯å¢ƒ
+		///@param    nMdType              è¡Œæƒ…ç¯å¢ƒ
+		///@param    bMdConnect           æ˜¯å¦æ¿€æ´»è¡Œæƒ…ç¯å¢ƒ
+		///@return   TradeDataApiç±»å‹çš„å¯¹è±¡å®ä¾‹
+		///@remark   é™æ€å‡½æ•°
 		static PT_QuantApi* createApi(PT_QuantSpi* spi, bool bEnableLog, PT_QuantTdAppEType nTdType, bool bTdConnect, PT_QuantMdAppEType nMdType, bool bMdConnect, bool bIfSyn);
-		/// ///É¾³ıÊµÀı
-		///@param    api                  ĞèÒªÉ¾³ıµÄ¶ÔÏóÊµÀı
-		///@return   ÎŞ
-		///@remark   ¾²Ì¬º¯Êı
+		/// ///åˆ é™¤å®ä¾‹
+		///@param    api                  éœ€è¦åˆ é™¤çš„å¯¹è±¡å®ä¾‹
+		///@return   æ— 
+		///@remark   é™æ€å‡½æ•°
 		static void deleteApi(PT_QuantApi* api);
-		/// ³õÊ¼»¯
-		///@param    ÎŞ
-		///@return   ÎŞ
-		///@remark   ¾²Ì¬º¯Êı
+		/// åˆå§‹åŒ–
+		///@param    æ— 
+		///@return   æ— 
+		///@remark   é™æ€å‡½æ•°
 		static void Init();
-		///½âÎö´íÎóÂë
-		///@Param    nErrCode             ´úÂëºÅ
-		///@Param    szErrmsg             ´íÎóÂë
-		///@Param    len                  szErrmsgÄÚ´æ³¤¶È
-		///@remark:  ¾²Ì¬º¯Êı£¬Ê¹ÓÃ´Ë½Ó¿ÚÇ°Ğèµ÷ÓÃInit()²ÅÄÜ»ñÈ¡ÍêÕûµÄ´íÎóÂë½âÎö£¬·ñÔòÖ»ÄÜ½âÎöÏµÍ³¼¶±ğ´íÎó
+		///è§£æé”™è¯¯ç 
+		///@Param    nErrCode             ä»£ç å·
+		///@Param    szErrmsg             é”™è¯¯ç 
+		///@Param    len                  szErrmsgå†…å­˜é•¿åº¦
+		///@remark:  é™æ€å‡½æ•°ï¼Œä½¿ç”¨æ­¤æ¥å£å‰éœ€è°ƒç”¨Init()æ‰èƒ½è·å–å®Œæ•´çš„é”™è¯¯ç è§£æï¼Œå¦åˆ™åªèƒ½è§£æç³»ç»Ÿçº§åˆ«é”™è¯¯
 		static void GetErrMsg(int nErrCode, char* szErrmsg, int len);
-		///ÉèÖÃ»Ø²âÏŞÖÆÄ£°å
-		///@param    req                  // ÉèÖÃµÄ»Ø²âÏŞÖÆ
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ×èÈûÄ£Ê½,½öÔÚ»Ø²âÊ±ÓĞÓÃ
+		///è®¾ç½®å›æµ‹é™åˆ¶æ¨¡æ¿
+		///@param    req                  // è®¾ç½®çš„å›æµ‹é™åˆ¶
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨é˜»å¡æ¨¡å¼,ä»…åœ¨å›æµ‹æ—¶æœ‰ç”¨
 		virtual int SetNewBackTest(PT_BackTestReq* req) = 0;
-		///µÇÂ¼ÈÏÖ¤»ñÈ¡È¨ÏŞ
-		///@Param    szUseName            µÇÂ¼ÕÊºÅ
-		///@Param    szPasswd             µÇÂ¼ÃÜÂë
-		///@return   ·µ»Ø0µÇÂ¼³É¹¦,·Ç0µÇÂ¼Ê§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark:  ²ÉÓÃ×èÈûÄ£Ê½
+		///ç™»å½•è®¤è¯è·å–æƒé™
+		///@Param    szUseName            ç™»å½•å¸å·
+		///@Param    szPasswd             ç™»å½•å¯†ç 
+		///@return   è¿”å›0ç™»å½•æˆåŠŸ,é0ç™»å½•å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark:  é‡‡ç”¨é˜»å¡æ¨¡å¼
 		virtual int Login(char* szUseName, char* szPasswd) = 0;
-		///»ñÈ¡¹ÉÆ±´úÂë±í
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark:  ²ÉÓÃ×èÈûÄ£Ê½
+		///è·å–è‚¡ç¥¨ä»£ç è¡¨
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark:  é‡‡ç”¨é˜»å¡æ¨¡å¼
 		virtual int GetCode() = 0;
-		///Í¬²½Ö´ĞĞº¯Êı
-		///@remark:  Í¬²½Ä£Ê½ÖĞÆôÓÃ£¬µ÷ÓÃ¸Ãº¯ÊıµÄÏß³Ì×÷Îª»Øµ÷Ïß³Ì
+		///åŒæ­¥æ‰§è¡Œå‡½æ•°
+		///@remark:  åŒæ­¥æ¨¡å¼ä¸­å¯ç”¨ï¼Œè°ƒç”¨è¯¥å‡½æ•°çš„çº¿ç¨‹ä½œä¸ºå›è°ƒçº¿ç¨‹
 		virtual void Run() = 0;
-		///ÍË³öÍ¬²½Ö´ĞĞ
-		///@remark:  Ç¿ĞĞÍË³öÍ¬²½Ö´ĞĞ
+		///é€€å‡ºåŒæ­¥æ‰§è¡Œ
+		///@remark:  å¼ºè¡Œé€€å‡ºåŒæ­¥æ‰§è¡Œ
 		virtual void BreakExec() = 0;
-	public:// ·ÇÒµÎñ¼¶±ğ½Ó¿Ú
-		///»ñÈ¡ËùÓĞÓÃ»§ĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark:  ²ÉÓÃ×èÈûÄ£Ê½
+	public:// éä¸šåŠ¡çº§åˆ«æ¥å£
+		///è·å–æ‰€æœ‰ç”¨æˆ·ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark:  é‡‡ç”¨é˜»å¡æ¨¡å¼
 		//  virtual int reqQueryAllUser() = 0;
-		///ĞŞ¸ÄÓÃ»§È¨ÏŞ
-		///@Param    req                  ÇëÇóÖ¸Áî
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½£¬ĞŞ¸Ä·½Ê½Îª¸²¸ÇĞŞ¸Ä
+		///ä¿®æ”¹ç”¨æˆ·æƒé™
+		///@Param    req                  è¯·æ±‚æŒ‡ä»¤
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼ï¼Œä¿®æ”¹æ–¹å¼ä¸ºè¦†ç›–ä¿®æ”¹
 		//  virtual int reqUpdateUserAuthen(TD_QuantUserAuthen* pUserAuthen) = 0;
-		///ĞŞ¸ÄÓÃ»§¿ÉÓÃÈ¯
-		///@Param    req                  ÇëÇóÖ¸Áî
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½£¬ĞŞ¸Ä·½Ê½ÎªÔöÁ¿ĞŞ¸Ä,µ±IdÎª-1000µÄÊ±ºòĞŞ¸ÄµÄÊÇ¹«ÓÃÈ¯
+		///ä¿®æ”¹ç”¨æˆ·å¯ç”¨åˆ¸
+		///@Param    req                  è¯·æ±‚æŒ‡ä»¤
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼ï¼Œä¿®æ”¹æ–¹å¼ä¸ºå¢é‡ä¿®æ”¹,å½“Idä¸º-1000çš„æ—¶å€™ä¿®æ”¹çš„æ˜¯å…¬ç”¨åˆ¸
 		//  virtual int reqUpdateUserCodePool(TD_QuantUserCodePool* pUserCodePool) =0;
-		///ĞŞ¸ÄÓÃ»§¿ÉÓÃÈ¯
-		///@Param    pUserDisablePublicCode        ĞèÒªĞŞ¸ÄµÄÓÃ»§¿ÉÓÃÈ¯
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½£¬ĞŞ¸Ä·½Ê½ÎªÔöÁ¿ĞŞ¸Ä
+		///ä¿®æ”¹ç”¨æˆ·å¯ç”¨åˆ¸
+		///@Param    pUserDisablePublicCode        éœ€è¦ä¿®æ”¹çš„ç”¨æˆ·å¯ç”¨åˆ¸
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼ï¼Œä¿®æ”¹æ–¹å¼ä¸ºå¢é‡ä¿®æ”¹
 		//  virtual int reqDisablePublicCode(TD_QuantUserDisablePublicCode* pUserDisablePublicCode) = 0;
-		///ĞŞ¸ÄÕË»§ÓÅÏÈ¼¶
-		///@Param    req          ĞŞ¸ÄÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½,ĞŞ¸ÄÎª¸²¸ÇĞŞ¸Ä
+		///ä¿®æ”¹è´¦æˆ·ä¼˜å…ˆçº§
+		///@Param    req          ä¿®æ”¹è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼,ä¿®æ”¹ä¸ºè¦†ç›–ä¿®æ”¹
 		//  virtual int reqUpdateAccountPriority(TD_ReqUpdatePriority* req) = 0;
-		///²éÑ¯ÕË»§ÓÅÏÈ¼¶
-		///@Param    req          ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½£¬nUserIdÎª0£¬Ä¬ÈÏÎª²éÑ¯È«²¿
+		///æŸ¥è¯¢è´¦æˆ·ä¼˜å…ˆçº§
+		///@Param    req          æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼ï¼ŒnUserIdä¸º0ï¼Œé»˜è®¤ä¸ºæŸ¥è¯¢å…¨éƒ¨
 		//  virtual int reqQueryAccountPriority(TD_ReqQryPriority* req) = 0;
-	public:///½»Ò×ÒµÎñ½Ó¿Ú
-		///ÏÂµ¥
-		///@Param    req                  ÏÂµ¥ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+	public:///äº¤æ˜“ä¸šåŠ¡æ¥å£
+		///ä¸‹å•
+		///@Param    req                  ä¸‹å•è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqOrderInsert(TD_ReqOrderInsert* req) = 0;
-		///³·µ¥
-		///@Param    req                  ³·µ¥ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///æ’¤å•
+		///@Param    req                  æ’¤å•è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqOrderDelete(TD_ReqOrderDelete* req) = 0;
-		///²éÑ¯Î¯ÍĞ
-		///@Param    req                  ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///æŸ¥è¯¢å§”æ‰˜
+		///@Param    req                  æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqQryOrder(TD_ReqQryOrder* req) = 0;
-		///²éÑ¯³É½»Ã÷Ï¸
-		///@Param    req                  ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///æŸ¥è¯¢æˆäº¤æ˜ç»†
+		///@Param    req                  æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqQryMatch(TD_ReqQryMatch* req) = 0;
-		///²éÑ¯³Ö²Ö
-		///@Param    req                  ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///æŸ¥è¯¢æŒä»“
+		///@Param    req                  æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqQryPosition(TD_ReqQryPosition* req) = 0;
-		///¶©ÔÄ×î´ó¿ÉÎ¯ÍĞÁ¿
-		///@Param    req                  ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///è®¢é˜…æœ€å¤§å¯å§”æ‰˜é‡
+		///@Param    req                  æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqQryMaxEntrustCount(TD_ReqQryMaxEntrustCount* req) = 0;
-		///²éÑ¯×Ê½ğÕÊºÅĞÅÏ¢³õÊ¼Öµ
-		///@Param    req                  ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///æŸ¥è¯¢èµ„é‡‘å¸å·ä¿¡æ¯åˆå§‹å€¼
+		///@Param    req                  æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqQryAccountInitMaxEntrustCount(TD_ReqQryAccountMaxEntrustCount* req) = 0;
-		///²éÑ¯×Ê½ğÕÊºÅµ±Ç°ĞÅÏ¢
-		///@Param    req                  ²éÑ¯ÇëÇóĞÅÏ¢
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///æŸ¥è¯¢èµ„é‡‘å¸å·å½“å‰ä¿¡æ¯
+		///@Param    req                  æŸ¥è¯¢è¯·æ±‚ä¿¡æ¯
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqQryAccountMaxEntrustCount(TD_ReqQryAccountMaxEntrustCount* req) = 0;
-		///¶©ÔÄ×î´ó¿ÉÎ¯ÍĞÁ¿ÍÆËÍ
-		///@return   ·µ»Ø²»Îª0£¬·¢ËÍÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@remark   ²ÉÓÃ·Ç×èÈûÄ£Ê½
+		///è®¢é˜…æœ€å¤§å¯å§”æ‰˜é‡æ¨é€
+		///@return   è¿”å›ä¸ä¸º0ï¼Œå‘é€å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@remark   é‡‡ç”¨éé˜»å¡æ¨¡å¼
 		virtual int reqSubscribeMaxEntrustCount() = 0;
 
 	public:
-		///@brief ÇëÇó½»Ò×ÈÕÁĞ±í
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂëÁĞ±í
-		///@param[in] nWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] szBeginDay Ö¸¶¨µÄÆğÊ¼ÈÕÆÚ
-		///@param[in] szEndDay Ö¸¶¨µÄ½áÊøÈÕÆÚ
-		///@return ÎŞ
-		///@note Èç¹ûµ÷ÓÃÕßÎªpWindCode²åÈëµÄÊÇ¶¯Ì¬ÄÚ´æ, ÓÉµ÷ÓÃÕß¸ºÔğÊÍ·Å, ±¾½Ó¿ÚÄÚ²¿²»×÷ÊÍ·Å´¦Àí
+		///@brief è¯·æ±‚äº¤æ˜“æ—¥åˆ—è¡¨
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç åˆ—è¡¨
+		///@param[in] nWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] szBeginDay æŒ‡å®šçš„èµ·å§‹æ—¥æœŸ
+		///@param[in] szEndDay æŒ‡å®šçš„ç»“æŸæ—¥æœŸ
+		///@return æ— 
+		///@note å¦‚æœè°ƒç”¨è€…ä¸ºpWindCodeæ’å…¥çš„æ˜¯åŠ¨æ€å†…å­˜, ç”±è°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾, æœ¬æ¥å£å†…éƒ¨ä¸ä½œé‡Šæ”¾å¤„ç†
 		virtual int ReqTradingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, const MD_ISODateTimeType szBeginDay, const MD_ISODateTimeType szEndDay) = 0;
-		///@brief ÇëÇóÍ£ÅÆÈÕÁĞ±í
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] pWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂëÁĞ±í
-		///@param[in] nWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] szBeginDay Ö¸¶¨µÄÆğÊ¼ÈÕÆÚ
-		///@param[in] szEndDay Ö¸¶¨µÄ½áÊøÈÕÆÚ
-		///@return ÎŞ
-		///@note Èç¹ûµ÷ÓÃÕßÎªpWindCode²åÈëµÄÊÇ¶¯Ì¬ÄÚ´æ, ÓÉµ÷ÓÃÕß¸ºÔğÊÍ·Å, ±¾½Ó¿ÚÄÚ²¿²»×÷ÊÍ·Å´¦Àí
+		///@brief è¯·æ±‚åœç‰Œæ—¥åˆ—è¡¨
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] pWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç åˆ—è¡¨
+		///@param[in] nWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] szBeginDay æŒ‡å®šçš„èµ·å§‹æ—¥æœŸ
+		///@param[in] szEndDay æŒ‡å®šçš„ç»“æŸæ—¥æœŸ
+		///@return æ— 
+		///@note å¦‚æœè°ƒç”¨è€…ä¸ºpWindCodeæ’å…¥çš„æ˜¯åŠ¨æ€å†…å­˜, ç”±è°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾, æœ¬æ¥å£å†…éƒ¨ä¸ä½œé‡Šæ”¾å¤„ç†
 		virtual int ReqHaltingDay(MD_ReqID nReqID, const MD_CodeType *pWindCode, long nWindCodeNum, const MD_ISODateTimeType szBeginDay, const MD_ISODateTimeType szEndDay) = 0;
-		///@brief ÇëÇó¶©ÔÄĞĞÇé
-		///@param[in] nReqID ÏûÏ¢ÇëÇóĞòºÅ
-		///@param[in] nSubType ¶©ÔÄĞĞÇéÀàĞÍ
-		/// ³£¼ûµÄ¶©ÔÄĞĞÇéÀàĞÍ:
-		/// -# 0x0000-Î´ÖªÀàĞÍ(²»¶©ÔÄÈÎºÎ¶©ÔÄĞĞÇé)
-		/// -# 0x0001-¸ö¹ÉĞĞÇé
-		/// -# 0x0002-Ö¸ÊıĞĞÇé
-		/// -# 0x0004-Öğ±Ê³É½»
-		/// -# 0x0008-Öğ±ÊÎ¯ÍĞ
-		/// -# 0x0010-Î¯ÍĞ¶ÓÁĞ
-		/// -# 0x0020-ÆÚ»õĞĞÇé
-		/// -# 0x0040-ÆÚÈ¨ĞĞÇé
-		/// -# 0x0080-KÏßĞĞÇé
-		///@param[in] nCycType KÏßÖÜÆÚÀàĞÍ
-		/// ³£¼ûµÄKÏßÖÜÆÚÀàĞÍ:
-		/// -# 0x0000-Î´ÖªÀàĞÍ(²»¶©ÔÄÈÎºÎKÏßĞĞÇé)
-		/// -# 0x0001-10ÃëKÏß
-		/// -# 0x0002-1·ÖÖÓKÏß
-		/// -# 0x0004-5·ÖÖÓKÏß
-		/// -# 0x0008-15·ÖÖÓKÏß
-		/// -# 0x0010-30·ÖÖÓKÏß
-		/// -# 0x0020-1Ğ¡Ê±KÏß
-		/// -# 0x0040-1ÈÕKÏß
-		///@param[in] pSubWindCode Ö¸¶¨µÄ¹ÉÆ±´úÂëÁĞ±í
-		///@param[in] nSubWindCodeNum Ö¸¶¨µÄ¹ÉÆ±´úÂëÊıÁ¿
-		///@param[in] szBeginTime Ö¸¶¨µÄÆğÊ¼Ê±¼ä
-		///@param[in] szEndTime Ö¸¶¨µÄ½áÊøÊ±¼ä
-		///@return ·µ»Ø²»Îª0£¬ÇëÇóÊ§°Ü£¬´íÎóÂë²Î¿¼TQuantErrorType::EQuantErrorType
-		///@note Èç¹ûµ÷ÓÃÕßÎªpSubWindCode²åÈëµÄÊÇ¶¯Ì¬ÄÚ´æ, ÓÉµ÷ÓÃÕß¸ºÔğÊÍ·Å, ±¾½Ó¿ÚÄÚ²¿²»×÷ÊÍ·Å´¦Àí
+		///@brief è¯·æ±‚è®¢é˜…è¡Œæƒ…
+		///@param[in] nReqID æ¶ˆæ¯è¯·æ±‚åºå·
+		///@param[in] nSubType è®¢é˜…è¡Œæƒ…ç±»å‹
+		/// å¸¸è§çš„è®¢é˜…è¡Œæƒ…ç±»å‹:
+		/// -# 0x0000-æœªçŸ¥ç±»å‹(ä¸è®¢é˜…ä»»ä½•è®¢é˜…è¡Œæƒ…)
+		/// -# 0x0001-ä¸ªè‚¡è¡Œæƒ…
+		/// -# 0x0002-æŒ‡æ•°è¡Œæƒ…
+		/// -# 0x0004-é€ç¬”æˆäº¤
+		/// -# 0x0008-é€ç¬”å§”æ‰˜
+		/// -# 0x0010-å§”æ‰˜é˜Ÿåˆ—
+		/// -# 0x0020-æœŸè´§è¡Œæƒ…
+		/// -# 0x0040-æœŸæƒè¡Œæƒ…
+		/// -# 0x0080-Kçº¿è¡Œæƒ…
+		///@param[in] nCycType Kçº¿å‘¨æœŸç±»å‹
+		/// å¸¸è§çš„Kçº¿å‘¨æœŸç±»å‹:
+		/// -# 0x0000-æœªçŸ¥ç±»å‹(ä¸è®¢é˜…ä»»ä½•Kçº¿è¡Œæƒ…)
+		/// -# 0x0001-10ç§’Kçº¿
+		/// -# 0x0002-1åˆ†é’ŸKçº¿
+		/// -# 0x0004-5åˆ†é’ŸKçº¿
+		/// -# 0x0008-15åˆ†é’ŸKçº¿
+		/// -# 0x0010-30åˆ†é’ŸKçº¿
+		/// -# 0x0020-1å°æ—¶Kçº¿
+		/// -# 0x0040-1æ—¥Kçº¿
+		///@param[in] pSubWindCode æŒ‡å®šçš„è‚¡ç¥¨ä»£ç åˆ—è¡¨
+		///@param[in] nSubWindCodeNum æŒ‡å®šçš„è‚¡ç¥¨ä»£ç æ•°é‡
+		///@param[in] szBeginTime æŒ‡å®šçš„èµ·å§‹æ—¶é—´
+		///@param[in] szEndTime æŒ‡å®šçš„ç»“æŸæ—¶é—´
+		///@return è¿”å›ä¸ä¸º0ï¼Œè¯·æ±‚å¤±è´¥ï¼Œé”™è¯¯ç å‚è€ƒTQuantErrorType::EQuantErrorType
+		///@note å¦‚æœè°ƒç”¨è€…ä¸ºpSubWindCodeæ’å…¥çš„æ˜¯åŠ¨æ€å†…å­˜, ç”±è°ƒç”¨è€…è´Ÿè´£é‡Šæ”¾, æœ¬æ¥å£å†…éƒ¨ä¸ä½œé‡Šæ”¾å¤„ç†
 		virtual int ReqSubQuote(MD_ReqID nReqID, MD_SubType nSubType, MD_CycType nCycType, const MD_CodeType *pSubWindCode, long nSubWindCodeNum, const MD_ISODateTimeType szBeginTime, const MD_ISODateTimeType szEndTime) = 0;
 	};
 }

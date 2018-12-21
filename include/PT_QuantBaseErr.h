@@ -66,13 +66,17 @@ typedef enum
 	EQuantErrorType_MDNotAvaliable,                   // 无法正常使用行情
 	EQuantErrorType_TDNotAvaliable,                   // 无法正常使用交易
 
-	// LoginErrorCode : 900-905
-	EQuantErrorType_ErrorLoginInfo = 900,				//用户名密码不匹配
-	EQuantErrorType_TDErrorApiVersion_TEST,		        //测试交易服务器api版本号不兼容
-	EQuantErrorType_TDErrorApiVersion_REAL,				//实盘交易服务器api版本号不兼容
-	EQuantErrorType_MDErrorApiVersion_REALTIME,			//实时行情服务器api版本号不兼容
-	EQuantErrorType_MDErrorApiVersion_HISTORY,			//历史行情服务器api版本号不兼容
-	EQuantErrorType_MDErrorApiVersion_CACHE,			//缓存行情服务器api版本号不兼容
+
+    // LoginErrorCode : 900
+    EQuantErrorType_ErrorLoginInfo = 900,				//用户名密码不匹配
+
+    // LoginWarnType: 登录警告
+    EQuantErrorType_TDErrorVersion = 910,	            //当前环境交易服务器版本不兼容
+    EQuantErrorType_NoAuthorityConnTD,				    //当前环境交易服务器无权限
+    EQuantErrorType_MDErrorVersion,			            //当前环境行情服务器版本不兼容
+    EQuantErrorType_NoAuthorityConnMD,			        //当前环境行情服务器无权限
+    EQuantErrorType_TDMDErrorVersion,                   //当前环境行情和交易服务器版本都不兼容
+    EQuantErrorType_NoAuthortityConnTDandMD,            //当前环境行情和交易服务器都无权限
 
 } EQuantErrorType;
 
