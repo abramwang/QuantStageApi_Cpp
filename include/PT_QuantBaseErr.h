@@ -75,8 +75,7 @@ typedef enum
     EQuantErrorType_NoAuthorityConnTD,				    //当前环境交易服务器无权限
     EQuantErrorType_MDErrorVersion,			            //当前环境行情服务器版本不兼容
     EQuantErrorType_NoAuthorityConnMD,			        //当前环境行情服务器无权限
-    EQuantErrorType_TDMDErrorVersion,                   //当前环境行情和交易服务器版本都不兼容
-    EQuantErrorType_NoAuthortityConnTDandMD,            //当前环境行情和交易服务器都无权限
+
 
 } EQuantErrorType;
 
