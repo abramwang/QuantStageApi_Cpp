@@ -1,4 +1,4 @@
-#ifndef _QuantDef_H_
+﻿#ifndef _QuantDef_H_
 #define _QuantDef_H_
 #include <stdint.h>
 #include <string.h>
@@ -13,7 +13,7 @@ namespace QuantPlus
 	// 行情环境
 	enum PT_QuantMdAppEType
 	{
-		PT_QuantMdAppEType_Test = 0,            // 测试环境
+		PT_QuantMdAppEType_Test = 0,            // 测试环境（注：该环境已停止使用！！！）
 		PT_QuantMdAppEType_Real,                // 生产环境
 	};
 
@@ -21,7 +21,7 @@ namespace QuantPlus
 	enum PT_QuantTdAppEType
 	{
 		PT_QuantTdAppEType_Real,                // 生产环境
-		PT_QuantTdAppEType_Test,                // 测试环境
+		PT_QuantTdAppEType_Test,                // 测试环境 (注：该环境已停止使用！！！)    
 		PT_QuantTdAppEType_Simulation           // 模拟环境
 	};
 
@@ -175,7 +175,7 @@ namespace QuantPlus
 	/// </summary>
 #pragma pack(push)
 #pragma pack(1)
-	typedef long MD_ReqID;
+	typedef int  MD_ReqID;
 	typedef char MD_CodeType[32];
 	typedef char MD_CodeName[32];
 	typedef char MD_ISODateTimeType[21];    //日期和时间类型(格式 yyyy-MM-dd hh:mm:ss)
@@ -183,14 +183,14 @@ namespace QuantPlus
 	typedef char MD_Text[1024];
 
 	// 服务器类型
-	typedef long MD_SrvType;
+	typedef int MD_SrvType;
 #define MD_SrvType_none            0x0000   // 未知类型
 #define MD_SrvType_history         0x0001   // 历史缓存行情服务器
 #define MD_SrvType_cache           0x0002   // 实时缓存行情服务器
 #define MD_SrvType_realtime        0x0004   // 实时推送行情服务器
 
 	// 周期类型
-	typedef long MD_CycType;
+	typedef int MD_CycType;
 #define MD_CycType_none            0x0000   // 未知类型
 #define MD_CycType_second_10       0x0001   // 10秒
 #define MD_CycType_minute          0x0002   // 分
@@ -201,7 +201,7 @@ namespace QuantPlus
 #define MD_CycType_day             0x0040   // 日
 
 	// 订阅类型
-	typedef long MD_SubType;
+	typedef int MD_SubType;
 #define MD_SubType_none            0x0000   // 未知类型
 #define MD_SubType_market          0x0001   // 个股行情
 #define MD_SubType_index           0x0002   // 指数行情
@@ -439,7 +439,7 @@ namespace QuantPlus
 		int             nOrderVol;                  //  如需指定资金账号下单，此字段在下单的时候需要填写
 
 		///成交均价  * 10000
-		int             nDealedPrice;
+		int64_t             nDealedPrice;
 		///成交量
 		int             nDealedVol;
 
@@ -642,7 +642,7 @@ namespace QuantPlus
 		//开平仓类型
 		TD_OffsetType   nOffsetType;
 		///委托价  *10000
-		int             nOrderPrice;
+		int64_t             nOrderPrice;
 		///委托量
 		int             nOrderVol;
 		///  订单分笔数
@@ -684,7 +684,7 @@ namespace QuantPlus
 		///提交申报量
 		int             nSubmitVol;
 		///成交均价  * 10000
-		int             nDealedPrice;
+		int64_t             nDealedPrice;
 		///成交总量
 		int             nDealedVol;
 
