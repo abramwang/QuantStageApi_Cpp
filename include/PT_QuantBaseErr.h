@@ -1,4 +1,4 @@
-#ifndef __PT_QUANT_BASE_ERR_H__
+ï»¿#ifndef __PT_QUANT_BASE_ERR_H__
 #define __PT_QUANT_BASE_ERR_H__
 
 #ifndef PT_QUANTBASEAPI_NAMESPACE
@@ -12,69 +12,69 @@
 
 PT_QUANTBASEAPI_NAMESPACE_BEGIN
 
-/* Á¿»¯½»Ò×½Ó¿Ú¹«¹²´íÎóÂë */
+/* é‡åŒ–äº¤æ˜“æ¥å£å…¬å…±é”™è¯¯ç  */
 typedef long TQuantErrorType;
 typedef enum
 {
-	/* Ä¬ÈÏ´íÎó */
-	/* Í¨ĞÅ²ãÃæ´íÎó: (-100) - (-1) */
+	/* é»˜è®¤é”™è¯¯ */
+	/* é€šä¿¡å±‚é¢é”™è¯¯: (-100) - (-1) */
 
-	EQuantErrorType_None = 0,                    /* Ö´ĞĞÕı³£, Ã»ÓĞ´íÎó */
+	EQuantErrorType_None = 0,                    /* æ‰§è¡Œæ­£å¸¸, æ²¡æœ‰é”™è¯¯ */
 
-	/* quantplusÏµÍ³Æ½Ì¨´íÎó: 1-99 */
-	EQuantErrorType_NotConnect = 1,              /* ÍøÂçÉĞÎ´Á¬Í¨ */
-	EQuantErrorType_ParamInvalid = 2,            /* Ö¸¶¨²ÎÊıÎŞĞ§ */
-	EQuantErrorType_LimitFunction = 3,           /* Ö¸¶¨¹¦ÄÜÊÜÏŞ */
-	EQuantErrorType_HttpServerConnectError,      /* http·şÎñÆ÷Á¬½ÓÊ§°Ü*/
-	EQuantErrorType_HttpRequestError,            /* httpÇëÇóÊ§°Ü */
-	EQuantErrorType_ParseError,                  /* Í¨ĞÅ°ü½âÎöÊ§°Ü */
-	EQuantErrorType_SerializeError,              /* Í¨ĞÅ°ü´ò°üÊ§°Ü */
-	EQuantErrorType_NoTavailableFuction,         //Ôİ²»Ö§³Ö´Ëº¯Êı
-	EQuantErrorType_Logout,                      //Î´µÇÂ¼
-	EQuantErrorType_AppServerDisconnect,         //ÒµÎñ·şÎñÆ÷ÒÑ¶Ï¿ª
+	/* quantplusç³»ç»Ÿå¹³å°é”™è¯¯: 1-99 */
+	EQuantErrorType_NotConnect = 1,              /* ç½‘ç»œå°šæœªè¿é€š */
+	EQuantErrorType_ParamInvalid = 2,            /* æŒ‡å®šå‚æ•°æ— æ•ˆ */
+	EQuantErrorType_LimitFunction = 3,           /* æŒ‡å®šåŠŸèƒ½å—é™ */
+	EQuantErrorType_HttpServerConnectError,      /* httpæœåŠ¡å™¨è¿æ¥å¤±è´¥*/
+	EQuantErrorType_HttpRequestError,            /* httpè¯·æ±‚å¤±è´¥ */
+	EQuantErrorType_ParseError,                  /* é€šä¿¡åŒ…è§£æå¤±è´¥ */
+	EQuantErrorType_SerializeError,              /* é€šä¿¡åŒ…æ‰“åŒ…å¤±è´¥ */
+	EQuantErrorType_NoTavailableFuction,         //æš‚ä¸æ”¯æŒæ­¤å‡½æ•°
+	EQuantErrorType_Logout,                      //æœªç™»å½•
+	EQuantErrorType_AppServerDisconnect,         //ä¸šåŠ¡æœåŠ¡å™¨å·²æ–­å¼€
 
 
-	/* ĞĞÇé´íÎó: 100-199 */
+	/* è¡Œæƒ…é”™è¯¯: 100-199 */
 
-	/* ½»Ò×´íÎó: 200-299 */
-	EQuantErrorType_TooHighFrequency = 200,             //Ö¸ÁîÌ«Æµ·±
-	EQuantErrorType_OrderNotFound,                      //ÎŞ´Ë¶©µ¥
-	EQuantErrorType_NotTradingTime,                     //·Ç½»Ò×Ê±¼ä
-	EQuantErrorType_OverHighOrLow,                      //³¬¹ıÕÇµøÍ£¼Û
-	EQuantErrorType_InvalidVol,                         //·Ç·¨Î¯ÍĞÁ¿
-	EQuantErrorType_Cannotselfdeal,                     //ÎŞ·¨×Ô³É½»
-	EQuantErrorType_CannotWithDrawn,                    //ÎŞ·¨³·µ¥(¶©µ¥ÒÑ¾­´¦ÓÚÖÕ½á×´Ì¬)
-	EQuantErrorType_NotEnoughLendingAmoutOrCaptial,     //Ã»ÓĞ×ã¹»µÄÈ¯»òÇ®
-	EQuantErrorType_StopTrade,                          //Í£»ú
-	EQuantErrorType_NoSuchTradeType,                    //ÎŞ´Ë½»Ò×ÀàĞÍ
-	EQuantErrorType_RiskCantTrade,                      //·ç¿ØÎŞ·¨¿ª²Ö½»Ò×
-	EQuantErrorType_StrategyRiskCantWithDrawn,          //²ßÂÔÇ¿Æ½ÎŞ·¨³·µ¥
-	EQuantErrorType_WithoutthisAuthority,               //ÎŞ´ËÈ¨ÏŞ
-	EQuantErrorType_InvalidCode,                        //·Ç·¨Ö¤È¯´úÂë
-	EQuantErrorType_NoPisitionToClose,                  //·ç¿ØÇ¿Æ½Ê±£¬ÎŞ²Ö¿ÉÒÔÆ½
-	EQuantErrorType_InvalidAction,                      //Òì³£²Ù×÷
-	EQuantErrorType_NotSetTestBack,                     //Î´ÉèÖÃ»Ø²â×Ê½ğÕËºÅ£¬²»ÄÜÕı³£ÏÂµ¥
-	EQuantErrorType_NotAvailableAccount,                //²»¿ÉÓÃµÄ×Ê½ğÕËºÅ
-	EQuantErrorType_CenterServerError,                  //È¨ÏŞ·şÎñÆ÷Òì³££¬ÔİÊ±ÎŞ·¨ĞŞ¸ÄÈ¨ÏŞ
-	EQuantErrorType_NoPriority,                         //ÓÃ»§ÓÅÏÈ¼¶Òì³£
-	EQuantErrorType_NoAccountAvaliable,                 //×Ê½ğÍ¨µÀÒì³£
-	EQuantErrorType_NotEnoughVolumeTobeUsed,            //×Ê½ğÕË»§¿ÉÓÃÈ¯²»¹»
+	/* äº¤æ˜“é”™è¯¯: 200-299 */
+	EQuantErrorType_TooHighFrequency = 200,             //æŒ‡ä»¤å¤ªé¢‘ç¹
+	EQuantErrorType_OrderNotFound,                      //æ— æ­¤è®¢å•
+	EQuantErrorType_NotTradingTime,                     //éäº¤æ˜“æ—¶é—´
+	EQuantErrorType_OverHighOrLow,                      //è¶…è¿‡æ¶¨è·Œåœä»·
+	EQuantErrorType_InvalidVol,                         //éæ³•å§”æ‰˜é‡
+	EQuantErrorType_Cannotselfdeal,                     //æ— æ³•è‡ªæˆäº¤
+	EQuantErrorType_CannotWithDrawn,                    //æ— æ³•æ’¤å•(è®¢å•å·²ç»å¤„äºç»ˆç»“çŠ¶æ€)
+	EQuantErrorType_NotEnoughLendingAmoutOrCaptial,     //æ²¡æœ‰è¶³å¤Ÿçš„åˆ¸æˆ–é’±
+	EQuantErrorType_StopTrade,                          //åœæœº
+	EQuantErrorType_NoSuchTradeType,                    //æ— æ­¤äº¤æ˜“ç±»å‹
+	EQuantErrorType_RiskCantTrade,                      //é£æ§æ— æ³•å¼€ä»“äº¤æ˜“
+	EQuantErrorType_StrategyRiskCantWithDrawn,          //ç­–ç•¥å¼ºå¹³æ— æ³•æ’¤å•
+	EQuantErrorType_WithoutthisAuthority,               //æ— æ­¤æƒé™
+	EQuantErrorType_InvalidCode,                        //éæ³•è¯åˆ¸ä»£ç 
+	EQuantErrorType_NoPisitionToClose,                  //é£æ§å¼ºå¹³æ—¶ï¼Œæ— ä»“å¯ä»¥å¹³
+	EQuantErrorType_InvalidAction,                      //å¼‚å¸¸æ“ä½œ
+	EQuantErrorType_NotSetTestBack,                     //æœªè®¾ç½®å›æµ‹èµ„é‡‘è´¦å·ï¼Œä¸èƒ½æ­£å¸¸ä¸‹å•
+	EQuantErrorType_NotAvailableAccount,                //ä¸å¯ç”¨çš„èµ„é‡‘è´¦å·
+	EQuantErrorType_CenterServerError,                  //æƒé™æœåŠ¡å™¨å¼‚å¸¸ï¼Œæš‚æ—¶æ— æ³•ä¿®æ”¹æƒé™
+	EQuantErrorType_NoPriority,                         //ç”¨æˆ·ä¼˜å…ˆçº§å¼‚å¸¸
+	EQuantErrorType_NoAccountAvaliable,                 //èµ„é‡‘é€šé“å¼‚å¸¸
+	EQuantErrorType_NotEnoughVolumeTobeUsed,            //èµ„é‡‘è´¦æˆ·å¯ç”¨åˆ¸ä¸å¤Ÿ
 
 	// QuantApi: 600-800
-	EQuantErrorType_MDNotConnect = 600,               // ÉĞÎ´Á¬½ÓĞĞÇé·şÎñÆ÷
-	EQuantErrorType_TDNotConnect,                     // ÉĞÎ´Á¬½Ó½»Ò×·şÎñÆ÷
-	EQuantErrorType_MDNotAvaliable,                   // ÎŞ·¨Õı³£Ê¹ÓÃĞĞÇé
-	EQuantErrorType_TDNotAvaliable,                   // ÎŞ·¨Õı³£Ê¹ÓÃ½»Ò×
+	EQuantErrorType_MDNotConnect = 600,               // å°šæœªè¿æ¥è¡Œæƒ…æœåŠ¡å™¨
+	EQuantErrorType_TDNotConnect,                     // å°šæœªè¿æ¥äº¤æ˜“æœåŠ¡å™¨
+	EQuantErrorType_MDNotAvaliable,                   // æ— æ³•æ­£å¸¸ä½¿ç”¨è¡Œæƒ…
+	EQuantErrorType_TDNotAvaliable,                   // æ— æ³•æ­£å¸¸ä½¿ç”¨äº¤æ˜“
 
 
     // LoginErrorCode : 900
-    EQuantErrorType_ErrorLoginInfo = 900,				//ÓÃ»§ÃûÃÜÂë²»Æ¥Åä
+    EQuantErrorType_ErrorLoginInfo = 900,				//ç”¨æˆ·åå¯†ç ä¸åŒ¹é…
 
-    // LoginWarnType: µÇÂ¼¾¯¸æ
-    EQuantErrorType_TDErrorVersion = 910,	            //µ±Ç°»·¾³½»Ò×·şÎñÆ÷°æ±¾²»¼æÈİ
-    EQuantErrorType_NoAuthorityConnTD,				    //µ±Ç°»·¾³½»Ò×·şÎñÆ÷ÎŞÈ¨ÏŞ
-    EQuantErrorType_MDErrorVersion,			            //µ±Ç°»·¾³ĞĞÇé·şÎñÆ÷°æ±¾²»¼æÈİ
-    EQuantErrorType_NoAuthorityConnMD,			        //µ±Ç°»·¾³ĞĞÇé·şÎñÆ÷ÎŞÈ¨ÏŞ
+    // LoginWarnType: ç™»å½•è­¦å‘Š
+    EQuantErrorType_TDErrorVersion = 910,	            //å½“å‰ç¯å¢ƒäº¤æ˜“æœåŠ¡å™¨ç‰ˆæœ¬ä¸å…¼å®¹
+    EQuantErrorType_NoAuthorityConnTD,				    //å½“å‰ç¯å¢ƒäº¤æ˜“æœåŠ¡å™¨æ— æƒé™
+    EQuantErrorType_MDErrorVersion,			            //å½“å‰ç¯å¢ƒè¡Œæƒ…æœåŠ¡å™¨ç‰ˆæœ¬ä¸å…¼å®¹
+    EQuantErrorType_NoAuthorityConnMD,			        //å½“å‰ç¯å¢ƒè¡Œæƒ…æœåŠ¡å™¨æ— æƒé™
 
 
 } EQuantErrorType;

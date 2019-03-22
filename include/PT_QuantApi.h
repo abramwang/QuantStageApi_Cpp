@@ -1,4 +1,4 @@
-#ifndef _PT_StrategyApi_H_
+﻿#ifndef _PT_StrategyApi_H_
 #define _PT_StrategyApi_H_
 
 #ifdef WIN32
